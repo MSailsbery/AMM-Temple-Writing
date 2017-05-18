@@ -117,10 +117,17 @@ Finally, Section \ref{sec:conclusion} will give a summary of the paper along wit
 \section{Problem Formulation}
 \label{sec:prob}
 \subsection{Relevant Literature Review}
+Facility location management is a well-established research area within Operations Research. Although the library of facility location management is vast, we focus primarily on literature pertaining to ... and with a specific emphasis on using Markov chain models. However, in the past, no model has been presented to optimize the placement of LDS temples, in either the United States or internationally. Our paper seeks to fill this gap in the literature.
 \subsection{Important Variables}
+To fully understand our approach, it is crucial to know what variables were considered relevant, and which were excluded.
+Obviously, chief among these variables is the euclidean distance from a stake center to a temple.
+While this may be sufficient for the euclidean distance model, a fair number of other considerations were necessary for the Markov chain model and the ... .
+For the Markov chain model, we included a measure of the business for each temple.
+To do this, we gave each temple a score, $\tau_{i}$, based on the number of stakes that listed that temple as one of it's five closest temples.
+Using these scores, we assigned each stake a density $\rho_{i}$, that sought to relate how much traffic each stake would provide to it's surrounding temples.
+This allowed us to approximate how busy a temple was, using the stakes that consider it one of their closest temples.
 \subsection{Assumptions and Data}
-
-Insert text here.
+To simplify the models and make an analytical review of temple location optimization possible, a number of assumptions were made. Firstly, it is assumed that every LDS stake in the United States has the same number of active, temple-going members contained within its boundaries. This approximation, combined with the assumption that every stake center is located near the center of the stake, allows us to estimate the member density throughout the country. Within each model, further assumptions are made regarding the proportion of members that attend daily from each stake, and how the distance and busyness of each temple affects these proportions, but these details will be clarified for each individual model.
 
 \section{Modeling Approaches}
 \label{sec:models}
@@ -148,10 +155,30 @@ Insert more text here.
 
 
 \subsection{Markov Modeling}
-Insert text here.
+
+Markov chains are used in a myriad of fields. For the purposes of this study, Markov chain are useful because they reveal the effects that simple local behaviors have on more complex global behaviors. Specifically, the effects of the busyness of each individual temple on the members that live nearby it can be modeled on a more global level.
+
+This section gives a brief outline of key characteristics of a Markov chain and then the specific applicaiton of those in this model.
+
 \subsubsection{Background}
-Insert text here.
+
+A Markov chain is an example of...
+
 \subsubsection{Model}
+The second model used is closely based on the Markov chain application of (reference paper). It involves two stages: the initialization of the model transition matrix and the computation of the Perron eigenvectors, Mean First Passage Time, and Kemeny constant described above. To understand this concept more fully, we consider a graph in which each stake is connected to the five closest temples as shown in \ref{}.
+% Create a figure to demonstrate stakes connected to 5 closest temples
+
+In order to begin creating this model, we initialize a square probability matrix $T$ of zeros in which the first $n$ rows and columns correspond to the church stakes in the United States and the next $m$ rows and columns correspond to the church temples in the United States. Each $t_ij$ in the matrix represents the probability that a person in row $i$ will travel to column $j$ in the current state. The diagonal entries $t_ii$ represent the probability that a person will remain in their current location through the current state. The states of the matrix represent a single day.
+
+We begin populating the matrix by allowing the diagonals $t_ii = 29/30$ which numerically represents the assumption that in each state or day, $1/30$ of a stake's active temple attendees will attend the temple. We then adjust this number with a measure of a stakes relative business in a single day. To do so, we compute a measure of business by taking into account the number of stakes within a close proximity to each temple. The required numerical representations are described below.
+
+\begin{equation}
+\begin{aligned}
+Ts_j = \sqrt{1\over{\sum_j{t_ij}}}
+\end{aligned}
+\end{equation}
+
+
 Insert text here.
 \subsection{Last Model} % TODO- figure out last model or delete this section. Once updated the paper overview in the introduction will need to be updated. - McKell
 Insert text here.
