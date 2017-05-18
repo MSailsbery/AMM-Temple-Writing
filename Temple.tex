@@ -117,7 +117,7 @@ Finally, Section \ref{sec:conclusion} will give a summary of the paper along wit
 \section{Problem Formulation}
 \label{sec:prob}
 \subsection{Relevant Literature Review}
-Facility location management is a well-established research area within Operations Research. Although the library of facility location management is vast, we focus primarily on literature pertaining to ... and with a specific emphasis on using Markov chain models. However, in the past, no model has been presented to optimize the placement of LDS temples, in either the United States or internationally. Our paper seeks to fill this gap in the literature.
+Facility location management is a well-established area within Operations Research. Although the library of facility location management is vast, we focus primarily on literature pertaining to ... and with a specific emphasis on using Markov chain models. However, in the past, no model has been presented to optimize the placement of LDS temples, in either the United States or internationally. Our paper seeks to fill this gap in the literature.
 \subsection{Important Variables}
 \begin{tabular}{c | l}
 Variable & Description\\
@@ -181,6 +181,7 @@ The second model used is closely based on the Markov chain application of (refer
 % Create a figure to demonstrate stakes connected to 5 closest temples
 
 In order to begin creating this model, we initialize a square probability matrix $T$ of zeros in which the first $n$ rows and columns correspond to the church stakes in the United States and the next $m$ rows and columns correspond to the church temples in the United States. Each $t_ij$ in the matrix represents the probability that a person in row $i$ will travel to column $j$ in the current state. The diagonal entries $t_ii$ represent the probability that a person will remain in their current location through the current state. The states of the matrix represent a single day.
+% Create a visual matrix representation of the matrix initialized
 
 We begin populating the matrix by allowing the diagonals $t_ii = 29/30$ which numerically represents the assumption that in each state or day, $1/30$ of a stake's active temple attendees will attend the temple. We then adjust this number with a measure of a stakes relative business in a single day. To do so, we compute a measure of business by taking into account the number of stakes within a close proximity to each temple. The required numerical representations are described below.
 
