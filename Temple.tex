@@ -4,7 +4,7 @@
 \documentclass[twoside,twocolumn]{article}
 
 \usepackage{blindtext} % Package to generate dummy text throughout this template 
-
+\usepackage{amsmath}
 
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
 
@@ -110,11 +110,32 @@ Finally, Section \ref{sec:conclusion} will give a summary of the paper along wit
 % TODO - This section should explicitly define our problem and variables used. I think it will probably be the P-median problem or a slight modification of it. - McKell
 Insert text here.
 
-\section{Solution Approaches}
-\label{sec:sols}
-Insert text here.
-\subsection{Euclidean Distance Model}
-Insert text here.
+<<<<<<< HEAD
+\section{Modeling Approaches}
+\label{sec:models}
+This section is a mathematical explanation of the assumptions made and the models used. As choosing the location of an LDS temple mathematically involves various assumptions about human behavior, as well as several possible objectives, we separate our explanation of the models used to solve this problem into subsections. Each subsection is self-contained in the assumptions made and the problem setup. Along with the individual models presented in each subsection, there is also a brief summary of the algorithmic approach used to find the optimal solution to each.
+
+\subsection{Euclidean Distance Model} %TODO - Name needs to be changed as we are not in Euclidean space
+
+The simplest model used is the Euclidean Distance Model (EDM). The purpose of EDM is to minimize the average distance a given member of a LDS stake has to travel to get to their closest temple. As such, this model does not take into account the capacity of the temples, nor the relative accessibility of other temples, even if they are a similar distance away. The only assumption made about the behavior of church members are that they desire to have a temple close to their stake center, and that they will only use the closest temple to them.
+
+The mathematical setup is as follows. Let each stake be represented as $s_i$ and each temple $t_j$, and let the set of all the stakes be represented as $S$ and likewise the temples as $T$. The average distance a given member of a LDS stake has to travel to get to their closest temple is, 
+
+\begin{equation}
+	f(S,T) = \sum_i \underset{j}{\text{min}}\{d(S_i,T_j)\}.
+\end{equation}
+
+The unconstrained optimization problem can then be written as,
+
+\begin{equation}
+\begin{aligned}
+	\underset{T_{new}}{\text{Minimize }} f(S,T^*), \text{ where } T^* = T \cup T_{new}.
+\end{aligned}
+\end{equation}
+
+Insert more text here.
+
+
 \subsection{Markov Modeling}
 Insert text here.
 \subsubsection{Background}
