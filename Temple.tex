@@ -63,10 +63,10 @@
 \date{\today} % Leave empty to omit a date
 \renewcommand{\maketitlehookd}{%
 \begin{abstract}
-\noindent Markov chains are used to model many different dynamical systems such as the movement of traffic, the spreading of disease, and the volatility of financial assets. In this paper, we construct a Markov model of the distribution of water in water poor areas of the world. Using current data about the water availability to individuals in these areas, we present the efficiency of the distribution process as well as examine various changes to that process and their effects on the efficiency. Then, we present what specific changes to these water distribution systems would be the most significant for the populations that they serve.
-% TODO- Abstracts should also include results. So when we finish our paper we may want to change up the last part of the abstract to account for our results. Or if there are too many, the last sentence will suffice. -McKell
+\noindent % TODO- write abstract.
 \end{abstract}
 }
+% TODO - do we need a keywords section?
 \begin{document}
 \maketitle
 
@@ -77,19 +77,33 @@
 
 \section{Introduction}
 
+For the Church of Jesus Christ of Latter-Day Saints (LDS church), temples are believed to be imperative in the process of one gaining salvation.
+It is consequently important to the church that all members have access to a temple.
+Not only do members of the church believe that temples are vital to salvation, but they also view temples as a place of worship.
+% TODO - add in reference. https://www.lds.org/church/temples/why-we-build-temples/blessings-of-the-temple?lang=eng
+So it is additionally important to be able to provide regular temple access to the maximum number of church members.
+
+The LDS church currently consists of 15 million members.
+% TODO - add in reference. http://www.mormonnewsroom.org/facts-and-statistics
+In an effort to provide these members with temple access, the church has built a large number of temples and continues to build them.
+In fact, the LDS church at this time has 155 temples in operation worldwide. 
+They additionally have 14 temples under construction and 13 more that have been announced that they will be built.
+% TODO -add in reference. http://www.ldschurchtemples.com/statistics/
+
+When building new temples, church leaders have to consider the most effective locations to build them at.
+Among many other considerations in this process, is the factor of giving the maximum number of people access or more regular access to a temple.
+In the field of operations research, this factor is often considered a facility location problem.
+
+% TODO - add in paragraphs about facility location management. Basically a mini-literature review.
+
+In our paper, we use mathematical models to solve the temple location problem of the LDS church. We use an euclidean distance model to find the optimal temple locations in regards to the problem of maximizing the number of church members that have access to a temple. Additionally, we use a Markov chain model to find the optimal temple locations in regards to the problem of maximizing the number of church members that have more frequent access to the temple. Lastly, we will use a ... % TODO- write about new model if it exists.
+
 The rest of the paper will be as follows.
-First, Section \ref{sec:lit_rev} will present a review on modern literature pertaining to facility location problems.
-Section \ref{sec:prob} will present the problem in terms of a facility location problem.
+First, Section \ref{sec:prob} will present the problem in terms of a facility location problem.
 Section \ref{sec:sols} will examine three solutions approaches to the problem.
 Namely, a euclidean distance model, a Markov chain model, and ... %TODO- Decide on last model or delete this part.
 Section \ref{sec:res} will present the results and Section \ref{sec:analysis} will analyze the implications of the results.
 Finally, Section \ref{sec:conclusion} will give a summary of the paper along with areas for further research.
-% TODO- This section should provide a general overview on any and all of the following: water distribution, facility location research, Markov models, etc. This section will be written in a technical report like fashion. This can function as our literature review and should be chalked full of references. This should be followed by an explicit definition of our problem &/or thesis statement where applicable (The problem doesn't need to be mathematically defined- just the word version). It should end with a paragraph that is like a table of contents for the rest of the paper. - McKell
-
-\section{Relevant Literature Review}
-\label{sec:lit_rev}
-% TODO- This section is optional. It can all be covered in the beginning of the introduction. But if there is too much literature to cover, we definitely can have this section. Maybe we could just do this section on operational research topics and have our introduction be about water management?-McKell
-Insert text here.
 
 \section{Problem Formulation}
 \label{sec:prob}
