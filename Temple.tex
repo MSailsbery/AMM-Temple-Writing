@@ -119,8 +119,20 @@ Finally, Section \ref{sec:conclusion} will give a summary of the paper along wit
 \subsection{Relevant Literature Review}
 Facility location management is a well-established research area within Operations Research. Although the library of facility location management is vast, we focus primarily on literature pertaining to ... and with a specific emphasis on using Markov chain models. However, in the past, no model has been presented to optimize the placement of LDS temples, in either the United States or internationally. Our paper seeks to fill this gap in the literature.
 \subsection{Important Variables}
+\begin{tabular}{c | l}
+Variable & Description\\
+\hline
+$d(s_{i},t_{j})$ & Distance from stake $s_{i}$ to temple $t_{j}$\\
+$\rho_{i}$ & Density of stake $s_{i}$\\
+$S$ & Set of all stakes\\
+$s_{i}$ & Stake number $i$\\
+$T$ & Set of all Temples\\
+$T_{new}$ & The proposed new temple location\\
+$t_{i}$ & Temple number $i$ \\
+$\tau_{i}$ & Temple score of temple $t_{i}$\\
+\end{tabular}
 To fully understand our approach, it is crucial to know what variables were considered relevant, and which were excluded.
-Obviously, chief among these variables is the euclidean distance from a stake center to a temple.
+Obviously, chief among these variables is the euclidean distance $d(s_{i},t_{j})$ from a stake center to a temple.
 While this may be sufficient for the euclidean distance model, a fair number of other considerations were necessary for the Markov chain model and the ... .
 For the Markov chain model, we included a measure of the business for each temple.
 To do this, we gave each temple a score, $\tau_{i}$, based on the number of stakes that listed that temple as one of it's five closest temples.
