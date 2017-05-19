@@ -68,7 +68,7 @@ These models take into account current temple locations and the density of membe
 The Euclidean Distance Model is used followed by the Markov Chain Model.
 \end{abstract}
 }
-% TODO - do we need keywords?
+% Do we need a keywords section?
 \begin{document}
 \maketitle
 
@@ -109,17 +109,32 @@ Additionally, we use a Markov chain model to find the optimal temple locations i
 Lastly, we will use a ... % TODO- write about new model
 
 The rest of the paper will be as follows.
-First, Section \ref{sec:prob} will present the problem in terms of a facility location problem.
+First, Section {sec:litreview} contains a literature review on relevant literature.
+Section \ref{sec:prob} will present the problem in terms of a facility location problem.
 It will define variables and discuss the assumptions made about the data gathered.
 Section \ref{sec:models} will examine three modeling approaches to the problem.
 Namely, a Euclidean distance model, a Markov chain model, and ... %TODO- Decide on last model.
 Section \ref{sec:res} will present the results and Section \ref{sec:analysis} will analyze the implications of the results.
 Finally, Section \ref{sec:conclusion} will give a summary of the paper along with areas for further research.
 
+\section{Relevant Literature Review}
+\label{sec:litrev}
+Facility location management is a well-established area within operations research. Current, Min and Schilling report that facility location management has been researched through the perspective of many different academic disciplines. They additionally cite one recent bibliography on the subject had over 1500 titles, showing just how expansive research in the area is (Current, Min, \& Schilling). In their literature review, Owen and Daskin give an overview of the most used models among this immense amount of literature. They comment on 15 differing subsets of facility location problems, again demonstrating the voluminousness of the literature (Owen \& Daskin). 
+
+Although the library of facility location management is vast, this paper focuses primarily on literature pertaining to median problems, with a specific emphasis on using Markov chain models. In the past, no model has been presented to optimize the placement of LDS temples, in either the United States or internationally. Our paper seeks to fill this gap in the literature.
+
+The study of location theory began with Alfred Weber in 1909. 
+He researched where to place a warehouse based off of the average distance that would be traveled by those who would need to visit the warehouse (Owen \& Daskin).
+This research created the basis for {\em median problems}, or problems to determine a facility location by minimizing the average distance traveled by consumers.
+As noted by Melo, Nickel and Saldanha-da-Gamma, the p-median problem is considered the simplest and most prominent median problem. They define the p-median problem as the problem where p facilities need to be placed to minimize the total weighted distance or costs to satisfy customer demands (Melo, Nickel \& Saldanha-da-Gamma).
+
+From the simplest definition of p-median problems arises a myriad of slight variations of it.
+These variations are very commonly used to solve median problems.
+For example, Berman, Drezner, and Wesolowsky use a model formulation similar to the p-median problem except that demands can be serviced by facilities other than the one closest to them (Berman, Drezner \& Wesolowsky, 2003).
+
 \section{Problem Formulation}
 \label{sec:prob}
-\subsection{Relevant Literature Review}
-Facility location management is a well-established area within Operations Research. Although the library of facility location management is vast, we focus primarily on literature pertaining to ... and with a specific emphasis on using Markov chain models. However, in the past, no model has been presented to optimize the placement of LDS temples, in either the United States or internationally. Our paper seeks to fill this gap in the literature.
+Insert text here.
 \subsection{Important Variables}
 \begin{tabular}{c | l}
 Variable & Description\\
@@ -195,12 +210,12 @@ Ts_j = \sqrt{1\over{\sum_j{t_ij}}}
 
 
 Insert text here.
-\subsection{Last Model} % TODO- figure out last model or delete this section. Once updated the paper overview in the introduction will need to be updated. - McKell
+\subsection{Last Model} % TODO- figure out last model. Once updated the paper overview in the introduction will need to be updated.
 Insert text here.
 
 \section{Results}
+Insert text here.
 \label{sec:res}
-% TODO- This section should be purely the computational results - save the analysis for the next section. - McKell
 Insert text here.
 \subsection{Euclidean Distance Model}
 Insert text here.
@@ -211,7 +226,6 @@ Insert text here.
 
 \section{Analysis}
 \label{sec:analysis}
-% TODO - This section should contain what are results mean and their implications. -McKell
 Insert text here.
 
 \section{Conclusion}
@@ -228,11 +242,16 @@ Insert text here.
 %Crisostomi E, Kirkland S, Shorten R. 
 %\newblock A Google-like model of road network dynamics and its application to regulation and control.
 %\newblock {\em Int. J. Control.} 2011;84:633--651.
- 
+
+\bibitem[Berman, Drezner, Wesolowsky, 2003]{Berman:2003}
+Berman O, Drezner Z, Wesolowsky G.
+\newblock Locating service facilities whose reliability is distance dependent.
+\newblock {\em Computers \& Operations Research.} 2003; 30:1683-1695.
+
 \bibitem[Current, Min, Schilling, 1990]{Current:1990}
 Current J, Min H, Schilling D.
 \newblock Multiobjective analysis of facility location decisions.
-\newblock {\em European Journal of Operational Research. } 1990; 49:295-307
+\newblock {\em European Journal of Operational Research.} 1990; 49:295-307.
 
 \bibitem["Facts and Statistics", 2017]{Facts&Stats:2017}
 \newblock 2017; Retrieved from http://www.mormonnewsroom.org/facts-and-statistics
@@ -240,7 +259,7 @@ Current J, Min H, Schilling D.
 \bibitem{Melo, Nickel, & Saldanha-da-Gama, 2009}
 Melo M, Nickel S, Saldanha-da-Gama F.
 \newblock Facility location and supply-chain management - A review.
-\newblock {\em European Journal of Operational Research.}  2009; 196:401--412
+\newblock {\em European Journal of Operational Research.}  2009; 196:401--412.
 
 \bibitem[Monson, 1995]{Monson:1995}
 Monson T.
@@ -250,7 +269,7 @@ Monson T.
 \bibitem[Owen, Daskin, 1998]{Owen:1998}
 Owen S, Daskin M.
 \newblock Strategic facility location: a review.
-\newblock {\em European Journal of Operational Research.} 1998; 111:423-447
+\newblock {\em European Journal of Operational Research.} 1998; 111:423-447.
 
 \bibitem["Statistics", 2017]{Stats:2017}
 \newblock 2017; Retrieved from http://www.ldschurchtemples.com/statistics/
