@@ -109,7 +109,7 @@ Additionally, we use a Markov chain model to find the optimal temple locations i
 Lastly, we will use a ... % TODO- write about new model
 
 The rest of the paper will be as follows.
-First, Section {sec:litreview} contains a literature review on relevant literature.
+First, Section \ref{sec:litreview} contains a literature review on relevant literature.
 Section \ref{sec:prob} will present the problem in terms of a facility location problem.
 It will define variables and discuss the assumptions made about the data gathered.
 Section \ref{sec:models} will examine three modeling approaches to the problem.
@@ -151,7 +151,7 @@ $\tau_{i}$ & Temple score of temple $t_{i}$\\
 To fully understand our approach, it is crucial to know what variables were considered relevant, and which were excluded.
 Obviously, chief among these variables is the euclidean distance $d(s_{i},t_{j})$ from a stake center to a temple.
 While this may be sufficient for the euclidean distance model, a fair number of other considerations were necessary for the Markov chain model and the ... .
-For the Markov chain model, we included a measure of the business for each temple.
+For the Markov chain model, we included a measure of the busyness for each temple.
 To do this, we gave each temple a score, $\tau_{i}$, based on the number of stakes that listed that temple as one of it's five closest temples.
 Using these scores, we assigned each stake a density $\rho_{i}$, that sought to relate how much traffic each stake would provide to it's surrounding temples.
 This allowed us to approximate how busy a temple was, using the stakes that consider it one of their closest temples.
@@ -166,10 +166,10 @@ This section is a mathematical explanation of the assumptions made and the model
 
 The simplest model used is the Euclidean Distance Model (EDM). The purpose of EDM is to minimize the average distance a given member of a LDS stake has to travel to get to their closest temple. As such, this model does not take into account the capacity of the temples, nor the relative accessibility of other temples, even if they are a similar distance away. The only assumption made about the behavior of church members are that they desire to have a temple close to their stake center, and that they will only use the closest temple to them.
 
-The mathematical setup is as follows. Let each stake be represented as $s_i$ and each temple $t_j$, and let the set of all the stakes be represented as $S$ and likewise the temples as $T$. The average distance a given member of a LDS stake has to travel to get to their closest temple is, 
+The mathematical setup is as follows. Let each stake be represented as $s_i$ and each temple $t_j$, and let the set of all the stakes be represented as $S$ and likewise the temples as $T$. The average distance a given member of an LDS stake has to travel to get to their closest temple is, 
 
 \begin{equation}
-	f(S,T) = \sum_i \underset{j}{\text{min}}\{d(S_i,T_j)\}.
+	f(S,T) = \sum_i \underset{j}{\text{min}}\{d(s_i,t_j)\}.
 \end{equation}
 
 The unconstrained optimization problem can then be written as,
@@ -185,9 +185,9 @@ Insert more text here.
 
 \subsection{Markov Modeling}
 
-Markov chains are used in a myriad of fields. For the purposes of this study, Markov chain are useful because they reveal the effects that simple local behaviors have on more complex global behaviors. Specifically, the effects of the busyness of each individual temple on the members that live nearby it can be modeled on a more global level.
+Markov chains are used in a myriad of fields. For the purposes of this study, Markov chains are useful because they reveal the effects that simple local behaviors have on more complex global behaviors. Specifically, the effects of the busyness of each individual temple on the members that live nearby it can be modeled on a more global level.
 
-This section gives a brief outline of key characteristics of a Markov chain and then the specific applicaiton of those in this model.
+This section gives a brief outline of key characteristics of a Markov chain and then the specific application of those in this model.
 
 \subsubsection{Background}
 
@@ -197,10 +197,10 @@ A Markov chain is an example of...
 The second model used is closely based on the Markov chain application of (reference paper). It involves two stages: the initialization of the model transition matrix and the computation of the Perron eigenvectors, Mean First Passage Time, and Kemeny constant described above. To understand this concept more fully, we consider a graph in which each stake is connected to the five closest temples as shown in \ref{}.
 % Create a figure to demonstrate stakes connected to 5 closest temples
 
-In order to begin creating this model, we initialize a square probability matrix $T$ of zeros in which the first $n$ rows and columns correspond to the church stakes in the United States and the next $m$ rows and columns correspond to the church temples in the United States. Each $t_ij$ in the matrix represents the probability that a person in row $i$ will travel to column $j$ in the current state. The diagonal entries $t_ii$ represent the probability that a person will remain in their current location through the current state. The states of the matrix represent a single day.
+In order to begin creating this model, we initialize a square probability matrix $T$ of zeros in which the first $n$ rows and columns correspond to the church stakes in the United States and the next $m$ rows and columns correspond to the church temples in the United States. Each $t_{ij}$ in the matrix represents the probability that a person in row $i$ will travel to column $j$ in the current state. The diagonal entries $t_{ii}$ represent the probability that a person will remain in their current location through the current state. The states of the matrix represent a single day.
 % Create a visual matrix representation of the matrix initialized
 
-We begin populating the matrix by allowing the diagonals $t_ii = 29/30$ which numerically represents the assumption that in each state or day, $1/30$ of a stake's active temple attendees will attend the temple. We then adjust this number with a measure of a stakes relative business in a single day. To do so, we compute a measure of business by taking into account the number of stakes within a close proximity to each temple. The required numerical representations are described below.
+We begin populating the matrix by allowing the diagonals $t_{ii} = 29/30$ which numerically represents the assumption that in each state or day, $1/30$ of a stake's active temple attendees will attend the temple. We then adjust this number with a measure of a stakes relative busyness in a single day. To do so, we compute a measure of busyness by taking into account the number of stakes within a close proximity to each temple. The required numerical representations are described below.
 
 \begin{equation}
 \begin{aligned}
