@@ -119,22 +119,36 @@ Finally, Section \ref{sec:conclusion} will give a summary of the paper along wit
 
 \section{Relevant Literature Review}
 \label{sec:litrev}
-Facility location management is a well-established area within operations research. Current, Min and Schilling report that facility location management has been researched through the perspective of many different academic disciplines. They additionally cite one recent bibliography on the subject had over 1500 titles, showing just how expansive research in the area is (Current, Min, \& Schilling). In their literature review, Owen and Daskin give an overview of the most used models among this immense amount of literature. They comment on 15 differing subsets of facility location problems, again demonstrating the voluminousness of the literature (Owen \& Daskin). 
+Facility location management is a well-established area within operations research. Current, Min and Schilling report that facility location management has been researched through the perspective of many different academic disciplines. They additionally cite one recent bibliography on the subject had over 1500 titles, showing just how expansive research in the area is (1990).
+In their literature review, Owen and Daskin give an overview of the most used models among this immense amount of literature. 
+They comment on 15 differing subsets of facility location problems, again demonstrating the voluminousness of the literature (1998).
 
 Although the library of facility location management is vast, this paper focuses primarily on literature pertaining to median problems, with a specific emphasis on using Markov chain models. In the past, no model has been presented to optimize the placement of LDS temples, in either the United States or internationally. Our paper seeks to fill this gap in the literature.
 
 The study of location theory began with Alfred Weber in 1909. 
 He researched where to place a warehouse based off of the average distance that would be traveled by those who would need to visit the warehouse (Owen \& Daskin).
 This research created the basis for {\em median problems}, or problems to determine a facility location by minimizing the average distance traveled by consumers.
-As noted by Melo, Nickel and Saldanha-da-Gamma, the p-median problem is considered the simplest and most prominent median problem. They define the p-median problem as the problem where p facilities need to be placed to minimize the total weighted distance or costs to satisfy customer demands (Melo, Nickel \& Saldanha-da-Gamma).
+As noted by Melo, Nickel and Saldanha-da-Gamma, the p-median problem is considered the simplest and most prominent median problem. They define the p-median problem as the problem where p facilities need to be placed to minimize the total weighted distance or costs to satisfy customer demands (2009).
 
-From the simplest definition of p-median problems arises a myriad of slight variations of it.
-These variations are very commonly used to solve median problems.
-For example, Berman, Drezner, and Wesolowsky use a model formulation similar to the p-median problem except that demands can be serviced by facilities other than the one closest to them (Berman, Drezner \& Wesolowsky, 2003).
+From the simplest definition of p-median problems arises a myriad of slight variations of it to account for the context of the problem.
+In their review, Current, Min, and Schilling found that 33 out of 45 articles revealed dealt with a variation of a p-median problem.
+For an example variation, Berman, Drezner, and Wesolowsky use a model formulation similar to the p-median problem except that demands can be serviced by facilities other than the one closest to them (2003).
+
+Once a median problem has been formulated, a portion of literature furthers models the problem using a network of nodes.
+Bruni, Beraldi, and Conforti use an undirected graph to model a complex water distribution network (2016).
+Similarly, Jouzdani, Sadjadi, Fathian model a dairy production network with a directed graph.
+They use actual nodes to denote potential facility locations and virtual nodes to denote the sink and source nodes for each product (2013).
+
+Not only are they frequently used, but networks have been highly researched within location theory.
+In their article, Ottaviano and Thisse define a network as a finite, connected set of arcs in a plane of well-defined length.
+They let the nodes in the network denote potential facility locations (2004).
+% TODO- Now talk about how Hakimi proved that there exists an answer to the p-minimization problem given this formulation
+% Then transition in Markov chains for the last part of the literature review.
 
 \section{Problem Formulation}
 \label{sec:prob}
 Insert text here.
+
 \subsection{Important Variables}
 \begin{tabular}{c | l}
 Variable & Description\\
@@ -248,6 +262,11 @@ Berman O, Drezner Z, Wesolowsky G.
 \newblock Locating service facilities whose reliability is distance dependent.
 \newblock {\em Computers \& Operations Research.} 2003; 30:1683-1695.
 
+\bibitem[Bruni, Beraldi, Conforti, 2016]{Bruni:2016}
+Bruni M, Beraldi P, Conforti D.
+\newblock Water distribution networks design under uncertainty.
+\newblock {\em TOP.} 2016; 25:111-126.
+
 \bibitem[Current, Min, Schilling, 1990]{Current:1990}
 Current J, Min H, Schilling D.
 \newblock Multiobjective analysis of facility location decisions.
@@ -256,7 +275,12 @@ Current J, Min H, Schilling D.
 \bibitem["Facts and Statistics", 2017]{Facts&Stats:2017}
 \newblock 2017; Retrieved from http://www.mormonnewsroom.org/facts-and-statistics
 
-\bibitem{Melo, Nickel, & Saldanha-da-Gama, 2009}
+\bibitem[Jouzdani, Sadjadi, Fathian, 2013]{Jouzdani:2013}
+Jouzdani J, Sadjadi S, Fathian M.
+\newblock Dynamic dairy facility location and supply chain planning under traffic congestion and demand uncertainty: A case study of Tehran
+\newblock {\em Applied Mathematical Modeling.} 2013; 37: 8467-8483.
+
+\bibitem[Melo, Nickel, Saldanha-da-Gama, 2009]{Melo:2009}
 Melo M, Nickel S, Saldanha-da-Gama F.
 \newblock Facility location and supply-chain management - A review.
 \newblock {\em European Journal of Operational Research.}  2009; 196:401--412.
@@ -265,6 +289,11 @@ Melo M, Nickel S, Saldanha-da-Gama F.
 Monson T.
 \newblock Blessings of the Temple. 1995;
 \newblock Retrieved from https://www.lds.org/church/temples/why-we-build-temples/blessings-of-the-temple?lang=eng
+
+\bibitem[Ottaviano, Thisse, 2004]{Ottaviano:2004}
+Ottaviano G, Thisse J.
+\newblock New Economic Geography: What about the N?
+\newblock Paper provided by Universite/ catholique de Louvain, Center for Operations Research and Econometrics in its series {\em Core Discussion Papers}. 2004065.
 
 \bibitem[Owen, Daskin, 1998]{Owen:1998}
 Owen S, Daskin M.
