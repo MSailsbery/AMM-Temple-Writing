@@ -35,7 +35,7 @@
 \pagestyle{fancy} % All pages have headers and footers
 \fancyhead{} % Blank out the default header
 \fancyfoot{} % Blank out the default footer
-\fancyhead[C]{Running title $\bullet$ May 2016 $\bullet$ Vol. XXI, No. 1} % Custom header text
+\fancyhead[C]{LDS TEMPLE LOCATION AND MEMBER ACCESSIBILITY $\bullet$ May 2017} % Custom header text
 \fancyfoot[RO,LE]{\thepage} % Custom footer text
 
 \usepackage{titling} % Customizing the title section
@@ -63,10 +63,12 @@
 \date{\today} % Leave empty to omit a date
 \renewcommand{\maketitlehookd}{%
 \begin{abstract}
-\noindent % TODO- write abstract.
+\noindent This paper uses various mathematical models to determine the best locations for the LDS church to build more temples.
+These models take into account current temple locations and the density of members of the LDS church in different locations. 
+The Euclidean Distance Model is used followed by the Markov Chain Model.
 \end{abstract}
 }
-% TODO - do we need a keywords section?
+% TODO - do we need keywords?
 \begin{document}
 \maketitle
 
@@ -78,39 +80,39 @@
 \section{Introduction}
 
 For the Church of Jesus Christ of Latter-Day Saints (LDS church), temples are believed to be imperative in the process of one gaining salvation.
-It is consequently important to the church that all members have access to a temple.
-Not only do members of the church believe that temples are vital to salvation, but they also view temples as a place of worship.
-% TODO - add in reference. https://www.lds.org/church/temples/why-we-build-temples/blessings-of-the-temple?lang=eng
-So it is additionally important to be able to provide regular temple access to the maximum number of church members.
+It is consequently important to the LDS church that all members have access to a temple.
+Not only do members of the LDS church believe that temples are vital to salvation, but they also view temples as a place of worship (Monson, 1995).
+So it is additionally important to be able to provide regular temple access to the maximum number of LDS church members.
 
-The LDS church currently consists of 15 million members.
-% TODO - add in reference. http://www.mormonnewsroom.org/facts-and-statistics
-In an effort to provide these members with temple access, the church has built a large number of temples and continues to build them.
+The LDS church currently consists of 15 million members ("Facts and Statistics",2017).
+In an effort to provide these members with temple access, the LDS church has built a large number of temples and continues to build them.
 In fact, the LDS church at this time has 155 temples in operation worldwide. 
-They additionally have 14 temples under construction and 13 more that have been announced that they will be built.
-% TODO -add in reference. http://www.ldschurchtemples.com/statistics/
+They additionally have 14 temples under construction and 13 more that have been announced to be built ("Statistics", 2017).
 
-When building new temples, church leaders have to consider the most effective locations to build them at.
+When building new temples, LDS church leaders have to consider the most effective locations to build them at.
 Among many other considerations in this process, is the factor of giving the maximum number of people access or more regular access to a temple.
-In the field of operations research, the application of mathematical techniques to make decisions in business management,
-% TODO - add in reference % http://www.businessdictionary.com/definition/operations-research-OR.html (probably find better reference)
-, this factor is often considered a facility location problem.
+In the field of operations research, this factor is often considered a facility location problem.
 
 Facility location problems are a highly-research subfield of operations research. 
-They generally involve a set of demands in different locations and facilities that can fulfill demands (Melo, Nickel, and Saldanha-da-Gama). % TODO - add in reference. Title: Facility location and supply chain management- A review. Located in the dropbox folder.
+They generally involve a set of demands in different locations and facilities that can fulfill the demands (Melo, Nickel, \& Saldanha-da-Gama, 2009).
 The problem is to choose the optimal locations of these facilities so as to maximize the number of demands filled.
-There are a myriad of ways to define what an optimal location would be.
-The most common definition is a subset of median problems that measure the average distance traveled to fulfill a demand (Owen and Daskin). % TODO - add in reference. 'Strategic Facility Location- a Review' located in the dropbox folder.
 
-In our paper, we use mathematical models to solve the temple location problem of the LDS church. 
-We use an euclidean distance model to find the optimal temple locations in regards to the problem of maximizing the number of church members that have access to a temple. 
+There are a myriad of ways to define what an optimal location would be.
+The most common definition is a subset of median problems that measure the average distance traveled to fulfill a demand (Owen \& Daskin, 1998). 
+The most prominent and simplest of these types of problems, is the P-median problem.
+This problem seeks to minimize the total distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990).
+Most other median problems are slight variants of the P-median problem.
+
+In our paper, we use similar mathematical models to solve the temple location problem of the LDS church. 
+We use the Euclidean Distance Model to find the optimal temple locations in regards to the problem of maximizing the number of church members that have access to a temple. 
 Additionally, we use a Markov chain model to find the optimal temple locations in regards to the problem of maximizing the number of church members that have more frequent access to the temple. 
 Lastly, we will use a ... % TODO- write about new model
 
 The rest of the paper will be as follows.
 First, Section \ref{sec:prob} will present the problem in terms of a facility location problem.
-Section \ref{sec:sols} will examine three solutions approaches to the problem.
-Namely, a euclidean distance model, a Markov chain model, and ... %TODO- Decide on last model or delete this part.
+It will define variables and discuss the assumptions made about the data gathered.
+Section \ref{sec:models} will examine three modeling approaches to the problem.
+Namely, a Euclidean distance model, a Markov chain model, and ... %TODO- Decide on last model.
 Section \ref{sec:res} will present the results and Section \ref{sec:analysis} will analyze the implications of the results.
 Finally, Section \ref{sec:conclusion} will give a summary of the paper along with areas for further research.
 
@@ -214,7 +216,6 @@ Insert text here.
 
 \section{Conclusion}
 \label{sec:conclusion}
-% TODO - This section should be about 1/2-1 page long. It should state no new information, but basically a summary of the paper. The "tell them what you told them" part of the paper. It should then include a paragraph about possibilities for further research.- McKell
 Insert text here.
 
 %----------------------------------------------------------------------------------------
@@ -222,12 +223,37 @@ Insert text here.
 %----------------------------------------------------------------------------------------
 
 \begin{thebibliography}{99} % Bibliography - this is intentionally simple in this template
-
-\bibitem[Crisostomi, Kirkland and Shorten, 2011]{Crisostomi:2011dg}
-Crisostomi E, Kirkland S, Shorten R. 
-\newblock A Google-like model of road network dynamics and its application to regulation and control.
-\newblock {\em Int. J. Control.} 2011;84:633--651.
+% Below is an example
+%\bibitem[Crisostomi, Kirkland and Shorten, 2011]{Crisostomi:2011dg}
+%Crisostomi E, Kirkland S, Shorten R. 
+%\newblock A Google-like model of road network dynamics and its application to regulation and control.
+%\newblock {\em Int. J. Control.} 2011;84:633--651.
  
+\bibitem[Current, Min, Schilling, 1990]{Current:1990}
+Current J, Min H, Schilling D.
+\newblock Multiobjective analysis of facility location decisions.
+\newblock {\em European Journal of Operational Research. } 1990; 49:295-307
+
+\bibitem["Facts and Statistics", 2017]{Facts&Stats:2017}
+\newblock 2017; Retrieved from http://www.mormonnewsroom.org/facts-and-statistics
+
+\bibitem{Melo, Nickel, & Saldanha-da-Gama, 2009}
+Melo M, Nickel S, Saldanha-da-Gama F.
+\newblock Facility location and supply-chain management - A review.
+\newblock {\em European Journal of Operational Research.}  2009; 196:401--412
+
+\bibitem[Monson, 1995]{Monson:1995}
+Monson T.
+\newblock Blessings of the Temple. 1995;
+\newblock Retrieved from https://www.lds.org/church/temples/why-we-build-temples/blessings-of-the-temple?lang=eng
+
+\bibitem[Owen, Daskin, 1998]{Owen:1998}
+Owen S, Daskin M.
+\newblock Strategic facility location: a review.
+\newblock {\em European Journal of Operational Research.} 1998; 111:423-447
+
+\bibitem["Statistics", 2017]{Stats:2017}
+\newblock 2017; Retrieved from http://www.ldschurchtemples.com/statistics/
 \end{thebibliography}
 
 %----------------------------------------------------------------------------------------
