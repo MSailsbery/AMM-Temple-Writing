@@ -65,7 +65,7 @@
 \begin{abstract}
 \noindent This paper uses various mathematical models to determine the best locations for the LDS church to build more temples within the United States.
 These models take into account current temple locations and the population density of members of the LDS church. 
-The Euclidean Distance Model is used to minimize the average distance that members have to travel to their nearest temple within the United states. 
+The Distance Model is used to minimize the average distance that members have to travel to their nearest temple within the United states. 
 This investigation is followed by the Markov Chain Model.
 This model accounts for the likelihood of a member attending one of the temples closest to them based off of their distance from and the busyness of each temple.
 \end{abstract}
@@ -96,7 +96,7 @@ The P-median problem tries to minimize the total distance that a demand must tra
 Most other median problems are slight variants of the P-median problem.
 
 In this paper, we use mathematical models similar to the models that solve variants of P-median problems to solve the temple location problem of the LDS church.
-We first use a Euclidean Distance Model to determine new optimal temple locations to minimize the average distance that LDS church members must travel to their nearest temple.
+We first use a Distance Model to determine new optimal temple locations to minimize the average distance that LDS church members must travel to their nearest temple.
 This problem seeks to maximize the number of LDS members that have access (no matter how frequent) to a temple.
 Next, we use a Markov chains to model the likelihood of a member going to a temple based off of location and the busyness of temples near them.
 This model attempts to optimize the number of LDS members that have frequent access to a temple.
@@ -107,7 +107,7 @@ First, Section \ref{sec:litrev} contains a literature review on relevant literat
 Section \ref{sec:prob} will present the problem in terms of a facility location problem.
 This section will define variables and discuss the assumptions made about the data gathered.
 Section \ref{sec:models} will examine three modeling approaches to the problem.
-Namely, a Euclidean distance model, a Markov chain model, and ... %TODO- Decide on last model.
+Namely, a distance model, a Markov chain model, and ... %TODO- Decide on last model.
 Section \ref{sec:res} will present the results and Section \ref{sec:analysis} will analyze the implications of the results.
 Finally, Section \ref{sec:conclusion} will give a summary of the paper along with areas for further research.
 
@@ -166,8 +166,9 @@ $\tau_{i}$ & Temple score of temple $t_{i}$\\
 \vspace{0.1in}
 
 \noindent To fully understand our approach, it is crucial to know what variables were considered relevant, and which were excluded.
-Obviously, chief among these variables is the euclidean distance $d(s_{i},t_{j})$ from a stake center to a temple.
-While this may be sufficient for the euclidean distance model, a fair number of other considerations were necessary for the Markov chain model and the ... .
+Obviously, chief among these variables is the distance $d(s_{i},t_{j})$ from a stake center to a temple.
+This distance is measured including the earth's curvature.
+While this may be sufficient for the distance model, a fair number of other considerations were necessary for the Markov chain model and the ... .
 For the Markov chain model, we included a measure of the busyness for each temple.
 To do this, we gave each temple a score, $\tau_{i}$, based on the number of stakes that listed that temple as one of it's five closest temples.
 Using these scores, we assigned each stake a density $\rho_{i}$, that sought to relate how much traffic each stake would provide to it's surrounding temples.
@@ -180,9 +181,9 @@ To simplify the models and make an analytical review of temple location optimiza
 \label{sec:models}
 This section is a mathematical explanation of the assumptions made and the models used. As choosing the location of an LDS temple mathematically involves various assumptions about human behavior, as well as several possible objectives, we separate our explanation of the models used to solve this problem into subsections. Each subsection is self-contained in the assumptions made and the problem setup. Along with the individual models presented in each subsection, there is also a brief summary of the algorithmic approach used to find the optimal solution to each.
 
-\subsection{Euclidean Distance Model} %TODO - Name needs to be changed as we are not in Euclidean space
+\subsection{Distance Model} 
 
-The simplest model used is the Euclidean Distance Model (EDM). The purpose of EDM is to minimize the average distance a given member of a LDS stake has to travel to get to their closest temple. As such, this model does not take into account the capacity of the temples, nor the relative accessibility of other temples, even if they are a similar distance away. The only assumption made about the behavior of church members are that they desire to have a temple close to their stake center, and that they will only use the closest temple to them.
+The simplest model used is the Distance Model (DM). The purpose of DM is to minimize the average distance a given member of a LDS stake has to travel to get to their closest temple. As such, this model does not take into account the capacity of the temples, nor the relative accessibility of other temples, even if they are a similar distance away. The only assumption made about the behavior of church members are that they desire to have a temple close to their stake center, and that they will only use the closest temple to them.
 
 The mathematical setup is as follows. Let each stake be represented as $s_i$ and each temple $t_j$, and let the set of all the stakes be represented as $S$ and likewise the temples as $T$. The average distance a given member of an LDS stake has to travel to get to their closest temple is, 
 
@@ -234,7 +235,7 @@ Insert text here.
 \label{sec:res}
 Insert text here.
 
-\subsection{Euclidean Distance Model}
+\subsection{Distance Model}
 Insert text here.
 
 \subsection{Markov Model}
