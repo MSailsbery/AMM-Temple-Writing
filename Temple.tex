@@ -63,9 +63,11 @@
 \date{\today} % Leave empty to omit a date
 \renewcommand{\maketitlehookd}{%
 \begin{abstract}
-\noindent This paper uses various mathematical models to determine the best locations for the LDS church to build more temples.
-These models take into account current temple locations and the density of members of the LDS church in different locations. 
-The Euclidean Distance Model is used followed by the Markov Chain Model.
+\noindent This paper uses various mathematical models to determine the best locations for the LDS church to build more temples within the United States.
+These models take into account current temple locations and the population density of members of the LDS church. 
+The Euclidean Distance Model is used to minimize the average distance that members have to travel to their nearest temple within the United states. 
+This investigation is followed by the Markov Chain Model.
+This model accounts for the likelihood of a member attending one of the temples closest to them based off of their distance from and the busyness of each temple.
 \end{abstract}
 }
 % Do we need a keywords section?
@@ -82,31 +84,26 @@ The Euclidean Distance Model is used followed by the Markov Chain Model.
 For members of the Church of Jesus Christ of Latter-day Saints (the LDS Church), temples are believed to be imperative in the process of gaining salvation.
 Not only do members believe that temples are vital to salvation, but they also view temples as places of worship (Monson, 1995).
 Consequently, regular member access to temples is a high priority for the LDS Church, which seeks to maximize temple access for its members.
-
-The LDS Church currently consists of 15 million members ("Facts and Statistics", 2017).
-In an effort to provide these members with temple access, the LDS Church has built a large number of temples across the globe and continues to build more.
-In fact, at this time there are 155 temples in operation worldwide in addition to 14 temples under construction and 13 more that have been announced ("Statistics", 2017).
-
-When constructing new temples, LDS church leaders have to evaluate which locations are most effective to maximize frequent member access.
+To maximize this access, LDS church leaders have to find the most effective temple locations.
 In the field of operations research, this problem is referred to as a facility location problem.
-% This is a really short paragraph that flows nicely with the first paragraph. Do we even need to explain how many temples the Church has (previous paragraph)? For me, it only seems necessary to know how many temples the Church has in the US, and that only needs mentioned when we explain the setup of our model.
 
-Facility location problems are a subfield of operations research that generally involve a set of demands in different locations, and facilities that can fulfill those demands (Melo, Nickel, \& Saldanha-da-Gama, 2009).
-The idea is to choose the optimal locations of facilities to maximize the number of demands fulfilled.
-% There's got to be a better way to word that last sentence...
-
+Location theory is a subfield of operations research that generally involves a set of demands and a set of facilities that can satisfy those demands (Melo, Nickel, \& Saldanha-da-Gama, 2009).
+Problems in location theory want to maximize the number of demands satisfied.
+They do this by finding the optimal locations for the facilities that satisfy these demands.
 There are a myriad of ways to define an optimal location, but the prevailing definition is a subset of median problems that measure the average distance traveled to fulfill a demand (Owen \& Daskin, 1998). 
 The most prominent, and simplest, of these types of problems is the P-median problem.
 The P-median problem tries to minimize the total distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990).
 Most other median problems are slight variants of the P-median problem.
 
-In this paper, we use similar mathematical models to solve the temple location problem of the LDS church. % similar to what?
-We use a Euclidean Distance Model to find the optimal temple location by maximizing the number of church members that have access to a temple. 
-Additionally, we use a Markov chain model to find the optimal temple locations by maximizing the number of church members that have more frequent access to the temple. 
+In this paper, we use mathematical models similar to the models that solve variants of P-median problems to solve the temple location problem of the LDS church.
+We first use a Euclidean Distance Model to determine new optimal temple locations to minimize the average distance that LDS church members must travel to their nearest temple.
+This problem seeks to maximize the number of LDS members that have access (no matter how frequent) to a temple.
+Next, we use a Markov chains to model the likelihood of a member going to a temple based off of location and the busyness of temples near them.
+This model attempts to optimize the number of LDS members that have frequent access to a temple.
 Lastly, we use a ... % TODO- write about new model
 
 The rest of the paper will be as follows.
-First, Section \ref{sec:litreview} contains a literature review on relevant literature.
+First, Section \ref{sec:litrev} contains a literature review on relevant literature.
 Section \ref{sec:prob} will present the problem in terms of a facility location problem.
 This section will define variables and discuss the assumptions made about the data gathered.
 Section \ref{sec:models} will examine three modeling approaches to the problem.
@@ -139,12 +136,19 @@ They use actual nodes to denote potential facility locations and virtual nodes t
 Not only are they frequently used, but networks have been highly researched within location theory.
 In their article, Ottaviano and Thisse define a network as a finite, connected set of arcs in a plane of well-defined length.
 They let the nodes in the network denote potential facility locations (2004).
+
+...
 % TODO- Now talk about how Hakimi proved that there exists an answer to the p-minimization problem given this formulation
 % Then transition in Markov chains for the last part of the literature review.
 
 \section{Problem Formulation}
 \label{sec:prob}
-Insert text here.
+
+Our problem can be split up into two subcategories. 
+The first is the problem of maximizing the number of LDS church members that have access to the temple (could be one-time access).
+The second is to maximize the number of members that have frequent access to the temple.
+In order to define our models, we delineate our variables.
+We will then explain the assumptions that we made in our problems in order to simplify the models.
 
 \subsection{Important Variables}
 \begin{tabular}{c | l}
@@ -159,13 +163,16 @@ $T_{new}$ & The proposed new temple location\\
 $t_{i}$ & Temple number $i$ \\
 $\tau_{i}$ & Temple score of temple $t_{i}$\\
 \end{tabular}
-To fully understand our approach, it is crucial to know what variables were considered relevant, and which were excluded.
+\vspace{0.1in}
+
+\noindent To fully understand our approach, it is crucial to know what variables were considered relevant, and which were excluded.
 Obviously, chief among these variables is the euclidean distance $d(s_{i},t_{j})$ from a stake center to a temple.
 While this may be sufficient for the euclidean distance model, a fair number of other considerations were necessary for the Markov chain model and the ... .
 For the Markov chain model, we included a measure of the busyness for each temple.
 To do this, we gave each temple a score, $\tau_{i}$, based on the number of stakes that listed that temple as one of it's five closest temples.
 Using these scores, we assigned each stake a density $\rho_{i}$, that sought to relate how much traffic each stake would provide to it's surrounding temples.
 This allowed us to approximate how busy a temple was, using the stakes that consider it one of their closest temples.
+
 \subsection{Assumptions and Data}
 To simplify the models and make an analytical review of temple location optimization possible, a number of assumptions were made. Firstly, it is assumed that every LDS stake in the United States has the same number of active, temple-going members contained within its boundaries. This approximation, combined with the assumption that every stake center is located near the center of the stake, allows us to estimate the member density throughout the country. Within each model, further assumptions are made regarding the proportion of members that attend daily from each stake, and how the distance and busyness of each temple affects these proportions, but these details will be clarified for each individual model.
 
@@ -220,18 +227,19 @@ Ts_j = \sqrt{1\over{\sum_j{t_ij}}}
 \end{equation}
 
 
-Insert text here.
 \subsection{Last Model} % TODO- figure out last model. Once updated the paper overview in the introduction will need to be updated.
 Insert text here.
 
 \section{Results}
-Insert text here.
 \label{sec:res}
 Insert text here.
+
 \subsection{Euclidean Distance Model}
 Insert text here.
+
 \subsection{Markov Model}
 Insert text here.
+
 \subsection{Last Model}
 Insert text here.
 
@@ -269,8 +277,9 @@ Current J, Min H, Schilling D.
 \newblock Multiobjective analysis of facility location decisions.
 \newblock {\em European Journal of Operational Research.} 1990; 49:295-307.
 
-\bibitem["Facts and Statistics", 2017]{Facts&Stats:2017}
-\newblock 2017; Retrieved from http://www.mormonnewsroom.org/facts-and-statistics
+% This reference was taken out of the introduction
+%\bibitem["Facts and Statistics", 2017]{Facts&Stats:2017}
+%\newblock 2017; Retrieved from http://www.mormonnewsroom.org/facts-and-statistics
 
 \bibitem[Jouzdani, Sadjadi, Fathian, 2013]{Jouzdani:2013}
 Jouzdani J, Sadjadi S, Fathian M.
@@ -297,8 +306,10 @@ Owen S, Daskin M.
 \newblock Strategic facility location: a review.
 \newblock {\em European Journal of Operational Research.} 1998; 111:423-447.
 
-\bibitem["Statistics", 2017]{Stats:2017}
-\newblock 2017; Retrieved from http://www.ldschurchtemples.com/statistics/
+% This section was taken out of the introduction.
+%\bibitem["Statistics", 2017]{Stats:2017}
+%\newblock 2017; Retrieved from http://www.ldschurchtemples.com/statistics/
+
 \end{thebibliography}
 
 %----------------------------------------------------------------------------------------
