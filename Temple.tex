@@ -83,50 +83,52 @@ This model accounts for the likelihood of a member attending one of the temples 
 
 For members of the Church of Jesus Christ of Latter-day Saints (the LDS Church), temples are believed to be imperative in the process of gaining salvation.
 Not only do members believe that temples are vital to salvation, but they also view temples as places of worship (Monson, 1995).
-Consequently, regular member access to temples is a high priority for the LDS Church, which seeks to maximize temple access for its members.
-To maximize this access, LDS church leaders have to find the most effective temple locations.
+Consequently, regular member access to temples is a high priority for the LDS Church.
+To maximize temple access for its members, LDS church leaders seek to find the most effective location for each temple, as constructing new temples is an expensive and time intensive process.
 In the field of operations research, this problem is referred to as a facility location problem.
 
 Location theory is a subfield of operations research that generally involves a set of demands and a set of facilities that can satisfy those demands (Melo, Nickel, \& Saldanha-da-Gama, 2009).
-Problems in location theory want to maximize the number of demands satisfied.
-They do this by finding the optimal locations for the facilities that satisfy these demands.
-There are a myriad of ways to define an optimal location, but the prevailing definition is a subset of median problems that measure the average distance traveled to fulfill a demand (Owen \& Daskin, 1998). 
-The most prominent, and simplest, of these types of problems is the P-median problem.
-The P-median problem tries to minimize the total distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990).
+Problems in location theory want to maximize the number of demands satisfied, which is done by finding the optimal locations for the facilities that satisfy these demands.
+There are a myriad of ways to define an optimal location, but the prevailing definition is a subset of median problems that measure the average distance traveled to fulfill a demand (Owen \& Daskin, 1998). % So you're telling me that an optimal location is "a subset of median problems"?  Should it be a location that solves a subset of median problems?  Or is it a place that minimizes that average distance traveled to fulfill a demand?  Additionally, I looked (albeit briefly) through the source, but it didn't seem to include a definition of an optimal location or a discussion of the many definitions that exist.
+The most prominent, and simplest, of these types of problems is the P-median problem, which tries to minimize the total distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990).
 Most other median problems are slight variants of the P-median problem.
 
-In this paper, we use mathematical models similar to the models that solve variants of P-median problems to solve the temple location problem of the LDS church.
-We first use a Distance Model to determine new optimal temple locations to minimize the average distance that LDS church members must travel to their nearest temple.
-This problem seeks to maximize the number of LDS members that have access (no matter how frequent) to a temple.
-Next, we use a Markov chains to model the likelihood of a member going to a temple based off of location and the busyness of temples near them.
+In this paper, to solve the temple location problem of the LDS church, we use mathematical models similar to those that solve variants of P-median problems.
+We first use a Distance Model to determine new optimal temple locations to minimize the average distance that LDS church members must travel to their nearest temple. % Is there a standard name in the literature for a distance-based model?  I feel like calling it the "Distance Model" is a very elementary name, and if that's the current standard, then great, but it seems like there is likely another name typically used for this type of model.
+This problem seeks to maximize the number of LDS members that have access to a temple measured solely by proximity to a temple.
+Next, we use a Markov chains to model the likelihood of a member going to a temple using distance to and the busyness of the temples closest to that member.
 This model attempts to optimize the number of LDS members that have frequent access to a temple.
 Lastly, we use a ... % TODO- write about new model
 
 The rest of the paper will be as follows.
-First, Section \ref{sec:litrev} contains a literature review on relevant literature.
+First, Section \ref{sec:litrev} contains a review of relevant literature.
 Section \ref{sec:prob} will present the problem in terms of a facility location problem.
-This section will define variables and discuss the assumptions made about the data gathered.
-Section \ref{sec:models} will examine three modeling approaches to the problem.
-Namely, a distance model, a Markov chain model, and ... %TODO- Decide on last model.
+This section will define variables and discuss assumptions made about the data gathered.
+Section \ref{sec:models} will examine three modeling approaches to the problem; namely, a distance model, a Markov chain model, and ... %TODO- Decide on last model.
 Section \ref{sec:res} will present the results and Section \ref{sec:analysis} will analyze the implications of the results.
 Finally, Section \ref{sec:conclusion} will give a summary of the paper along with areas for further research.
 
 \section{Relevant Literature Review}
 \label{sec:litrev}
-Facility location management is a well-established area within operations research. Current, Min and Schilling report that facility location management has been researched through the perspective of many different academic disciplines. They additionally cite one recent bibliography on the subject had over 1500 titles, showing just how expansive research in the area is (1990).
+Facility location management is a well-established area within operations research.
+Current, Min and Schilling report that facility location management has been researched through the perspective of many different academic disciplines.
+They additionally cite one recent bibliography on the subject that had over 1500 titles, showing just how expansive research in the area is (1990).
 In their literature review, Owen and Daskin give an overview of the most used models among this immense amount of literature. 
 They comment on 15 differing subsets of facility location problems, again demonstrating the voluminousness of the literature (1998).
 
-Although the library of facility location management is vast, this paper focuses primarily on literature pertaining to median problems, with a specific emphasis on using Markov chain models. In the past, no model has been presented to optimize the placement of LDS temples, in either the United States or internationally. Our paper seeks to fill this gap in the literature.
+Although the library of facility location management is vast, this paper focuses primarily on literature pertaining to median problems, with a specific emphasis on using Markov chain models.
+In the past, no model has been presented to optimize the placement of LDS temples, in either the United States or internationally.
+Our paper seeks to fill this gap in the literature. % What a gap.  How has no one noticed it before?
 
 The study of location theory began with Alfred Weber in 1909. 
 He researched where to place a warehouse based off of the average distance that would be traveled by those who would need to visit the warehouse (Owen \& Daskin).
-This research created the basis for {\em median problems}, or problems to determine a facility location by minimizing the average distance traveled by consumers.
-As noted by Melo, Nickel and Saldanha-da-Gamma, the p-median problem is considered the simplest and most prominent median problem. They define the p-median problem as the problem where p facilities need to be placed to minimize the total weighted distance or costs to satisfy customer demands (2009).
+This research created the basis for {\em median problems}, or problems to determine a facility location by minimizing the average distance traveled by consumers. % (suggested) With distance being a function of various variables i.e. actual distance, traffic, busyness, proximity to competitors, etc.
+As noted by Melo, Nickel and Saldanha-da-Gamma, the p-median problem is considered the simplest and most prominent median problem.  % This is almost exactly restating line 93 of this paper with a different source.  One of the lines should probably go or we can choose adjectives other than simplest and most prominent to describe the p-median problem.
+They define the p-median problem as the problem where p facilities need to be placed to minimize the total weighted distance or costs to satisfy customer demands (2009).
 
-From the simplest definition of p-median problems arises a myriad of slight variations of it to account for the context of the problem.
+From the simplest definition of p-median problems arises a myriad of slight variations of it to account for the context of the problem. % I thought the p-median problem was the simplest median problem?  Are there more than one original p-median problem?
 In their review, Current, Min, and Schilling found that 33 out of 45 articles revealed dealt with a variation of a p-median problem.
-For an example variation, Berman, Drezner, and Wesolowsky use a model formulation similar to the p-median problem except that demands can be serviced by facilities other than the one closest to them (2003).
+For an example variation, Berman, Drezner, and Wesolowsky use a model formulation which allows demands to be serviced by facilities other than the one closest to them (2003).
 
 Once a median problem has been formulated, a portion of literature furthers models the problem using a network of nodes.
 Bruni, Beraldi, and Conforti use an undirected graph to model a complex water distribution network (2016).
@@ -136,6 +138,8 @@ They use actual nodes to denote potential facility locations and virtual nodes t
 Not only are they frequently used, but networks have been highly researched within location theory.
 In their article, Ottaviano and Thisse define a network as a finite, connected set of arcs in a plane of well-defined length.
 They let the nodes in the network denote potential facility locations (2004).
+
+% I don't know if this is a problem, but in this section, the first four paragraphs don't have a space separating them, but the last 3 do.  I don't know enough about latex to try and fix it, though...
 
 ...
 % TODO- Now talk about how Hakimi proved that there exists an answer to the p-minimization problem given this formulation
