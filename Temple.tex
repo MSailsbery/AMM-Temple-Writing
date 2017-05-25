@@ -231,8 +231,8 @@ The second model used is closely based on the Markov chain application of (refer
 \centering
 
 \begin{tikzpicture} [->, >=stealth' ,shorten >=1pt, auto,node distance=2.25cm,thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
-\node[main node] (1) {$T_{1}$};
-\node[main node] (2) [below left of=1] {$S_{1}$};
+\node[main node] (1) {$T_{1}$}; % Creates a node referred to as (1) with label T_1
+\node[main node] (2) [below left of=1] {$S_{1}$}; % Creates the node and positions it
 \node[main node] (3) [above right of=1] {$S_{5}$};
 \node[main node] (4) [right of=1] {$S_{4}$};
 \node[main node] (5) [below right of=1] {$S_{3}$};
@@ -243,8 +243,8 @@ The second model used is closely based on the Markov chain application of (refer
 \node[main node] (10) [below of=6] {$S_{7}$};
 
 \path[every node/.style={font=\sffamily\small}]
-(2) edge node [right] {0.6} (1)
-(2) edge [bend right] node [left] {1.5} (8)
+(2) edge node [right] {0.6} (1) % Adds an edge from node (2) to node (1) with the label of 0.6 on the right of the edge
+(2) edge [bend right] node [left] {1.5} (8) % Adds a curved edge from node (2) to node (1) with the label of 1.5 on the left of the edge
 (3) edge node[left] {0.4} (1)
 (3) edge [bend left] node [right] {1.2} (6)
 (4) edge node [above] {0.2} (1)
@@ -286,10 +286,10 @@ Insert text here.
 Insert text here.
 % I didn't know which figure we were going to need, so I included both of them.
 % NOTE : If viewing with overleaf, images can not be found, so do not include this code.
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.6\textwidth]{Euclidean_Graph1}
-\caption{Results : Euclidean Graph1}
+\begin{figure}[h!] % The [h!] forces LaTeX to put the figure right where it appears in the text.
+\centering % Center it based on the text
+\includegraphics[width=0.6\textwidth]{Euclidean_Graph1} % Loads and scales the image
+\caption{Results : Euclidean Graph1} % Adds a caption
 \label{fig:Results1}
 \end{figure}
 
