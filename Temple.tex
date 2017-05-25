@@ -221,7 +221,8 @@ A Markov chain is an example of...
 
 \subsubsection{Model}
 The second model used is closely based on the Markov chain application of (reference paper). It involves two stages: the initialization of the model transition matrix and the computation of the Perron eigenvectors, Mean First Passage Time, and Kemeny constant described above. To understand this concept more fully, we consider a graph in which each stake is connected to the two closest temples as shown in \ref{fig:M1}.\newline
-% Create a figure to demonstrate stakes connected to 5 closest temples
+% Create a figure to demonstrate stakes connected to 2 closest temples
+
 % This code is based off of https://tex.stackexchange.com/questions/45734/drawing-graphs-in-latex
 %        as well as https://tex.stackexchange.com/questions/24000/how-to-add-caption-for-a-tikz-picture
 \begin{figure}[h!]
@@ -256,8 +257,9 @@ The second model used is closely based on the Markov chain application of (refer
 (10) edge node [above] {0.2} (8);
 \end{tikzpicture}
 
-\caption{A sample graph including $7$ stakes and $3$ temples.} \label{fig:M1}
+\caption{A sample graph including $7$ stakes and $3$ temples. \textbf{Note}: Edges in this figure are a measure of distance, not a measure of probability.} \label{fig:M1}
 \end{figure}
+% End code for graph
 
 In order to begin creating this model, we initialize a square probability matrix $T$ of zeros in which the first $n$ rows and columns correspond to the church stakes in the United States and the next $m$ rows and columns correspond to the church temples in the United States. Each $t_{ij}$ in the matrix represents the probability that a person in row $i$ will travel to column $j$ in the current state. The diagonal entries $t_{ii}$ represent the probability that a person will remain in their current location through the current state. The states of the matrix represent a single day.
 % Create a visual matrix representation of the matrix initialized
