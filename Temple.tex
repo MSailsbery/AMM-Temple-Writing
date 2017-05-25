@@ -45,6 +45,8 @@
 \usepackage{tikz} % For implementing graphs
 \usetikzlibrary{arrows} % Self-explanatory
 
+\usepackage{graphicx} % Allows us to insert .png files
+
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
@@ -257,7 +259,8 @@ The second model used is closely based on the Markov chain application of (refer
 (10) edge node [above] {0.2} (8);
 \end{tikzpicture}
 
-\caption{A sample graph including $7$ stakes and $3$ temples. \textbf{Note}: Edges in this figure are a measure of distance, not a measure of probability.} \label{fig:M1}
+\caption{A sample graph including $7$ stakes and $3$ temples. \textbf{Note}: Edges in this figure are a measure of distance, not a measure of probability.}
+\label{fig:M1}
 \end{figure}
 % End code for graph
 
@@ -275,13 +278,28 @@ Ts_j = \sqrt{1\over{\sum_j{t_ij}}}
 
 \subsection{Last Model} % TODO- figure out last model. Once updated the paper overview in the introduction will need to be updated.
 Insert text here.
-
 \section{Results}
 \label{sec:res}
 Insert text here.
 
 \subsection{Distance Model}
 Insert text here.
+% I didn't know which figure we were going to need, so I included both of them.
+% NOTE : If viewing with overleaf, images can not be found, so do not include this code.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\textwidth]{Euclidean_Graph1}
+\caption{Results : Euclidean Graph1}
+\label{fig:Results1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\textwidth]{Euclidean_Graph2}
+\caption{Euclidean Graph2}
+\label{fig:Results2}
+\end{figure}
+% End of image importing
 
 \subsection{Markov Model}
 Insert text here.
