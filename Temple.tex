@@ -68,11 +68,11 @@
 \date{\today} % Leave empty to omit a date
 \renewcommand{\maketitlehookd}{%
 \begin{abstract}
-\noindent This paper uses various mathematical models to determine the best locations for the LDS church to build more temples within the United States.
-These models take into account current temple locations and the population density of members of the LDS church. 
-The Distance Model is used to minimize the average distance that members have to travel to their nearest temple within the United states. 
+\noindent This paper uses various mathematical models to determine the best locations for LDS temples to be built within the United States in order to benefit the most members of the LDS church.
+These models take into account the locations of current temples and the population density of members of the LDS church. 
+The Distance Model is used to minimize the average distance from members to their nearest temple within the United States.
 This investigation is followed by the Markov Chain Model.
-This model accounts for the likelihood of a member attending one of the temples closest to them based off of their distance from and the busyness of each temple.
+This model accounts for the likelihood of a member attending one of the temples closest to them based off of their distance from and the busyness of each temple using a probabilistic approach.
 \end{abstract}
 }
 % Do we need a keywords section?
@@ -87,23 +87,23 @@ This model accounts for the likelihood of a member attending one of the temples 
 \section{Introduction}
 
 For members of the Church of Jesus Christ of Latter-day Saints (the LDS Church), temples are believed to be imperative in the process of gaining salvation.
-Not only do members believe that temples are vital to salvation, but they also view temples as places of worship (Monson, 1995).
-Consequently, regular member access to temples is a high priority for the LDS Church.
+Not only do members believe that temples are vital to salvation, but they also view temples as places of worship (Monson, 1995). % I feel like the ideas of these two sentences should be swapped.  I feel like being imperative to salvation is a stronger idea than just being a place of worship.  If we wanted to improve access to worship sites, we could just use church buildings.
+Consequently, regular member access to temples is a high priority for the LDS Church. % Again, this feels mostly related to the salvation aspect of temples.
 To maximize temple access for its members, LDS church leaders seek to find the most effective location for each temple, as constructing new temples is an expensive and time intensive process.
-In the field of operations research, this problem is referred to as a facility location problem.
+In the field of operations research, finding the optimal location for a new building is referred to as a facility location problem.
 
-Location theory is a subfield of operations research that generally involves a set of demands and a set of facilities that can satisfy those demands (Melo, Nickel, \& Saldanha-da-Gama, 2009).
-Problems in location theory want to maximize the number of demands satisfied, which is done by finding the optimal locations for the facilities that satisfy these demands.
-There are a myriad of ways to define an optimal location, but the standard definition for median problems is a location that minimizes the average distance traveled to fulfill a demand (Owen \& Daskin, 1998). % So you're telling me that an optimal location is "a subset of median problems"?  Should it be a location that solves a subset of median problems?  Or is it a place that minimizes that average distance traveled to fulfill a demand?  Additionally, I looked (albeit briefly) through the source, but it didn't seem to include a definition of an optimal location or a discussion of the many definitions that exist.
-% Darren - I edited this line for what I believe sentence meant to say, while keeping it true to the cited article.
-The most prominent, and simplest, of these types of problems is the P-median problem, which tries to minimize the total distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990).
-Most other median problems are slight variants of the P-median problem.
+Location theory is a subfield of operations research that generally involves a set of demands and a set of facilities that can satisfy some of those demands (Melo, Nickel, \& Saldanha-da-Gama, 2009).
+Problems in location theory want to maximize the number of demands satisfied by finding optimal locations for facilities, either through adding facilities or relocating.
+There are a myriad of ways to define an optimal location, but the standard definition for median problems is a location that minimizes the average distance traveled to fulfill a demand (Owen \& Daskin, 1998).
+The most prominent, and simplest, of these types of problems is the P-median problem, which tries to minimize the distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990).
+Most other median problems are slight variants of the P-median problem taking into account various other parameters.
 
-In this paper, to solve the temple location problem of the LDS church, we use mathematical models similar to those that solve variants of P-median problems.
+In this paper, we use mathematical models similar to those that solve variants of the P-median problem to solve the temple location problem of the LDS church.
 We first use a Distance Model to determine new optimal temple locations to minimize the average distance that LDS church members must travel to their nearest temple. % Is there a standard name in the literature for a distance-based model?  I feel like calling it the "Distance Model" is a very elementary name, and if that's the current standard, then great, but it seems like there is likely another name typically used for this type of model.
 This problem seeks to maximize the number of LDS members that have access to a temple measured solely by proximity to a temple.
+We altered this model to use a weighted distance function to take account for behavioral choices.% Hasn't actually happened yet, but is in the works
 Next, we use a Markov chains to model the likelihood of a member going to a temple using distance to and the busyness of the temples closest to that member.
-This model attempts to optimize the number of LDS members that have frequent access to a temple.
+This model attempts to optimize the number of LDS members that have frequent access to a temple. % Not strictly true.  Using the MFPT, we find where a new temple will decrease average distance to the temple.  Using the sum of the entries in the perron eigenvector that correspond to temples, we find where putting a new temple into the system will increase the total number of people in the temple on a given day.
 Lastly, we use a ... % TODO- write about new model
 
 The rest of the paper will be as follows.
@@ -118,23 +118,23 @@ Finally, Section \ref{sec:conclusion} will give a summary of the paper along wit
 \label{sec:litrev}
 Facility location management is a well-established area within operations research.
 Current, Min and Schilling report that facility location management has been researched through the perspective of many different academic disciplines.
-They additionally cite one recent bibliography on the subject that had over 1500 titles, showing just how expansive research in the area is (1990).
+They additionally cite one recent bibliography on the subject that had over 1500 titles, showing the vast expanse of research in this area (1990).
 In their literature review, Owen and Daskin give an overview of the most used models among this immense amount of literature. 
 They comment on 15 differing subsets of facility location problems, again demonstrating the voluminousness of the literature (1998).
 
-Although the library of facility location management is vast, this paper focuses primarily on literature pertaining to median problems, with a specific emphasis on using Markov chain models.
+Although the library of facility location management is vast, this review focuses primarily on literature pertaining to median problems, with a specific emphasis on using Markov chain models.
 In the past, no model has been presented to optimize the placement of LDS temples, in either the United States or internationally.
-Our paper seeks to fill this gap in the literature. % What a gap.  How has no one noticed it before?
+Our paper seeks to fill this gap in the literature. % What a gap.  How has no one addressed  it before?  Also, we're not trying to fill the gap pertaining to international placement of temples, while this seems to imply that we are.
 
-The study of location theory began with Alfred Weber in 1909. 
+The study of location theory began with Alfred Weber in 1909. % How much of a history lesson is required for a literature review?
 He researched where to place a warehouse based off of the average distance that would be traveled by those who would need to visit the warehouse (Owen \& Daskin).
 This research created the basis for {\em median problems}, or problems to determine a facility location by minimizing the average distance traveled by consumers. % (suggested) With distance being a function of various variables i.e. actual distance, traffic, busyness, proximity to competitors, etc.
 As noted by Melo, Nickel and Saldanha-da-Gamma, the p-median problem is considered the simplest and most prominent median problem.  % This is almost exactly restating line 93 of this paper with a different source.  One of the lines should probably go or we can choose adjectives other than simplest and most prominent to describe the p-median problem.
 They define the p-median problem as the problem where p facilities need to be placed to minimize the total weighted distance or costs to satisfy customer demands (2009).
 
-From the simplest definition of p-median problems arises a myriad of slight variations of it to account for the context of the problem. % I thought the p-median problem was the simplest median problem?  Are there more than one original p-median problem?
+From the simplest definition of p-median problems arises a myriad of slight variations of it to account for the context of the problem. % I thought the p-median problem was the simplest median problem?  Is there more than one original p-median problem?
+For example, Berman, Drezner, and Wesolowsky use a model formulation which allows demands to be serviced by facilities other than the one closest to them (2003). % Is this relevant to our paper?  If so, how?
 In their review, Current, Min, and Schilling found that 33 out of 45 articles revealed dealt with a variation of a p-median problem.
-For an example variation, Berman, Drezner, and Wesolowsky use a model formulation which allows demands to be serviced by facilities other than the one closest to them (2003).
 
 Once a median problem has been formulated, a portion of literature furthers models the problem using a network of nodes.
 Bruni, Beraldi, and Conforti use an undirected graph to model a complex water distribution network (2016).
