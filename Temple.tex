@@ -223,7 +223,7 @@ The unconstrained optimization problem can then be written as:
 \end{aligned}
 \end{equation}
 
-In this model, we only considered $T_{new}$ with carnality 1; that is, we assume only one temple is to be built at a time. 
+In this model, we only considered $T_{new}$ with carnality 1; that is, we assume only one temple;s location is to be determined at a time. 
 This is for convenience of calculation, as the LDS church often decides to build multiple temples in a year. % We could include this in further research
 
 To maximize the objective function, we used a pseudo Monte Carlo method in which we divide the United States into one million evenly spaced points and evaluated the objective function at that point.
@@ -261,7 +261,7 @@ To understand this concept more fully, we consider a graph in which each stake i
 
 % If we want a figure to demonstrate every stake and its five closest temples, that's in Testing.ipynb.  It's a messy graph, though.
 
-% Create a figure to demonstrate stakes connected to 2 closest temples // Also in Testing.ipynb.
+% Create a figure to demonstrate stakes connected to 2 closest temples | Also in Testing.ipynb.
 
 % This code is based off of https://tex.stackexchange.com/questions/45734/drawing-graphs-in-latex
 %        as well as https://tex.stackexchange.com/questions/24000/how-to-add-caption-for-a-tikz-picture
@@ -305,7 +305,7 @@ To understand this concept more fully, we consider a graph in which each stake i
 In order to begin creating this model, we initialize a square probability matrix $T$ of zeros in which the first $n$ rows and columns correspond to the church stakes in the United States and the next $m$ rows and columns correspond to the church temples in the United States.
 Each $t_{ij}$ in the matrix represents the probability that a person in row $i$ will travel to column $j$ in the current state. The diagonal entries $t_{ii}$ represent the probability that a person will remain in their current location through the current state.
 The states of the matrix represent a single day.
-% Create a visual matrix representation of the matrix initialized // There's a version where the magnitude of the entry is color in No_Busyness_Test.ipynb
+% Create a visual matrix representation of the matrix initialized | There's a version where the magnitude of the entry is color in No_Busyness_Test.ipynb
 
 We begin populating the matrix by allowing the diagonals $t_{ii} = 29/30$ which numerically represents the assumption that in each state or day, $1/30$ of a stake's active temple attendees will attend the temple.
 We then adjust this number with a measure of a stakes relative busyness in a single day.
@@ -321,28 +321,35 @@ Ts_j = \sqrt{1\over{\sum_j{t_{ij}}}}
 
 \subsection{Last Model} % TODO- figure out last model. Once updated the paper overview in the introduction will need to be updated.
 Insert text here.
+
 \section{Results}
 \label{sec:res}
 Insert text here.
 
 \subsection{Distance Model}
-Insert text here.
-% I didn't know which figure we were going to need, so I included both of them.
+After running the Distance Model on one million points, we graphed the data for ease of analysis.
+In Figure 2, the magnitude of the reduction on total distance traveled by members of the LDS church is graphed on top of the United States for convenience of interpretation.
+The darker regions correspond to a greater impact on distance traveled.
+We can see that our model advises us to build a temple in northeastern Oklahoma or northwestern Arkansas.
+% Do we need to discuss other locations suggested by the model?  What else is "Results" for this model?
+
+% I didn't know which figure we were going to need, so I included both of them. | The first one's fine.  They are the same data graphed using a slightly different maximum.
 % NOTE : If viewing with overleaf, images can not be found, so do not include this code.
 \begin{figure}[h!] % The [h!] forces LaTeX to put the figure right where it appears in the text.
 \centering % Center it based on the text
 \includegraphics[width=0.6\textwidth]{Euclidean_Graph1} % Loads and scales the image
-\caption{Results : Euclidean Graph 1} % Adds a caption
+\caption{Results : Distance Model} % Adds a caption
 \label{fig:Results1}
 \end{figure}
 
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.6\textwidth]{Euclidean_Graph2}
-\caption{Euclidean Graph 2}
-\label{fig:Results2}
-\end{figure}
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[width=0.6\textwidth]{Euclidean_Graph2}
+%\caption{Euclidean Graph 2}
+%\label{fig:Results2}
+%\end{figure}
 % End of image importing
+% We should change the title of the graph to reflect that we're using the Distance model.  We should also remove the legend because it doesn't lend any useful information.  We could also get a basemap plot which would look a lot nicer.  We also may want to include the stake and temple locations on the graph.  It also might be nice to have a slightly larger graph so it is clearer to see.
 
 \subsection{Markov Model}
 Insert text here.
