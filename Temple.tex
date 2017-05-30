@@ -70,7 +70,7 @@
 \begin{abstract}
 \noindent This paper uses various mathematical models to determine the best locations for LDS temples to be built within the United States in order to benefit the most members of the LDS church.
 These models take into account the locations of current temples and the population density of members of the LDS church. 
-The Distance Model is used to minimize the average distance from members to their nearest temple within the United States.
+The Weighted Distance Model is used to minimize the average distance from members to their nearest temple within the United States.
 This investigation is followed by the Markov Chain Model.
 This model accounts for the likelihood of a member attending one of the temples closest to them based off of their distance from and the busyness of each temple using a probabilistic approach.
 \end{abstract}
@@ -99,7 +99,7 @@ The most prominent, and simplest, of these types of problems is the P-median pro
 Most other median problems are slight variants of the P-median problem taking into account various other parameters.
 
 In this paper, we use mathematical models similar to those that solve variants of the P-median problem to solve the temple location problem of the LDS church.
-We first use a Distance Model to determine new optimal temple locations to minimize the average distance that LDS church members must travel to their nearest temple. % Is there a standard name in the literature for a distance-based model?  I feel like calling it the "Distance Model" is a very elementary name, and if that's the current standard, then great, but it seems like there is likely another name typically used for this type of model.
+We first use a Weighted Distance Model to determine new optimal temple locations to minimize the average distance that LDS church members must travel to their nearest temple. % Is there a standard name in the literature for a distance-based model?  I feel like calling it the "Distance Model" is a very elementary name, and if that's the current standard, then great, but it seems like there is likely another name typically used for this type of model.
 This problem seeks to maximize the number of LDS members that have access to a temple measured solely by proximity to a temple.
 We altered this model to use a weighted distance function to take account for behavioral choices.% Hasn't actually happened yet, but is in the works
 Next, we use a Markov chains to model the likelihood of a member going to a temple using distance to and the busyness of the temples closest to that member.
@@ -110,7 +110,7 @@ The rest of the paper will be as follows.
 First, Section \ref{sec:litrev} contains a review of relevant literature.
 Section \ref{sec:prob} will present the problem in terms of a facility location problem.
 This section will define variables and discuss assumptions made about the data gathered.
-Section \ref{sec:models} will examine three modeling approaches to the problem; namely, a distance model, a Markov chain model, and ... %TODO- Decide on last model.
+Section \ref{sec:models} will examine three modeling approaches to the problem; namely, a Weighted Distance model, a Markov chain model, and ... %TODO- Decide on last model.
 Section \ref{sec:res} will present the results and Section \ref{sec:analysis} will analyze the implications of the results.
 Finally, Section \ref{sec:conclusion} will give a summary of the paper along with areas for further research.
 
@@ -180,7 +180,7 @@ $\tau_{i}$ & Temple score of temple $t_{i}$\\
 \noindent To fully understand our approach, it is crucial to know what factors were considered relevant, and which were excluded. % Do we need to discuss what we excluded from our analysis?
 Chief among these factors is the distance $d(s_{i},t_{j})$ from a stake center to a temple.
 This distance is measured using the Vincenty Algorithm in order to account for the shape of the earth and give very accurate measurements based on latitude and longitude.
-While this may be sufficient for the distance model, a fair number of other considerations were necessary for the Markov chain model and the ...
+While this may be sufficient for the Weighted Distance model, a fair number of other considerations were necessary for the Markov chain model and the ...
 For the Markov chain model, we included a measure of the busyness for each temple.
 To do this, we gave each temple a score, $\tau_{i}$, based on the number of stakes that listed that temple as one of its five closest temples, determined by Euclidean distance.
 Using these scores, we assigned each stake a density $\rho_{i}$, that sought to relate how much traffic each stake would provide to its surrounding temples.
@@ -201,13 +201,14 @@ As choosing the location of an LDS temple mathematically involves various assump
 Each subsection is self-contained in the assumptions made and the problem setup.
 Along with the individual models presented in each subsection, there is also a brief summary of the algorithmic approach used to find the optimal solution to each.
 
-\subsection{Distance Model} 
+\subsection{Weighted Distance Model} 
 
-The simplest model used is the Distance Model (DM).
-The purpose of DM is to minimize the average distance a given member of a LDS stake has to travel to get to their closest temple.% Is this just the p-median problem?  Are there notable differences we should bring up?
+The simplest model used is the Weighted Distance Model (WDM).
+The purpose of WDM is to minimize the average weighted distance a given member of an LDS stake has to travel to get to their closest temple.% Is this just the p-median problem?  Are there notable differences we should bring up?
 As such, this model does not take into account the capacity of the temples, nor the relative accessibility of other temples, even if they are a similar distance away. % Do any of our models take into account the capacity of the temple?
 The only assumption made about the behavior of church members are that they desire to have a temple close to their stake center, and that they will only use the closest temple to them.
 
+% TODO update for WEIGHTED distance, instead of just distance
 The mathematical setup is as follows. Let each stake be represented as $s_i$ and each temple $t_j$, and let the set of all the stakes be represented as $S$ and likewise the temples as $T$.
 The average distance a given member of an LDS stake has to travel to get to their closest temple is:
 
