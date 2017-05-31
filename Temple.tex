@@ -86,6 +86,8 @@ This model accounts for the likelihood of a member attending one of the temples 
 
 \section{Introduction}
 
+% Something to decide on: We've analyzed the data using both weighted distance and unweighted distance.  Are we planning to discuss only the weighted distance in the paper, or do we want to compare the results we got from both approaches?
+
 For members of the Church of Jesus Christ of Latter-day Saints (the LDS Church), temples are viewed as a place of worship (Monson, 1995).
 Additionally, they are believed to be imperative in the process of gaining salvation.
 Consequently, regular member access to temples is a high priority for the LDS Church.
@@ -98,8 +100,8 @@ There are a myriad of ways to define an optimal location, but the standard defin
 The most prominent, and simplest, of these types of problems is the P-median problem, which tries to minimize the distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990).
 Most other median problems are slight variants of the P-median problem taking into account various other parameters.
 
-In this paper, we use mathematical models similar to those that solve variants of the P-median problem to solve the temple location problem of the LDS church.
-We first apply the model correlated with the Fermat-Weber problem, or the original location theory problem of finding a point to minimize weighted distances between it and a set of points, to our problem (Bose, Maheshwari, Morin, 2003).
+In this paper, we use mathematical models similar to those that solve variants of the P-median problem to solve the temple location problem of the LDS church. % This sentence is clunky, but I can't think of how to fix it.
+We first apply the model correlated with the Fermat-Weber problem, or the original location theory problem of finding a point to minimize weighted distances between it and a set of points, to our problem (Bose, Maheshwari, Morin, 2003). % Maybe the F-W problem should get its own explanatory sentence prior to this?
 The weights in our model account for behavioral choices.
 This model is used to determine the new optimal temple locations to minimize the average distance that LDS church members must travel to their nearest temple.
 This problem seeks to maximize the number of LDS members that have access to a temple measured solely by proximity to a temple.
@@ -130,13 +132,11 @@ Although the library of facility location management is vast, this review focuse
 The study of location theory began with Alfred Weber in 1909.
 He researched where to place a warehouse based off of the average distance that would be traveled by those who would need to visit the warehouse (Owen \& Daskin, 1998).
 This research created the basis for {\em median problems}, or problems to determine a facility location by minimizing the average distance traveled by consumers. 
-This distance is often weighted.
-These weight could pertain to traffic, proximity to competitors, tolls, etc., etc.
+This distance is often weighted using factors like traffic, proximity to competitors, and tolls.
 As noted by Melo, Nickel and Saldanha-da-Gamma, the p-median problem is considered to be the foundational median problem.
 They define the $p$-median problem as the problem where $p$ facilities need to be placed to minimize the total weighted distance or costs to satisfy customer demands (2009).
 
-From this rudimentary definition of a $p$-median problem arises a myriad of slight variations of it to account for the context of the problem. % I thought the p-median problem was the simplest median problem?  Is there more than one original p-median problem?
-% TO THE COMMENT ABOVE: I didn't change this sentence much in my edits because the slight variations referred to aren't the original. The p-median is the simplest and all other median problems are more complicated versions of it. If you have any other questions feel free to let me know! Also, if the sentence still doesn't make sense I can change it! -McKell
+From this rudimentary definition of a $p$-median problem arises a myriad of slight variations of it to account for the context of the problem. 
 For example, Berman, Drezner, and Wesolowsky use a model formulation which allows demands to be serviced by facilities other than the one closest to them (2003). % Is this relevant to our paper?  If so, how?
 % TO COMMENT ABOVE: Nope it isn't. It's just an example to support and give further understanding to the previous sentence. You can definitely delete it if you want, because the next sentence supports the point as well. -McKell
 In their review, Current, Min, and Schilling found that 33 out of 45 articles revealed dealt with a variation of a p-median problem (1990).
@@ -226,7 +226,7 @@ The unconstrained optimization problem can then be written as:
 \end{aligned}
 \end{equation}
 
-In this model, we only considered $T_{new}$ with carnality 1; that is, we assume only one temple;s location is to be determined at a time. 
+In this model, we only considered $T_{new}$ with carnality 1; that is, we assume only one temple's location is to be determined at a time. 
 This is for convenience of calculation, as the LDS church often decides to build multiple temples in a year. % We could include this in further research
 
 To maximize the objective function, we used a pseudo Monte Carlo method in which we divide the United States into one million evenly spaced points and evaluated the objective function at that point.
@@ -245,17 +245,17 @@ This section gives a brief outline of key characteristics of a Markov chain and 
 \subsubsection{Background}
 
 A Markov chain is an example of a stochastic simulation of a $n$ state closed system. % How much background do we want to include?  We don't want to copy the paper we're basing this off.
-We create an $n\times n$ matrix $P$ where $p_{i,j}$ represents the probability of moving from state $i$ to state $j$.
+We create an $n\times n$ matrix $P$ where $p_{i,j}$ represents the probability of moving from state $i$ to state $j$ in one time step.
 We observe that in each time step, the probability that a person moves from state $i$ to another state in the system is 1 because we have a closed system.
 This means that each row in our transition matrix should have sum equal to one, which is known as {\em row stochastic}.
 
-One of the powerful applications of Markov chains is that we can simulate what happens to a starting position.
+One of the powerful applications of Markov chains is that we can simulate what happens in the long run to a starting position. % I feel like 'position' is a weak descriptor, but I can't think of a nice alternative.
 We can model any starting point as a vector $x_0$ and see what happens after one time step by letting $x_1 = P x_0$.
 More generally, we say $x_{n + 1} = P x_n$.
 Because we have a row stochastic matrix, we can see that the all-ones vector is an eigenvector of $P$, which implies that the spectral radius is 1. % Needs smoothing, maybe an additional sentence.
 % Include hypothesis of Perron Frob. theorem?
-The Perron Frobenious Theorem tells us that in this case, the dominant left eigenvalue is 1, it has an all-positive eigenvector, and it represents the steady state of the system.
-This eigenvector is known as the Perron eigenvector and is important for our analysis of the model.
+The Perron Frobenious Theorem tells us that in this case, the dominant left eigenvalue is 1, it has an all-positive eigenvector.
+This eigenvector is known as the Perron eigenvector and is important for our analysis of the model because it represents the steady state of the model.
 
 \subsubsection{Model}
 The second model used is closely based on the Markov chain application of Faizrahnemoon, Schlote, Maggi, Crisostomi, and Shorten (2015).
