@@ -100,8 +100,8 @@ In the field of operations research, finding the optimal location for a new buil
 Location theory is a subfield of operations research that generally involves a set of demands and a set of facilities that can satisfy some of those demands (Melo, Nickel, \& Saldanha-da-Gama, 2009).
 Problems in location theory want to maximize the number of demands satisfied by finding optimal locations for facilities, either through adding facilities or relocating.
 There are a myriad of ways to define an optimal location, but the standard definition for median problems is a location that minimizes the average distance traveled to fulfill a demand (Owen \& Daskin, 1998).
-The most prominent, and simplest, of these types of problems is the $P$-median problem, which tries to minimize the distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990).
-Most other median problems are slight variants of the $P$-median problem that take into account various other parameters than just pure distance.
+The simplest, most prominent of these types of problems is the $P$-median problem, which tries to minimize the distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990).
+Most other median problems are slight variants of the $P$-median problem that take into account parameters additional to distance.
 
 In this paper, we define the temple location problem as a variant of the $P$-median problem.
 We will consequently use mathematical models similar to those that typically solve median problems.
@@ -113,7 +113,7 @@ We take several approaches to this model, including: accounting for only distanc
 
 Our next model uses Markov chains to simulate the likelihood of a member going to a temple using the distance to and the busyness of the temples closest to that member.
 Similar to the first model, it initially finds the optimal location of a temple based off of average distance.
-But after this, the model attempts to maximize the number of people in the temple on a given day.
+But after this, the model attempts to maximize the number of people in the temple on a given day. % This makes it sound like our model runs the weighted-distance model and then does something afterwords in order to convince people to attend the new temple.  I feel like this description leaves me wondering what the markov model has to offer
 
 The rest of the paper will be as follows.
 First, Section \ref{sec:litrev} contains a review of relevant literature.
@@ -231,10 +231,10 @@ The unconstrained optimization problem can then be written as:
 \end{equation}
 
 In this model, we only considered $T_{new}$ with carnality 1; that is, we assume only one temple's location is to be determined at a time. 
-This is for convenience of calculation, as the LDS church often decides to build multiple temples in a year. % We could include this in further research
+This is for convenience of calculation, as the LDS church often decides to build multiple temples in a year. % We could include this in further research | We actually did some hill climbing to see if building multiple temples at once would change where we should build.  As it turns out, the US is spread out enough that it doesn't have much of an effect on where we put temples.
 
 To maximize the objective function, we used a pseudo Monte Carlo method in which we divide the United States into one million evenly spaced points and evaluated the objective function at that point.
-We assumed the objective function is smooth, so following that we looked more closely at the places at which our model indicated there was need of a temple % to be deleted if we don't do further analysis as suggested by Dr. Jarvis.  Also, do we have some slick justification behind the smoothness of the objective function?
+We assumed the objective function is smooth, so following that we looked more closely at the places at which our model indicated there was need of a temple % to be deleted if we don't do further analysis as suggested by Dr. Jarvis.  Also, do we have some slick justification behind the smoothness of the objective function? | Turns out it's not smooth...
 
 
 \subsection{Markov Modeling}
@@ -309,7 +309,7 @@ To understand this concept more fully, we consider a graph in which each stake i
 \end{figure}
 % End code for graph
 
-In order to begin creating this model, we initialize a square probability matrix $T$ of zeros in which the first $n$ rows and columns correspond to the church stakes in the United States and the next $m$ rows and columns correspond to the church temples in the United States.
+In order to begin creating this model, we initialize a square probability matrix $T$ in which the first $n$ rows and columns correspond to the church stakes in the United States and the next $m$ rows and columns correspond to the church temples in the United States.
 Each $t_{ij}$ in the matrix represents the probability that a person in row $i$ will travel to column $j$ in the current state. The diagonal entries $t_{ii}$ represent the probability that a person will remain in their current location through the current state.
 The states of the matrix represent a single day.
 % Create a visual matrix representation of the matrix initialized | There's a version where the magnitude of the entry is color in No_Busyness_Test.ipynb
