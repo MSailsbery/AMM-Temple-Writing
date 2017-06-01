@@ -87,35 +87,39 @@ This model accounts for the likelihood of a member attending one of the temples 
 \section{Introduction}
 
 % Something to decide on: We've analyzed the data using both weighted distance and unweighted distance.  Are we planning to discuss only the weighted distance in the paper, or do we want to compare the results we got from both approaches?
+% I vote for comparing the two approaches! Because didn't they have different results? And it shows our processes. They could be in same subsection though, just have our first sub-case be where the weights were set to 0-McKell
 
 For members of the Church of Jesus Christ of Latter-day Saints (the LDS Church), temples are viewed as a place of worship (Monson, 1995).
 Additionally, they are believed to be imperative in the process of gaining salvation.
 Consequently, regular member access to temples is a high priority for the LDS Church.
 To maximize temple access for its members, LDS church leaders seek to find the most effective location for each temple, as constructing new temples is an expensive and time intensive process.
-In the field of operations research, finding the optimal location for a new building is referred to as a facility location problem.
+The LDS temple problem can thus be defined as determining new optimal temple locations to minimize the average distance that LDS church members must travel to their nearest temple.
+This problem seeks to maximize the number of LDS members that have access to a temple measured by proximity to a temple and behavioral choices.
 
+In the field of operations research, finding the optimal location for a new building is referred to as a facility location problem.
 Location theory is a subfield of operations research that generally involves a set of demands and a set of facilities that can satisfy some of those demands (Melo, Nickel, \& Saldanha-da-Gama, 2009).
 Problems in location theory want to maximize the number of demands satisfied by finding optimal locations for facilities, either through adding facilities or relocating.
 There are a myriad of ways to define an optimal location, but the standard definition for median problems is a location that minimizes the average distance traveled to fulfill a demand (Owen \& Daskin, 1998).
-The most prominent, and simplest, of these types of problems is the P-median problem, which tries to minimize the distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990).
-Most other median problems are slight variants of the P-median problem taking into account various other parameters.
+The most prominent, and simplest, of these types of problems is the $P$-median problem, which tries to minimize the distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990).
+Most other median problems are slight variants of the $P$-median problem that take into account various other parameters than just pure distance.
 
-In this paper, we use mathematical models similar to those that solve variants of the P-median problem to solve the temple location problem of the LDS church. % This sentence is clunky, but I can't think of how to fix it.
-We first apply the model correlated with the Fermat-Weber problem, or the original location theory problem of finding a point to minimize weighted distances between it and a set of points, to our problem (Bose, Maheshwari, Morin, 2003). % Maybe the F-W problem should get its own explanatory sentence prior to this?
-The weights in our model account for behavioral choices.
-This model is used to determine the new optimal temple locations to minimize the average distance that LDS church members must travel to their nearest temple.
-This problem seeks to maximize the number of LDS members that have access to a temple measured solely by proximity to a temple.
+In this paper, we define the temple location problem as a variant of the $P$-median problem.
+We will consequently use mathematical models similar to those that typically solve median problems.
+We first use the model correlated with the Fermat-Weber problem, the oldest facility location problem.
+The Fermat-Weber problem seeks to find a point to minimize weighted distances between the point and a set of points (Bose, Maheshwari, Morin, 2003).
+We will call the model associated with this problem the Weighted-Distance Model for notational convenience.
+We take several approaches to this model, including: accounting for only distance by setting the weights to one, and having the weights be non-trivial to account for behavioral choices.
+% FYI, someone asked if there was a more standard name for the weighted-distance model. I looked it up and I don't think there is. It is the model associated with the F-W problem though. -McKell
 
-Next, we use Markov chains to model the likelihood of a member going to a temple using the distance to and the busyness of the temples closest to that member.
-Similar to the previous model, it first finds the optimal location of a temple based off of average distance.
+Our next model uses Markov chains to simulate the likelihood of a member going to a temple using the distance to and the busyness of the temples closest to that member.
+Similar to the first model, it initially finds the optimal location of a temple based off of average distance.
 But after this, the model attempts to maximize the number of people in the temple on a given day.
-Lastly, we use a ... % TODO- write about new model
 
 The rest of the paper will be as follows.
 First, Section \ref{sec:litrev} contains a review of relevant literature.
 Section \ref{sec:prob} will present the problem in terms of a facility location problem.
 This section will define variables and discuss assumptions made about the data gathered.
-Section \ref{sec:models} will examine three modeling approaches to the problem; namely, models based off of weighted distances, Markov chains, and ... %TODO- Decide on last model.
+Section \ref{sec:models} will examine two modeling approaches to the problem; namely, models based off of strict distances and then weighted distances with Markov chains.
 Section \ref{sec:res} will present the results and Section \ref{sec:analysis} will analyze the implications of the results.
 Finally, Section \ref{sec:conclusion} will give a summary of the paper along with areas for further research.
 
@@ -134,9 +138,9 @@ He researched where to place a warehouse based off of the average distance that 
 This research created the basis for {\em median problems}, or problems to determine a facility location by minimizing the average distance traveled by consumers. 
 This distance is often weighted using factors like traffic, proximity to competitors, and tolls.
 As noted by Melo, Nickel and Saldanha-da-Gamma, the p-median problem is considered to be the foundational median problem.
-They define the $p$-median problem as the problem where $p$ facilities need to be placed to minimize the total weighted distance or costs to satisfy customer demands (2009).
+They define the $P$-median problem as the problem where $p$ facilities need to be placed to minimize the total weighted distance or costs to satisfy customer demands (2009).
 
-From this rudimentary definition of a $p$-median problem arises a myriad of slight variations of it to account for the context of the problem. 
+From this rudimentary definition of a $P$-median problem arises a myriad of slight variations of it to account for the context of the problem. 
 For example, Berman, Drezner, and Wesolowsky use a model formulation which allows demands to be serviced by facilities other than the one closest to them (2003). % Is this relevant to our paper?  If so, how?
 % TO COMMENT ABOVE: Nope it isn't. It's just an example to support and give further understanding to the previous sentence. You can definitely delete it if you want, because the next sentence supports the point as well. -McKell
 In their review, Current, Min, and Schilling found that 33 out of 45 articles revealed dealt with a variation of a p-median problem (1990).
@@ -329,8 +333,8 @@ Insert text here.
 \label{sec:res}
 Insert text here.
 
-\subsection{Distance Model}
-After running the Distance Model on one million points, we graphed the data for ease of analysis.
+\subsection{Weighted-Distance Model}
+After running the Weighted-Distance Model on one million points, we graphed the data for ease of analysis.
 In Figure 2, the magnitude of the reduction on total distance traveled by members of the LDS church is graphed on top of the United States for convenience of interpretation.
 The darker regions correspond to a greater impact on distance traveled.
 We can see that our model advises us to build a temple in northeastern Oklahoma or northwestern Arkansas.
@@ -429,12 +433,6 @@ Owen S, Daskin M.
 \newblock Strategic facility location: a review.
 \newblock {\em European Journal of Operational Research.} 1998; 111:423-447.
 
-% This section was taken out of the introduction.
-%\bibitem["Statistics", 2017]{Stats:2017}
-%\newblock 2017; Retrieved from http://www.ldschurchtemples.com/statistics/
-
 \end{thebibliography}
-
-%----------------------------------------------------------------------------------------
 
 \end{document}
