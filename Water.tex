@@ -18,6 +18,8 @@
 
 \usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
 
+\usepackage{import}
+
 \usepackage{enumitem} % Customized lists
 \setlist[itemize]{noitemsep} % Make itemize lists more compact
 
@@ -83,19 +85,18 @@ It also includes a multi-stage model for budget efficiency and advanced planning
 %----------------------------------------------------------------------------------------
 %	ARTICLE CONTENTS
 %----------------------------------------------------------------------------------------
-
 \section{Introduction}
-
+\subimport{.}{intro}
 \section{Background}
-
+\subimport{.}{background}
 \section{Previous Studies}
-
+\subimport{.}{previous_studies}
 \section{Data}
-
-\section{Quantitative Approach}
-
+\subimport{.}{data}
+\section{quantitative}
+\subimport{.}{results}
 \section{Results}
-
+\subimport{.}{conclusion}
 \section{Conclusion}
 
 \end{document}
