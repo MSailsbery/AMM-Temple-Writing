@@ -28,7 +28,6 @@ Let $X = \{X_1,X_2,X_3,...,X_n\}$ be the survey cluster locations and $y = \{y_1
 These are defined more specifically as $y_1 = \text{Chlorine filters}$, $y_2 = \text{Hand Dug Well}$, $y_3 = \text{Drilled Well}$, $y_4 = \text{Communal Standpipe}$.
 Then, the objective statement for each $X_i$ rests as: %include per household somehow
 
-\begin{center}
 \begin{equation}
 \begin{aligned}
 & \underset{y}{\text{maximize}}
@@ -41,7 +40,6 @@ Then, the objective statement for each $X_i$ rests as: %include per household so
 & & \text{Cost of Intervention } y_i \\
 \end{aligned}
 \end{equation}
-\end{center}
 
 Each of these variables are dependent on various assumptions and approximate values.
 Each will be broken down in turn.
@@ -57,9 +55,9 @@ With this area found, a square shape was created with the same area and the surv
 This scattering was based on the assumption that surveyees lived in clumps or population centers.
 %%% Include picture of square with points scattered %%%
 A water source was then figuratively placed in the middle of our test area and each record was reviewed to see if it had an improved access to water, and how great the improvement was.
-This process was performed over $G$ iterations and the results were recorded as $a_j$ for binary effect and $b_j$ for the amount of impact:
+This process was performed over $G$ iterations and the results were recorded as $a_j$ for impact status and $b_j$ for the amount of impact:
 
-\begin{center}
+
 \begin{equation*}
 a_j = \{a_{j1},a_{j2},...,a_{jG}\}
 \end{equation*}
@@ -74,8 +72,6 @@ a_{jg} =
 \right.
 \end{equation*}
 
-and
-
 \begin{equation*}
 b_j = \{b_{j1},b_{j2},...,b_{jG}\}
 \end{equation*}
@@ -89,15 +85,33 @@ b_{jg} =
 \end{array}
 \right.
 \end{equation*}
-\end{center}
+
+After all iterations, 
+\begin{equation*}
+\frac{a_j}{G}
+\end{equation*}
+gave a probability that each record was affected in the intervention and
+\begin{equation*}
+a = \sum_{j=1}^{J} \sum_{g=1}^{G} a_{jg}
+\end{equation*}
+gave the approximate number of records affected.
+The average impact on each of these records was recorded as
+\begin{equation*}
+\text{is this correct?}
+b = \frac{\sum_{j=1}^{J} \sum_{g=1}^{G} b_jg}{a}
+\end{equation*}
+
+By this method, the improvement of travel time was quantified.
+
+\subsubsection*{Illness and Death Improvements}
 
 
-, $a_j,b_j$ for record $j$, were recorded on each iteration to give 
-After $G$ iterations, each survey record had an assigned probability of being affected by the water change.
-This particular impact was then quantified by taking the sum of the records probabilities and multiplying them by the average improvement 
+\subsubsection*{Cost of Intervention}
+In order to get a cost of each intervention in $Y$, a great deal of standard values had to be used.
+These costs had to be first divided into \emph{capital} and \emph{recurrent} costs.
+Inflation had to be factored in and the following assumptions were made.
 
-
-
+$$c_1 = 20 \text{ (years each intervention lasted)}$$
 
 
 
