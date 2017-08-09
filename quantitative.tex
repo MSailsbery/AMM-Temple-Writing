@@ -1,3 +1,6 @@
+
+
+\subsubsection*{Outline}
 As previously stated, the methodology for cost-benefit analysis in water interventions had only been done on a local and selective fashion.
 Thus, an approach that automated and generalized previous work was necessary.
 This approach was based on the qualitative outline given by the World Health Organization from "Valuing Water, Valuing Livelihoods."
@@ -20,6 +23,7 @@ $\text{Sickness Time} = \text{Number of cases} \times \text{Days Sick per Case} 
 These variables were computed across a country in the assigned survey clusters and used a combination of data collection, standard industry values, and statistical inference.
 The following will outline the order of the model's interaction.
 
+\subsubsection*{Objective Function}
 Let $X = \{X_1,X_2,X_3,...,X_n\}$ be the survey cluster locations and $y = \{y_1,y_2,y_3,y_4\}$ be the possible water interventions to help a cluster.
 These are defined more specifically as $y_1 = \text{Chlorine filters}$, $y_2 = \text{Hand Dug Well}$, $y_3 = \text{Drilled Well}$, $y_4 = \text{Communal Standpipe}$.
 Then, the objective statement for each $X_i$ rests as: %include per household somehow
@@ -42,11 +46,63 @@ Then, the objective statement for each $X_i$ rests as: %include per household so
 Each of these variables are dependent on various assumptions and approximate values.
 Each will be broken down in turn.
 
+\subsubsection*{Travel Improvements}
 First, travel time gained is exclusive only to $y_2,y_3,y_4$ which contribute a new or improved water source.
 In order to consider the location of the new intervention, various techniques were used to fill in the gaps of exact GPS locations for survey participants.
 First, each region was split up into Voronoi shapes using survey cluster centers as the points of the diagram. %include Voronoi equation
 The area of each shape was then computed by intersecting them with region boundaries and using the Shoelace or Gauss-Area formula. %include shoelace formula
 %%% Include picture of sample Voronoi shapes in country or region boundaries %%%
+
 With this area found, a square shape was created with the same area and the surveyees were scattered throughout the square area using a uniform distribution and gamma distribution.
 This scattering was based on the assumption that surveyees lived in clumps or population centers.
 %%% Include picture of square with points scattered %%%
+A water source was then figuratively placed in the middle of our test area and each record was reviewed to see if it had an improved access to water, and how great the improvement was.
+This process was performed over $G$ iterations and the results were recorded as $a_j$ for binary effect and $b_j$ for the amount of impact:
+
+\begin{center}
+\begin{equation*}
+a_j = \{a_{j1},a_{j2},...,a_{jG}\}
+\end{equation*}
+
+\begin{equation*}
+a_{jg} =
+\left\{
+\begin{array}{ll}
+      0 & \text{if impact}\\
+      1 & \text{if no impact} \\
+\end{array}
+\right.
+\end{equation*}
+
+and
+
+\begin{equation*}
+b_j = \{b_{j1},b_{j2},...,b_{jG}\}
+\end{equation*}
+
+\begin{equation*}
+b_{jg} =
+\left\{
+\begin{array}{ll}
+      t_{\text{new}} - t_{\text{prev}} & \text{if impact} \\
+      0 & \text{if no impact}\\
+\end{array}
+\right.
+\end{equation*}
+\end{center}
+
+
+, $a_j,b_j$ for record $j$, were recorded on each iteration to give 
+After $G$ iterations, each survey record had an assigned probability of being affected by the water change.
+This particular impact was then quantified by taking the sum of the records probabilities and multiplying them by the average improvement 
+
+
+
+
+
+
+
+
+
+
+
