@@ -28,7 +28,7 @@ Where Disability Adjusted Life Years are defined as:
 
 These variables were computed in the assigned survey clusters and their estimation required survey date, standard industry values, and statistical inference.
 The following is an outline the techniques used to calculate the cost and benefit of water system interventions.
-First, we state the objective function, which is to me maximized. 
+First, we state the objective function, which is to be maximized. 
 Second, we explain each of the variables in the function in its own subsection.
 
 \subsubsection*{Objective Function}
@@ -61,9 +61,9 @@ Then, the objective statement for each $X_i$ is formulated as: %include per hous
 \subsubsection*{Travel Improvements}
 The travel time gained is only estimated for $y_2,y_3,y_4$, because these constitute the creation of a new water source.
 In order to consider the effects of the location of the intervention on the benefit it contributes, mathematical and statistical techniques were used.
-This also purposed to "fill in the gaps" of exact GPS locations of survey participants.
+This also served the purpose of "filling in the gaps" of exact GPS locations of survey participants.
 [Make sure data section covers this gap]
-First, each region in the country was split up into subregions by using a Voronoi diagram.
+First, the entire area of the country was split up into subregions by using a Voronoi diagram.
 For a full explanation of the method of Voronoi partitioning, the reader can consult ******** .
 This mathematical technique partitions an area into sections based on the GPS location of cluster centers. %include Voronoi equation
 The area of each shape was then computed by truncated the sections with the region boundaries and using Gauss' Area Formula. %include shoelace formula
@@ -132,10 +132,21 @@ The improvement a given intervention allotted to citizens through the reduction 
 In addition to reducing the travel time to collect water, all listed interventions were assumed to give an improvement in health by reducing the cases of diarrhea in a country. 
 This reduction in cases was calculated in terms of relative risk of sickness, and was based in large part upon the the findings of ******** and *********.
 The original sickness rate was calculated via survey data.
-Then, the amount of cases of sickness that the intervention prevented was multiplied by the average amount of healthy life years that were saved form this intervention. 
+Then, the amount of cases of sickness that the intervention prevented was multiplied by the average amount of healthy life years that were saved from this intervention. A relative risk of $0$ means that there are no more cases of diarrhea after the intervention while $1$ would mean that the intervention has no effect.
 
 \begin{equation*}
-I_am_an_equation_somebody_should_code_me_up
+r = \text{relative risk for y_i}
+p = \text{proportion of surveyees that experienced diarrhea in previous 4 weeks}
+t = \text{time conversion factor to years}
+d = \text{3 days of sickness per case}
+pop = \text{estimated population of cluster}
+le = \text{life expectancy}
+ad = \text{Average age of death}
+dd = \text{proportion of diarrhea cases that end in death}
+
+DALY_{sickness} = t*(1-r)*p*pop*d
+DALY_{death} = (1-r)*p*pop*dd*(le - ad)
+DALY =  DALY_{sickness} + DALY_{death}
 \end{equation*}
 
 \subsubsection*{Cost of Intervention}
