@@ -135,18 +135,28 @@ The original sickness rate was calculated via survey data.
 Then, the amount of cases of sickness that the intervention prevented was multiplied by the average amount of healthy life years that were saved from this intervention. A relative risk of $0$ means that there are no more cases of diarrhea after the intervention while $1$ would mean that the intervention has no effect.
 
 \begin{equation*}
-r = \text{relative risk for y_i}
-p = \text{proportion of surveyees that experienced diarrhea in previous 4 weeks}
-t = \text{time conversion factor to years}
-d = \text{3 days of sickness per case}
-pop = \text{estimated population of cluster}
-le = \text{life expectancy}
-ad = \text{Average age of death}
-dd = \text{proportion of diarrhea cases that end in death}
-
-DALY_{sickness} = t*(1-r)*p*pop*d
-DALY_{death} = (1-r)*p*pop*dd*(le - ad)
-DALY =  DALY_{sickness} + DALY_{death}
+\begin{aligned}
+& R = 
+& & \text{relative risk for } y_i \\
+& N =
+& & \text{number of cases before intervention} \\
+& k = 
+& & \text{time conversion factor to years} \\
+& D = 
+& & \text{3 days of sickness per case} \\
+& LE = 
+& & \text{life expectancy} \\
+& AD = 
+& & \text{average age of death from diarrhea} \\
+& PD = 
+& & \text{proportion of diarrhea cases that end in death} \\
+& DALY_{sickness} = 
+& & k \times (1-R) \times N \times d \\
+& DALY_{death} = 
+& & (1-R)\times N \times PD \times (LE - AD) \\
+& DALY =
+& & DALY_{sickness} + DALY_{death} \\
+\end{aligned}
 \end{equation*}
 
 \subsubsection*{Cost of Intervention}
@@ -157,11 +167,3 @@ The following assumptions were made.
 [Refer the constants that were assumed in the Appendix or define them here?]
 
 $$c_1 = 20 \text{ (years each intervention lasted)}$$
-
-
-
-
-
-
-
-
