@@ -49,14 +49,15 @@ Then, the objective statement for each $X_i$ is formulated as: %include per hous
 \begin{aligned}
 & \underset{y}{\text{maximize}}
 & & \frac{T_y + S_y}{P_y}  \\
-& T_y =
-& & \text{Travel Time Gained from } y_i \\
-& S_y =
-& & \text{Illness and Death Time Gained from } y_i \\
-& P_y =
-& & \text{Cost of Intervention } y_i \\
 \end{aligned}
 \end{equation}
+\begin{equation*}
+\begin{aligned}
+& T_y = \text{Travel Time Gained from } y_i \\
+& S_y = \text{Illness and Death Time Gained from } y_i \\
+& P_y = \text{Cost of Intervention } y_i \\
+\end{aligned}
+\end{equation*}
 
 \subsubsection*{Travel Improvements}
 The travel time gained is only estimated for $y_2,y_3,y_4$, because these constitute the creation of a new water source.
@@ -136,26 +137,16 @@ Then, the amount of cases of sickness that the intervention prevented was multip
 
 \begin{equation*}
 \begin{aligned}
-& r_i 
-& & = \text{relative risk for } y_i \\
-& N
-& & = \text{number of cases before intervention} \\
-& k 
-& & = \text{time conversion factor to years} \\
-& D 
-& & = \text{3 days of sickness per case} \\
-& LE 
-& & = \text{life expectancy} \\
-& AD 
-& & = \text{average age of death from diarrhea} \\
-& PD 
-& & = \text{proportion of diarrhea cases that end in death} \\
-& DALY_{sickness} 
-& & = k \times (1-r_i) \times N \times d \\
-& DALY_{death} 
-& & = (1-r_i)\times N \times PD \times (LE - AD) \\
-& DALY
-& & = DALY_{sickness} + DALY_{death} \\
+& r_i = \text{relative risk for } y_i \\
+& N = \text{number of cases before intervention} \\
+& k = \text{time conversion factor to years} \\
+& D = \text{3 days of sickness per case} \\
+& LE  = \text{life expectancy} \\
+& AD = \text{average age of death from diarrhea} \\
+& PD = \text{proportion of diarrhea cases that end in death} \\
+& DALY_{sickness} = k \times (1-r_i) \times N \times d \\
+& DALY_{death} = (1-r_i)\times N \times PD \times (LE - AD) \\
+& DALY = DALY_{sickness} + DALY_{death} \\
 \end{aligned}
 \end{equation*}
 
