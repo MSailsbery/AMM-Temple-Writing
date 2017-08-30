@@ -1,0 +1,366 @@
+\documentclass[twoside,twocolumn]{article}
+\usepackage{blindtext}
+\usepackage{amsmath}
+\DeclareMathOperator*{\minimize}{minimize}
+%\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage[english]{babel}
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry}
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption}
+\usepackage{booktabs}
+\usepackage{lettrine}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep}
+\usepackage{abstract}
+\renewcommand{\abstractnamefont}{\normalfont\bfseries}
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape}
+\usepackage{titlesec}
+\renewcommand\thesection{\Roman{section}}
+\renewcommand\thesubsection{\roman{subsection}}
+\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{}
+\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[C]{A STUDY OF SOLVING FACILITY LOCATION PROBLEMS USING MARKOV MODELS $\bullet$ OCT 2017}
+\fancyfoot[RO,LE]{\thepage}
+\usepackage{titling}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{graphicx}
+
+\setlength{\droptitle}{-4\baselineskip}
+\pretitle{\begin{center}\Huge\bfseries}
+\posttitle{\end{center}}
+\title{A Study of Solving Facility Location Problems Using Markov Models}
+\author{
+\textsc{Applied Mathematical Modeling Research Team}\\[1ex]
+\normalsize Brigham Young University \\
+\normalsize \href{mailto:amm@math.byu.edu}{amm@math.byu.edu}
+}
+\date{\today}
+\renewcommand{\maketitlehookd}{
+\begin{abstract}
+\noindent Using Markov models as an approach to facility location problems is considered.
+In particular, a Markov model is used to find the best location in the United States for a temple of The Church of Jesus Christ of Latter-Day Saints.
+It was found that using Markov models in facility location problems gives a similar result to a weighted Euclidean distance model (which was used to typify the standard set of solutions for $P$-median problems).
+The Markov model can solve more complex situations as it is easily customizable for a given location and can give additional information, such as the clustering of facilities.
+\end{abstract}
+}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+A facility location problem is considered part of location theory (a subfield of operations research that generally involves a set of demands and a set of facilities that can satisfy some of those demands (Melo, Nickel, \& Saldanha-da-Gama, 2009)).
+Problems in location theory, such as the facility location problem, want to maximize the number of satisfied demands by finding optimal locations for facilities, either through adding new facilities or relocating existing ones.
+There are a myriad of ways to define an optimal location, but the standard definition is a location that minimizes the average distance traveled to fulfill a demand (Owen \& Daskin, 1998).
+The simplest, most prominent of these types of problems is the $P$-median problem, which tries to minimize the distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990).
+
+% Add in applications
+
+In this paper, we typify the standard set of solutions for a $P$-median problem by using the weighted Euclidean distance model that is correlated with the Fermat-Weber problem.
+This problem, the oldest facility location problem, seeks a new point that will minimize the weighted distances between that point and a set of other points (Bose, Maheshwari, Morin, 2003).
+For notational convenience, we call the model associated with the Fermat-Weber problem the Weighted-Distance Model (WDM).
+This simple model only considers the Euclidean distance of the paths between the demands and the potential facility, but these paths can be manually adjusted individually to account for advantages or disadvantages in the path.
+
+% Add in applications
+
+% Markov
+
+The rest of the paper will be outlined as follows.
+Section 2 contains a literary review of facility location problems that Markov models could potentially be used on, the Euclidean distance model and the Markov model.
+Section 3 will outline the Markov model used in our case study, give the results of the general testing of the model and expand on insights gained while studying the model.
+Section 4 expounds on the set up and results of using our model to determine new locations for temples of The Church of Jesus Christ of Latter-Day Saints (LDS church).
+Section 5 will conclude the paper with suggestions for further work.
+
+\section{Literature Review}
+
+Facility location management is a well-established area within operations research.
+Min and Schilling report that facility location management has been researched through the perspective of many different academic disciplines. % I don't think this is in the bibliography
+They additionally cite a recent bibliography on this subject that had over 1500 titles, showing the vast expanse of research in this area (1990).
+Owen and Daskin, in their literature review, give an overview of the most-used models among this immense amount of literature.
+They comment on 15 differing subsets of facility location problems, again demonstrating the vastness of the literature (1998).
+Although the library of facility location management is large, this review focuses primarily on literature pertaining to median problems, with a specific emphasis on the use of Markov chain models.
+
+The study of location theory began in 1909 when Alfred Weber was researching possible warehouse location based on the average distance to be traveled by those who would visit the warehouse (Owen \& Daskin, 1998).
+His research created the basis for {\em median problems}, or problems that determine a facility location by minimizing the average distance traveled by consumers.
+This distance is often weighted using factors like speed limits, traffic, proximity to competitors, and tolls.
+As noted by Melo, Nickel and Saldanha-da-Gamma, the $P$-median problem is considered to be the foundational median problem.
+They define the $P$-median problem as the problem of placing $P$ facilities in locations that minimize the total weighted distance (or costs) to satisfy customer demands (2009).
+
+From this rudimentary definition of a $P$-median problem arises a multitude of slight variations that account for the context of the problem.
+For example, Berman, Drezner, and Wesolowsky use a model formulation which allows demands to be serviced by facilities other than the one closest to them (2003).
+Bruni, Beraldi, and Conforti use an undirected graph to model a complex water distribution network (2016).
+% Make a comment on how Markov chains are useful for all of these subproblems
+% Insert other examples here of P-median problems that Markov models can be used to solve
+
+
+% Euclidean distance model
+
+	% applications
+
+    % successes
+
+    % disadvantages
+
+% Markov models(.5 of Lit Review)
+
+	% Mostly the bus paper unless we find more
+
+\section{Markov Chain Modeling}
+
+Markov chains are used in a myriad of fields
+For the purposes of this study, Markov chains are useful because they reveal the effects that simple local behaviors have on more complex global behaviors.
+While Markov chains do not predict individual behavior very accurately, they are very powerful when observing on the aggregate.
+% Talk about here why observing on the aggregate is important for facility location problems.
+
+% Insert a justification of using markov models in location theory.
+
+\subsubsection{Background}
+
+A Markov chain is an example of a stochastic simulation of a $n$ state closed system.
+We create an $n\times n$ matrix $P$ where $P_{i,j}$ represents the probability of moving from state $i$ to state $j$ in one time step.
+We observe that in each time step, the probability that a person moves from state $i$ to another state in the system is 1 because we have a closed system.
+This means that each row in our transition matrix should have sum equal to one, which is known as {\em row stochastic}.
+
+One of the powerful applications of Markov chains is that we can simulate what happens in the long run to a starting position.
+We can model any starting point as a vector $x_0$ and see what happens after one time step by letting $x_1 = P x_0$.
+More generally, we say $x_{n + 1} = P x_n$.
+Because we have a row stochastic matrix, we can see that the all-ones vector is an eigenvector of $P$, which implies that its spectral radius is 1.
+The Perron Frobenious Theorem tells us that in this case, the dominant left eigenvalue is 1, and that it has an all-positive eigenvector.
+This eigenvector is known as the Perron eigenvector and is important for our analysis of the model because it represents the steady state of the model.
+
+For a more in-depth background to Markov chain modeling please refer to the paper by Faizrahnemoon, Schlote, Maggi, Crisostomi, and Shorten (2015).
+
+\subsubsection{Model Setup}
+
+The Markov model that we used is closely based on the Markov chain application of Faizrahnemoon, Schlote, Maggi, Crisostomi, and Shorten (2015).
+It involves two stages: the initialization of the model transition matrix and the computation of the Perron eigenvectors, Mean First Passage Time, and Kemeny constant described above.
+
+% our model setup
+
+% analysis
+
+	% what we learned about Markov models
+
+    % results from general testing of our model
+
+    	% situations with ground truth
+
+        % sensitivity
+
+    % proposed solution
+
+\section{Case Study}
+
+For members of the LDS Church, temples are a place of worship (Monson, 1995), and are believed to be imperative in the process of gaining salvation.
+Consequently, regular member access to temples is a high priority.
+Since constructing new temples is an expensive and time-intensive process, Church leaders try to build temples in locations that maximize temple access for its members.
+
+Maximizing temple access means minimizing travel time for members, so the LDS temple problem can be defined as optimizing new temple locations by minimizing the average distance an LDS church member must travel to his or her nearest temple.
+In other words, the problem we address attempts to maximize the number of LDS Church members that have access to the temple by minimizing the average weighted distance that each member has to travel.
+The mathematical setup of the temple problem is as follows.
+Let each stake (an LDS term for a building that represents the center of worship for a given geographical area) be represented as $s_i$, each temple as $t_j$, the set of all the stakes as $S$, the set of original temples as $T$, and the set of new temples as $T_{\text{new}}$.
+An example representation of the setup of this problem with each stake being connected to its two closest temples can be found in Figure 1.
+The average distance a given member of a LDS stake has to travel to get to their closest temple is
+
+\begin{equation}
+	f(S,T) = \sum_i \underset{j}{\text{min}}\{d(s_i,t_j)\}.
+\end{equation}
+Thus, the unconstrained optimization problem can be written as
+
+\begin{equation}
+\begin{aligned}
+	\minimize_{T^*} f(S,T^*), \text{ where } T^* = T \cup T_{\text{new}}.
+\end{aligned}
+\end{equation}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture} [->, >=stealth' ,shorten >=1pt, auto,node distance=2.25cm,thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+\node[main node] (1) {$T_{1}$}; % Creates a node referred to as (1) with label T_1
+\node[main node] (2) [below left of=1] {$S_{1}$}; % Creates the node and positions it
+\node[main node] (3) [above right of=1] {$S_{5}$};
+\node[main node] (4) [right of=1] {$S_{4}$};
+\node[main node] (5) [below right of=1] {$S_{3}$};
+\node[main node] (6) [right of=4] {$T_{2}$};
+\node[main node] (7) [above of=6] {$S_{6}$};
+\node[main node] (8) [below right of=5] {$T_{3}$};
+\node[main node] (9) [below of=1] {$S_{2}$};
+\node[main node] (10) [below of=6] {$S_{7}$};
+\path[every node/.style={font=\sffamily\small}]
+(2) edge node [right] {0.6} (1) % Adds an edge from node (2) to node (1) with the label of 0.6 on the right of the edge
+(2) edge [bend right] node [left] {1.5} (8) % Adds a curved edge from node (2) to node (1) with the label of 1.5 on the left of the edge
+(3) edge node[left] {0.4} (1)
+(3) edge [bend left] node [right] {1.2} (6)
+(4) edge node [above] {0.2} (1)
+(4) edge node [above] {0.4} (6)
+(5) edge node [right] {0.3} (1)
+(5) edge node [right] {0.3} (8)
+(7) edge node [right] {1.6} (1)
+(7) edge node [right] {0.7} (6)
+(9) edge node[right] {0.4} (1)
+(9) edge node [above] {1.2} (8)
+(10) edge node [right] {0.8} (6)
+(10) edge node [above] {0.2} (8);
+\end{tikzpicture}
+\caption{A sample graph including $7$ stakes and $3$ temples. \textbf{Note}: Edges in this figure are a measure of distance, not a measure of probability.} % Maybe edges should correspond to probability?
+\label{fig:M1}
+\end{figure}
+
+To determine the cardinality of $T_{\text{new}}$ to use in our experiments, we performed hill climbing to see if building multiple temples at once would change where the new temple locations would be.
+We found that the US is spread out enough that determining the location of multiple temples at once isn't significantly different than determining the temples' locations one at a time.
+Thus, for convenience of calculation, we only considered $T_{\text{new}}$ with carnality 1;
+that is, we assume only one temple's location is to be determined at a time.
+
+To minimize the objective function, we used a pseudo Monte Carlo method in which we divided the United States into one million evenly spaced points and evaluated the objective function at each point.
+For our models, we used both our Markov model and the WDM which will both be delineated below.
+
+\subsection{Weighted Distance Model Setup}
+
+To fully understand the model, it is crucial to know what factors were considered relevant.
+Chief among these factors is the distance $d(s_i,t_j)$ from a stake center to a temple.
+% Do we need to add a reference for the Vincenty algorithm below?
+This distance is measured using the Vincenty Algorithm in order to account for the shape of the earth and give accurate measurements based on latitude and longitude.
+We admit that this is a naive Euclidean distance not based upon actual driving distances.
+We found that using a Google API to find all of these actual distances was time-consuming, but could be considered for increased accuracy in future work.
+This factor was used in both our Weighted Distance and Markov models.
+
+The only other relevant factor to the WDM was the weight associated with each distance, $\omega_i$.
+For convenience, we set these weights to $1$ to get our initial result.
+In further implementations, individual weights can be manually adjusted to account for other factors (traffic, tolls, etc.).
+
+The WDM is designed to minimize the average weighted distance a given member of a LDS stake has to travel to get to their closest temple.
+As such, this model does not take into account the capacity of the temples, nor the relative accessibility of other temples, even if they are a similar distance away.
+The only assumption made about the behavior of church members is that they desire to have a temple close to their stake center, and that they will only use the closest temple to them.
+
+\subsection{Markov Model Setup}
+
+To solve this problem, we used the Markov chain model that can be found in Section 3 using the variables in Table 1.
+To simplify this model and to make an analytical review of temple location optimization possible, a number of assumptions were made.
+First, we assumed that every LDS stake in the United States has the same number of active, temple-going members contained within its boundaries.
+This approximation, combined with the assumption that every stake center is located at the center of the stake, allowed us to estimate the member density of each stake, $\rho_i$.
+The purpose of $\rho_{i}$ is to relate how much traffic each stake would provide to its nearest five temples.
+
+\begin{table}
+\begin{tabular}{c | l}
+Variable & Description\\
+\hline
+$d(s_i,t_j)$ & Distance from stake $s_i$ to temple $t_j$\\
+$\rho_i$ & Density of stake $s_i$\\
+$S$ & Set of all stakes\\
+$s_i$ & Stake number $i$\\
+$T$ & Set of all temples\\
+$T_{\text{new}}$ & The proposed new temple locations\\
+$t_i$ & Temple number $i$ \\
+$\tau_i$ & Temple score of temple $t_i$\\
+\end{tabular}
+\caption{Important variables for the Markov model used to solve the LDS location problem.}
+\end{table}
+
+Next, for each stake, we assumed the number of members that attend the temple on an average day given the stake center's Euclidean distance (again determined by the Vincenty Algorithm) to and the busyness of its 5 closest temples.
+% Insert mathematical formula or explanation of the code here.
+We determined the busyness of a temple, $\tau_i$, based on the number of stakes that listed that temple as one of its five closest temples.
+% Insert mathematical formula here.
+
+In order to begin creating this model, we initialize a square probability matrix $P$ in which the first $n$ rows and columns correspond to the stakes in the United States and the next $m$ rows and columns correspond to the temples in the United States.
+Each $P_{ij}$ in the matrix represents the probability that a person in row $i$ will travel to column $j$ in the current state.
+The diagonal entries $P_{ii}$ represent the probability that a person will remain in their current state.
+Each state corresponds to a single day.
+
+% Create a visual matrix representation of the matrix initialized | There's a version where the magnitude of the entry is color in No_Busyness_Test.ipynb
+
+We begin populating the matrix by allowing the diagonals $P_{ii} = 29/30$ which numerically represents the assumption that in each state, $1/30$ of a stake's temple attendees will attend the temple.
+We then adjust this number with a measure of a stakes relative busyness in a single day.
+To do so, we compute a measure of busyness by taking into account the number of stakes within a close proximity to each temple.
+The required numerical representations are described below.
+
+\begin{equation}
+\begin{aligned}
+Ts_j = \sqrt{1\over{\sum_j{t_{ij}}}}
+\end{aligned}
+\end{equation}
+
+\subsection{Results}
+
+	% state the results of the case study
+
+    % compare to Euclidean model
+
+    	% advantages
+
+        	% Easier customization and fine tune the results
+
+            % clustering
+
+        % disadvantages
+
+        	% much more complex to implement
+
+    % sensitivity testing
+
+    	% not a smooth function (ellipses) - changing where new temples are located
+
+\section{Conclusion}
+
+% What has been accomplished/shown in this paper
+
+	% Ideas for further work
+
+  % Ideas for possible applications
+
+  	% Utilities
+
+    % Stores/consumers
+
+    % supply chain management
+
+\begin{thebibliography}{99}
+
+\bibitem[Berman, Drezner, Wesolowsky, 2003]{Berman:2003}
+Berman O, Drezner Z, Wesolowsky G.
+\newblock Locating service facilities whose reliability is distance dependent.
+\newblock {\em Computers \& Operations Research.} 2003; 30:1683-1695.
+
+\bibitem[Bose, Maheshwari, Morin, 2003]{Bose:2003}
+Bose P, Maheshwari A, Morin P.
+\newblock Fast approximations for sums of distances, clustering and the Fermat-Weber problem.
+\newblock {\em Computational Geometry.} 2003; 24:135-146.
+
+\bibitem[Bruni, Beraldi, Conforti, 2016]{Bruni:2016}
+Bruni M, Beraldi P, Conforti D.
+\newblock Water distribution networks design under uncertainty.
+\newblock {\em TOP.} 2016; 25:111-126.
+
+\bibitem[Current, Min, Schilling, 1990]{Current:1990}
+Current J, Min H, Schilling D.
+\newblock Multiobjective analysis of facility location decisions.
+\newblock {\em European Journal of Operational Research.} 1990; 49:295-307
+
+\bibitem[Faizrahnemoon, Schlote, Maggi, Crisostomi, Shorten, 2015]{Faizrahnemoon:2015}
+Faizrahnemoon M, Schlote A, Maggi L, Crisostomi E, Shorten R.
+\newblock A big-data model for multi-modal public transportation with application to macroscopic control and optimisation
+\newblock {\em International Journal of Control.} 2015; 88:2354-2368.
+
+\bibitem[Melo, Nickel, Saldanha-da-Gama, 2009]{Melo:2009}
+Melo M, Nickel S, Saldanha-da-Gama F.
+\newblock Facility location and supply-chain management - A review.
+\newblock {\em European Journal of Operational Research.}  2009; 196:401--412.
+
+\bibitem[Monson, 1995]{Monson:1995}
+Monson T.
+\newblock Blessings of the Temple. 1995;
+\newblock Retrieved from https://www.lds.org/church/temples/why-we-build-temples/blessings-of-the-temple?lang=eng
+
+\bibitem[Owen, Daskin, 1998]{Owen:1998}
+Owen S, Daskin M.
+\newblock Strategic facility location: a review.
+\newblock {\em European Journal of Operational Research.} 1998; 111:423-447.
+
+\end{thebibliography}
+
+\end{document}
