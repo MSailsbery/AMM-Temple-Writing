@@ -16,7 +16,7 @@ Where Disability Adjusted Life Years are defined as:
 
 \begin{equation}
 \begin{aligned}
-& \text{DALY} = (T \times n) + [(m \times d) + (D \times L)]\\
+& \text{DALY} = (T \times n) + (m \times d) + (D \times L)\\
 & T = \text{Travel time to water}\\
 & n = \text{Trips to water per year}\\
 & m = \text{Cases of diarrhea per year}\\
@@ -121,20 +121,29 @@ Then, the amount of cases of sickness that the intervention prevented was multip
 & N = \text{number of cases before intervention} \\
 & k = \text{time conversion factor to years} \\
 & D = \text{3 days of sickness per case} \\
-& LE  = \text{life expectancy} \\
-& AD = \text{average age of death from diarrhea} \\
-& PD = \text{proportion of diarrhea cases that end in death} \\
-& DALY_{sickness} = k \times (1-r_i) \times N \times d \\
-& DALY_{death} = (1-r_i)\times N \times PD \times (LE - AD) \\
-& DALY = DALY_{sickness} + DALY_{death} \\
+& L = \text{life expectancy} \\
+& A = \text{average age of death from diarrhea} \\
+& P = \text{proportion of diarrhea cases that end in death} \\
+& DALY_{sickness} = k \times (1-r_i) \times N \times D \\
+& DALY_{death} = (1-r_i)\times N \times P \times (L - A) \\
+& S_{y} = DALY_{sickness} + DALY_{death} \\
 \end{aligned}
 \end{equation*}
 
 \subsubsection*{Cost of Intervention}
-In order to get a cost of each intervention in $Y$, various values from the literature were incorporated.
+In order to get a cost of each intervention in $y$, various values from currently available literature were incorporated.
 These costs had to be first divided into \emph{capital} and \emph{recurrent} costs.
-This distinction was made becauseiInflation had to be factored in.
-The following assumptions were made.
+This distinction was made because inflation has to be factored in for interventions that include building a new structure, such as a well, or a standpipe.
+The following assumptions were made:
 [Refer the constants that were assumed in the Appendix or define them here?]
 
-$$c_1 = 20 \text{ (years each intervention lasted)}$$
+\begin{equation*}
+\begin{aligned}
+& C_{y_{3}} = \text{ A standard base cost for a tubewell } \\
+& C_{y_{2}} = 0.66 \times C_{y_{3}} \\
+& C_{y_{4}} = 1.5 \times C_{y_{3}} \\ 
+& c_1 = 20 \text{ (years each intervention lasted)}
+\end{aligned}
+\end{equation*}
+
+Since the goal was only to rank the different interventions, a set dollar amount is unnecessary, though easily included and used for some results. [I couldn't find where the number for the drilled well was, so I didn't include it.]
