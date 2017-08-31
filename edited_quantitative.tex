@@ -16,7 +16,7 @@ Where Disability Adjusted Life Years are defined as:
 
 \begin{equation}
 \begin{aligned}
-& \text{DALY} = (T \times n) + [(m \times d) + (D \times L)]\\
+& \text{DALY} = (T \times n) + (m \times d) + (D \times L)\\
 & T = \text{Travel time to water}\\
 & n = \text{Trips to water per year}\\
 & m = \text{Cases of diarrhea per year}\\
@@ -90,44 +90,24 @@ Another assumption made implicitly through using this method was that most surve
 \end{figure}
 
 A water source was then figuratively placed in the middle of the square and each record was reviewed to see if it had an improved access to water, and what the magnitude of the improvement was.
-This process was performed $G$ times, and the results were recorded as $a_j$ for impact status of an intervention on household $j$ and $b_j$ for the magnitude of the impact on that household.
+This process was performed $G$ times, and the approximated impact of an intervention on the community was recorded as follows:
 
 %%%%%%%%%%%%%%%%%%%%%%%%
-\begin{equation*}
 \begin{aligned}
-& a_j = \{a_{j1},a_{j2},...,a_{jG}\}\\\\
-& a_{jg} =
-\left\{
-\begin{array}{ll}
-      0 & \text{if impact}\\
-      1 & \text{if no impact} \\
-\end{array}
-\right.\\\\
-& b_j = \{b_{j1},b_{j2},...,b_{jG}\}\\\\
+& j = \text{A specific household}\\
+& g = \text{A given iteration of the intervention simulation}\\
+& t_{\text{new}} = \text{New travel time to water}\\
+& t_{\text{prev}} = \text{Previous travel time to water}\\
 & b_{jg} =
 \left\{
 \begin{array}{ll}
-      t_{\text{new}} - t_{\text{prev}} & \text{if g had impact} \\
-      0 & \text{if g had no impact}\\
+      t_{\text{new}} - t_{\text{prev}} & \text{if g improved travel time} \\
+      0 & \text{otherwise}\\
 \end{array}
 \right.
+T_y = \sum_{j=1}^{J}\left( \frac{1}{G} \sum_{g=1}^{G} b_{jg} \right)
 \end{aligned}
 \end{equation*}
-
-After $G$ iterations, the estimated probability that each record would be affected by a given intervention was given by:
-\begin{equation*}
-\frac{1}{G} \sum_{j=1}^{j=G} a_j
-\end{equation*}
-The approximate number of households affected in an intervention was given by:
-\begin{equation*}
-a = \sum_{j=1}^{J} \sum_{g=1}^{G} a_{jg}
-\end{equation*}
-The average total impact that the intervention had on all of these households was estimated as as
-\begin{equation*}
-T_y = \frac{\sum_{j=1}^{J} \sum_{g=1}^{G} b_{jg}}{G}
-\end{equation*}
-
-The improvement a given intervention allotted to citizens through the reduction of travel time from retrieval of water was quantified by this method.
 
 \subsubsection*{Illness and Death Improvements}
 In addition to reducing the travel time to collect water, all listed interventions were assumed to give an improvement in health by reducing the cases of diarrhea in a country. 
@@ -141,20 +121,29 @@ Then, the amount of cases of sickness that the intervention prevented was multip
 & N = \text{number of cases before intervention} \\
 & k = \text{time conversion factor to years} \\
 & D = \text{3 days of sickness per case} \\
-& LE  = \text{life expectancy} \\
-& AD = \text{average age of death from diarrhea} \\
-& PD = \text{proportion of diarrhea cases that end in death} \\
-& DALY_{sickness} = k \times (1-r_i) \times N \times d \\
-& DALY_{death} = (1-r_i)\times N \times PD \times (LE - AD) \\
-& DALY = DALY_{sickness} + DALY_{death} \\
+& L = \text{life expectancy} \\
+& A = \text{average age of death from diarrhea} \\
+& P = \text{proportion of diarrhea cases that end in death} \\
+& DALY_{sickness} = k \times (1-r_i) \times N \times D \\
+& DALY_{death} = (1-r_i)\times N \times P \times (L - A) \\
+& S_{y} = DALY_{sickness} + DALY_{death} \\
 \end{aligned}
 \end{equation*}
 
 \subsubsection*{Cost of Intervention}
-In order to get a cost of each intervention in $Y$, various values from the literature were incorporated.
+In order to get a cost of each intervention in $y$, various values from currently available literature were incorporated.
 These costs had to be first divided into \emph{capital} and \emph{recurrent} costs.
-This distinction was made becauseiInflation had to be factored in.
-The following assumptions were made.
+This distinction was made because inflation has to be factored in for interventions that include building a new structure, such as a well, or a standpipe.
+The following assumptions were made:
 [Refer the constants that were assumed in the Appendix or define them here?]
 
-$$c_1 = 20 \text{ (years each intervention lasted)}$$
+\begin{equation*}
+\begin{aligned}
+& C_{y_{3}} = \text{ A standard base cost for a tubewell } \\
+& C_{y_{2}} = 0.66 \times C_{y_{3}} \\
+& C_{y_{4}} = 1.5 \times C_{y_{3}} \\ 
+& c_1 = 20 \text{ (years each intervention lasted)}
+\end{aligned}
+\end{equation*}
+
+Since the goal was only to rank the different interventions, a set dollar amount is unnecessary, though easily included and used for some results. [I couldn't find where the number for the drilled well was, so I didn't include it.]
