@@ -199,10 +199,25 @@ So,
 
 $$y_{jj} = 0$$
 
+And for $k < l \leq n$,
+
+$$y_{jl} = 0$$
+
 The next consideration is movement from suppliers to consumers, which is as follows:
 
-$$y_{ji} = x$$
+$$y_{ji} = \frac{(1-x_{ii})\times x_{ji}}{E_j}$$
 
+where, 
+
+$$E_j = \sum_{m=0}^{k} (1-x_{mm})\times x_{kj}$$
+
+This overall ends as a row stochastic matrix.
+However, there are possible visits of any consumer to any supplier at random.
+Thus, a "teleport" factor was included to make the matrix ergodic.
+
+This was calculated as follows:
+With $e$ as a teleport factor, all elements of $X$ are multiplied by $(1-e)$ and 
+$$x_{cd} = x_{cd} + \frac{e}{n}$$
 
 %Although it could be used in some situations?
 
