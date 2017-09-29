@@ -59,9 +59,7 @@ The Markov model can solve more complex situations as it is easily customizable 
 A facility location problem is considered part of location theory (a subfield of operations research that generally involves a set of demands and a set of facilities that can satisfy some of those demands (Melo, Nickel, \& Saldanha-da-Gama, 2009)).
 Problems in location theory, such as the facility location problem, want to maximize the number of satisfied demands by finding optimal locations for facilities, either through adding new facilities or relocating existing ones.
 There are a myriad of ways to define an optimal location, but the standard definition is a location that minimizes the average distance traveled to fulfill a demand (Owen \& Daskin, 1998).
-The simplest, most prominent of these types of problems is the $P$-median problem, which tries to minimize the distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990).
-
-% Add in applications
+The simplest, most prominent of these types of problems is the $P$-median problem, which tries to minimize the distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990). Typical applications of $P$-median problems include finding optimal locations for industrial warehouses to minimize shipping distances (Jakubovskis, 2017), stores to maximize availability to customers (Klose, Drexl, 2005), and emergency response public services where response time is imperative (Ghosh, Gosavi, 2017).
 
 In this paper, we typify the standard set of solutions for a $P$-median problem by using the weighted Euclidean distance model that is correlated with the Fermat-Weber problem.
 This problem, the oldest facility location problem, seeks a new point that will minimize the weighted distances between that point and a set of other points (Bose, Maheshwari, Morin, 2003).
@@ -71,6 +69,8 @@ This simple model only considers the Euclidean distance of the paths between the
 % Add in applications
 
 % Markov
+
+Markov chains have multiple applications in
 
 The rest of the paper will be outlined as follows.
 Section 2 contains a literary review of facility location problems that Markov models could potentially be used on, the Euclidean distance model and the Markov model.
@@ -113,25 +113,39 @@ Bruni, Beraldi, and Conforti use an undirected graph to model a complex water di
 	% Mostly the bus paper unless we find more
 
 \section{Markov Chain Modeling}
-
-Markov chains are used in a myriad of fields
-For the purposes of this study, Markov chains are useful because they reveal the effects that simple local behaviors have on more complex global behaviors.
-While Markov chains do not predict individual behavior very accurately, they are very powerful when observing on the aggregate.
 % Talk about here why observing on the aggregate is important for facility location problems.
-A facility location problem is concerned with placing a facility in a location that will be of most benefit to the most people.
-In order to determine the location that is of most benefit, decisions must be made based on the behavior of all people in the system.
-As such, the solution of a facility location problem is not concerned with the actions of isolated individuals; rather, the overall motion of the network and the decisions of all people in the network is to be considered.
-
 % Insert a justification of using markov models in location theory.
+<<<<<<< HEAD
 A Markov model is a tool uniquely suited for this type of problem.
-A Markov chain models aggregate behavior very accurately and provides a steady state solution for the network. 
+A Markov chain models aggregate behavior very accurately and provides a steady state solution for the network.
 Using a Markov chain, we can see the long term effects of placing a facility in a particular location.
 Many locations can be similarly tested for long term impact on the network, allowing for a more accurate placement of facilities.
-A Markov chain provides information that is not available when using a distance-only based model.  
+A Markov chain provides information that is not available when using a distance-only based model.
 A simple distance model gives only the location that will average distance to a facility (or similar metric).
 The Markov model presented can give information about the proportion of people that will use a proposed facility and it can give the average travel time to facility in a probabilistic manner.
 This information is not available using any other current method of solving facility location problems. %Citation needed?
 By using this information appropriately, a more accurate and influential location for a new facility can be identified.
+=======
+
+As specified in the introduction, the main approach employed in this paper is using a Markov chain to model the behavior of consumers as they interact with facilities.
+Markov chains reveal the effects that simple local behaviors have on more complex global behaviors through modeling the behavior as a network.
+This is similar to the goal of many facility location problems, as it is often the case that the behavior being optimized is about the aggregate populous and not the specific actions of certain individuals.
+
+Consider, for example, the $P$-median problem. 
+Using the optimization techniques developed by the literature, a decision maker can introduce a new facility that will give the most access, as measured by the inverse of distance, to the consumers that they want to reach. %Citation needed
+Even with some additional conditions imposed on the problem, such as ******* and *******, there are still studied solutions to these questions.%Citation needed
+Via modeling the same system as a network, a Markov chain can be used to optimize the ease of access to a facility under the feedback mechanism of busyness; the amount of throughput occurring in each facility; the access of only those consumers who have the least access initially, and so on.
+
+One of the significant tools in this process is the steady-state, or equilibrium state, of the Markov chain.
+This can be calculated in a straightforward manner from the transition matrix used in the Markov chain.
+This stead-state is a vector consisting of what is qualitatively understood as the long-term proportion of consumers that remain in a certain state. %Cite some PageRank stuff and the bus paper
+Thus, by using a Markov chain, we can measure the long-term effects of placing a facility in a particular location.
+
+Using this and other properties of the chain, one can make decisions that are the "best" place to place a facility under different definition of "best" than solely the distance.
+In this section, we develop this idea through a brief mathematical review of Markov chains.
+Then, we demonstrate the construction and analysis of such on real-world networks.
+Finally, we discuss the qualitative and quantitative results of the models that were creative, in which the strengths and weaknesses of each objective function is discussed.
+>>>>>>> dfd234535ea30683f1215b317b44bad8f70f41dd
 
 \subsubsection{Background}
 
@@ -358,6 +372,12 @@ Ts_j = \sqrt{1\over{\sum_j{t_{ij}}}}
 
 \section{Conclusion}
 
+Discrete mathematics is already in wide use in facility location theory. %citation needed
+The development and discussion of the Markov chain is another example of a tool from discrete mathematics that  gives researchers and decision maker extra information.
+A system modeled as a network via a Markov chain can be analyzed to optimize its throughput, connectedness, and many other mathematical properties, each with a possible application in the area of facility location theory.
+According to the arguments given here and the computational evidence, there is strong reason to believe that the simplified qualitative interpretation of the metrics used to optimize a network indeed work as one assumes.
+There is still much left to do (and write).
+
 % What has been accomplished/shown in this paper
 
 	% Ideas for further work
@@ -395,8 +415,22 @@ Current J, Min H, Schilling D.
 
 \bibitem[Faizrahnemoon, Schlote, Maggi, Crisostomi, Shorten, 2015]{Faizrahnemoon:2015}
 Faizrahnemoon M, Schlote A, Maggi L, Crisostomi E, Shorten R.
-\newblock A big-data model for multi-modal public transportation with application to macroscopic control and optimisation
+\newblock A big-data model for multi-modal public transportation with application to macroscopic control and optimisation.
 \newblock {\em International Journal of Control.} 2015; 88:2354-2368.
+
+\bibitem[Ghosh, Gosavi, 2017]{Ghosh:2017}
+Ghosh S, Gosavi A.
+\newblock A semi-Markov model for post-earthquake emergency response in a smart city.
+\newblock {\em Control Theory and Technology.} 2017; 15: 13-25.
+\bibitem[Jakubovskis, 2017]{Jakubovskis:2017}
+Jakubovskis A.
+\newblock Strategic facility location, capacity aquisition, and technology choice decisions under demand uncertainty: Robust vs. non-robust optimizations approaches.
+\newblock {\ European Journal of Operational Research.} 2017; 260:1095-1104
+
+\bibitem[Klose, Drexl, 2005]{Klose:2005}
+Klose A, Drexl A.
+\newblock Facility location models for distribution system design.
+\newblock {\ European Journal of Operational Research} 2005; 162:4-29
 
 \bibitem[Melo, Nickel, Saldanha-da-Gama, 2009]{Melo:2009}
 Melo M, Nickel S, Saldanha-da-Gama F.
