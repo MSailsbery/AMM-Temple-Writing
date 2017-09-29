@@ -30,6 +30,7 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows}
 \usepackage{graphicx}
+\usepackage{amssymb}
 
 \setlength{\droptitle}{-4\baselineskip}
 \pretitle{\begin{center}\Huge\bfseries}
@@ -151,7 +152,45 @@ For a more in-depth background to Markov chain modeling please refer to the pape
 \subsubsection{Model Setup}
 
 The Markov model that we used is closely based on the Markov chain application of Faizrahnemoon, Schlote, Maggi, Crisostomi, and Shorten (2015).
-It involves two stages: the initialization of the model transition matrix and the computation of the Perron eigenvectors, Mean First Passage Time, and Kemeny constant described above. %We don't actually use the Kemeny Constant...  Although it could be used in some situations?
+It involves two stages: the initialization of the model transition matrix and the computation of the Perron eigenvectors and the Mean First Passage Time described above.
+
+%%%%%%%FIGURE OF TRANSITION MATRIX AS BLOCKS %%%%%%%%%%%
+To begin with the model transition matrix $X$ which is $n \times n$.
+Each row and column $0 \leq i \leq k$ represents a consumer $x_i$ and each row and column $k < j \leq n$ represents a supplier $y_j$.
+This notation will continue to distinguish consumers and suppliers, though they are entries in one transition matrix.
+
+All distance values in the formulation of the model will be weighted by a logistic equation $g(x): \mathbb{R} \rightarrow [0,1]$ of the form:
+$$\frac{1}{1 + e^{r(x-s)}} - v$$
+Where $r$,$s$, and $v$ are parameters which model  a weighted distance between $0$ and $1$ to represent the motivations of the consumer when they are distance $x$ from a supplier.
+
+Now, the values on the diagonal where $0 \leq i \leq k$ are computed to represent the probability of staying at consumer location for one time step.
+These are calculated as follows:
+
+$$x_{ii} = (1-p) + p(g(x))$$
+$p =$ the proportion of this consumer which regularly visits supplier.
+$x =$ distance to closest supplier
+
+Any movement to another consumer is not accounted for.
+So, for $0 \leq i,m \leq k$, $x_{im} = 0$ and $x_{mi} = 0$.
+
+Then to consider movement from a consumer to a supplier, we have $d(x_i, y_j)$ as the Euclidean distance from $x_i$ to $y_j$ and:
+$$D_i = \sum_{j=k}^{n} \frac{1}{e^{d(x_i,y_j)}}$$
+
+Then,
+$$x_{ij} = x_{ii} \times \frac{\frac{1}{e^{d(x_i,y_j)}}}{D_i}$$ 
+%(IS THIS CORRECT? - Doesn't include weights yet.)
+
+The movement from suppliers to themselves are then set to 0.
+So,
+
+$$y_{jj} = 0$$
+
+The next consideration is movement from suppliers to consumers, which is as follows:
+
+$$y_{ji} = x$$
+
+
+%Although it could be used in some situations?
 
 % our model setup
 
