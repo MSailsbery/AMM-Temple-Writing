@@ -152,6 +152,8 @@ We use this steady state solution to observe what happens to the distribution of
 
 For a more in-depth background to Markov chain modeling please refer to the paper by Faizrahnemoon, Schlote, Maggi, Crisostomi, and Shorten (2015).
 
+%Justification for use in location theory?  The outline has it here, but we may cover it well enough elsewhere
+
 \subsubsection{Model Setup}
 
 The Markov model that we used is closely based on the Markov chain application of Faizrahnemoon, Schlote, Maggi, Crisostomi, and Shorten (2015).
@@ -314,11 +316,15 @@ The transformation is given by:
 f(d_{v}) = \frac{1}{1+e^{-0.053*(d_{v} - 70)}} - 0.024.
 \end{equation}
 
+This is a special case of g(d) with the constants $r$, $s$, and $v$ chosen to mimic the effect of a temple a certain distance away.
+Here, the assumption is that the difference between having a temple 5 miles away and 10 miles away is marginal, as is the difference between having a temple 200 miles away and 400 miles away.
+The assumption implies that the biggest impact will come from people who were previously about 90 miles away from a temple and are now 20 miles away.
+
 In the LDS church, members are grouped by geographical area.
 Each cluster of members is called a stake, and a building of worship, called a stake center, is located within each stake.
 For our model, instead of the residence of each individual member, we use the location of the stake center to calculate $d_{v}$.
 %Note that, instead of using the residence of each individual member, $d_{v}$ is calculated using the location of a stake center.
-Let each stake (an LDS term for a building that represents the center of worship for a given geographical area) be represented as $s_i$, each temple as $t_j$, the set of all the stakes as $S$, the set of original temples as $T$, and the set of new temples as $T_{\text{new}}$.
+Let each stake center be represented as $s_i$, each temple as $t_j$, the set of all the stake centers as $S$, the set of original temples as $T$, and the set of new temples as $T_{\text{new}}$. %Delineate with the other case study-related variables.
 An example representation of the setup of this problem with each stake being connected to its two closest temples can be found in Figure 1.
 The average distance a given member of a LDS stake has to travel to get to their closest temple is
 
@@ -366,31 +372,32 @@ Thus, the unconstrained optimization problem can be written as
 \label{fig:M1}
 \end{figure}
 
-To determine the cardinality of $T_{\text{new}}$ to use in our experiments, we performed hill climbing to see if building multiple temples at once would change where the new temple locations would be.
-We found that the US is spread out enough that determining the location of multiple temples at once isn't significantly different than determining the temples' locations one at a time.
-Thus, for convenience of calculation, we only considered $T_{\text{new}}$ with carnality 1;
-that is, we assume only one temple's location is to be determined at a time.
+To determine the cardinality of $T_{\text{new}}$ to use in our experiments, we performed hill climbing to see if building multiple temples at once would change where the new temple locations would be. %explanation
+We found that the US is spread out enough that determining the location of multiple temples at once is not significantly different than determining the temples' locations one at a time.
+Thus, for ease of computation, we only considered $T_{\text{new}}$ with carnality 1;
+That is, we assume only one temple is to be added at a time.
 
 To minimize the objective function, we used a pseudo Monte Carlo method in which we divided the United States into one million evenly spaced points and evaluated the objective function at each point.
-For our models, we used both our Markov model and the WDM which will both be delineated below.
-
+For the test case, we used the WDM as a comparison of what the $P$-median problem would yield.
+The proposed metrics used were mean first passage time and throughput because they correlate with the two factors that we considered to be most important in this case.
 \subsection{Weighted Distance Model Setup}
 
 To fully understand the model, it is crucial to know what factors were considered relevant.
-Chief among these factors is the distance $d(s_i,t_j)$ from a stake center to a temple.
+Chief among these factors is the distance $d(s_i,t_j)$ from a stake center to a temple. %standardize distance notation
 % Do we need to add a reference for the Vincenty algorithm below?
-This distance is measured using the Vincenty Algorithm in order to account for the shape of the earth and give accurate measurements based on latitude and longitude.
+This distance is measured using the Vincenty Algorithm in order to account for the shape of the earth and give accurate measurements based on latitude and longitude. %mentioned earlier, could be expanded upon there and deleted here (l. 319)
 We admit that this is a naive Euclidean distance not based upon actual driving distances.
-We found that using a Google API to find all of these actual distances was time-consuming, but could be considered for increased accuracy in future work.
+We found that using a Google API to find all of these actual distances was time-consuming, but could be considered for increased accuracy in future work. %awkward
 This factor was used in both our Weighted Distance and Markov models.
 
-The only other relevant factor to the WDM was the weight associated with each distance, $\omega_i$.
+The only other relevant factor to the WDM was the weight associated with each distance, $\omega_i$. %put in delineation of variables.
 For convenience, we set these weights to $1$ to get our initial result.
-In further implementations, individual weights can be manually adjusted to account for other factors (traffic, tolls, etc.).
+%In further implementations, individual weights can be manually adjusted to account for other factors (traffic, tolls, etc.).
+As this is a standard $P$-median problem, the weights can be adjusted to account for additional factors, as desired.
 
 The WDM is designed to minimize the average weighted distance a given member of a LDS stake has to travel to get to their closest temple.
 As such, this model does not take into account the capacity of the temples, nor the relative accessibility of other temples, even if they are a similar distance away.
-The only assumption made about the behavior of church members is that they desire to have a temple close to their stake center, and that they will only use the closest temple to them.
+The only assumption made about the behavior of church members is that they desire to have a temple close to their stake center, and that they will only use the closest temple to them. %did we do the 5 closest temples here? Or do we need new data with the 1 closest?
 
 \subsection{Markov Model Setup}
 
@@ -398,7 +405,7 @@ To solve this problem, we used the Markov chain model that can be found in Secti
 To simplify this model and to make an analytical review of temple location optimization possible, a number of assumptions were made.
 First, we assumed that every LDS stake in the United States has the same number of active, temple-going members contained within its boundaries.
 This approximation, combined with the assumption that every stake center is located at the center of the stake, allowed us to estimate the member density of each stake, $\rho_i$.
-The purpose of $\rho_{i}$ is to relate how much traffic each stake would provide to its nearest five temples.
+The purpose of $\rho_{i}$ is to relate how much traffic each stake would provide to its nearest five temples. %should probably use just nearest 1, it makes more sense.
 
 \begin{table}
 \begin{tabular}{c | l}
@@ -418,29 +425,32 @@ $\tau_i$ & Temple score of temple $t_i$\\
 
 Next, for each stake, we assumed the number of members that attend the temple on an average day given the stake center's Euclidean distance (again determined by the Vincenty Algorithm) to and the busyness of its 5 closest temples.
 % Insert mathematical formula or explanation of the code here.
-We determined the busyness of a temple, $\tau_i$, based on the number of stakes that listed that temple as one of its five closest temples.
+We determined the busyness of a temple, $\tau_i$, based on the number of stakes that listed that temple as one of its five closest temples. %Didn't use busyness in most recent iteration of model
 % Insert mathematical formula here.
 
-In order to begin creating this model, we initialize a square probability matrix $P$ in which the first $n$ rows and columns correspond to the stakes in the United States and the next $m$ rows and columns correspond to the temples in the United States.
+In order to create this model, we initialize a square probability matrix $P$ in which the first $k$ rows and columns correspond to the stakes in the United States and the next $m$ rows and columns correspond to the temples in the United States.
 Each $P_{ij}$ in the matrix represents the probability that a person in row $i$ will travel to column $j$ in the current state.
 The diagonal entries $P_{ii}$ represent the probability that a person will remain in their current state.
-Each state corresponds to a single day.
+The time, in this case, is in days, so each multiplication of the transition matrix onto a distribution vector will simulate one day passing.
 
 % Create a visual matrix representation of the matrix initialized | There's a version where the magnitude of the entry is color in No_Busyness_Test.ipynb
 
-We begin populating the matrix by allowing the diagonals $P_{ii} = 29/30$ which numerically represents the assumption that in each state, $1/30$ of a stake's temple attendees will attend the temple.
-We then adjust this number with a measure of a stakes relative busyness in a single day.
-To do so, we compute a measure of busyness by taking into account the number of stakes within a close proximity to each temple.
-The required numerical representations are described below.
+We begin populating the matrix by allowing the diagonals $P_{ii} = p + f(d)$ with $p$ = $29/30$ which numerically represents the assumption that in each state, $1/30$ of a stake's temple attendees will attend the temple in a given day (using f from $(1)$).
+We follow the procedures outlined in section 3.2 to populate the remainder of the matrix.
+%We then adjust this number according to $g(d)$ described in 
+%To do so, we compute a measure of busyness by taking into account the number of stakes within a close proximity to each temple.
+%The required numerical representations are described below.
 
-\begin{equation}
-\begin{aligned}
-Ts_j = \sqrt{1\over{\sum_j{t_{ij}}}}
-\end{aligned}
-\end{equation}
+%\begin{equation}
+%\begin{aligned}
+%Ts_j = \sqrt{1\over{\sum_j{t_{ij}}}}
+%\end{aligned}
+%\end{equation}
 
 \subsection{Results}
 
+This will be filled in soon, once we've run the final model on the case study data.
+We will present the results of the case study, compare them to the results from the $P$-median problem, and discuss the advantages and disadvantages of using the Markvo chain.
 	% state the results of the case study
 
     % compare to Euclidean model
@@ -463,8 +473,10 @@ Ts_j = \sqrt{1\over{\sum_j{t_{ij}}}}
 
 Discrete mathematics is already in wide use in facility location theory. %citation needed
 The development and discussion of methods based on the Markov chain is another example of using tool from discrete mathematics to give researchers and decision makers more information.
-A system modeled as a network via a Markov chain can be analyzed to optimize its throughput, connectedness, and many other mathematical properties, each with a possible application in the area of facility location theory.
-According to the arguments given here and the computational evidence, there is strong reason to believe that the simplified qualitative interpretation of the metrics used to optimize a network indeed work as one would reason.
+A system modeled as a network via a Markov chain can be analyzed to optimize its throughput, connectedness, and many other mathematical properties, each with possible applications in the area of facility location theory.
+According to the arguments given here and the computational evidence, there is strong reason to believe that the simplified qualitative interpretation of the metrics used to optimize a network indeed work as presented.
+
+In the conclusion, we will also cover ideas for application and further work.
 
 % What has been accomplished/shown in this paper
 
