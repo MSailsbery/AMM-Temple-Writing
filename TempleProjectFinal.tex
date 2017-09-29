@@ -220,6 +220,36 @@ $$y_{ji} = x$$
 
     % proposed solution
 
+\section{Proposed Metrics}
+The following metrics are ways to measure the effectiveness of a network.
+Each metric measures the network slightly differently and each can be used to optimize the network.
+We will explain each in detail and discuss what each metric measures.
+We will refer to the transition matrix in blocks, [[SS][ST][TS][TT]] where SS is the portion of the matrix referring to consumer->consumer, ST is consumer->producer, etc.
+
+\subsection{Mean First Passage Time}
+The mean first passage time is given by EQUATION HERE.
+It is a matrix the same size as the transition matrix and the ijth entry gives the average number of timesteps required for a person starting in state i to move to state j.
+The block format of the transition matrix holds in the mean first passage time matrix.
+We are not concerned with the amounts represented in SS, TS, or TT because only the ST section represents the amount of time it takes for consumers to get to producer.
+In fact, we're not even interested in all of the values in the ST section, only those that are relatively small.
+In a large network, a person in Alabama is not likely to drive to Montana to do their shopping, so while there is a mean first passage time from Alabama to Montana, it is very large, and this time should have little effect on our decision.
+The harmonic mean is a way to discount the large outlying values while putting emphasis on the smaller values.
+So we take the harmonic mean (DEFINE) of all of the values in the ST section of our matrix, and optimize on that.
+We want to make the harmonic mean of ST block as small as possible, as this represents a small average travel time to the producer, and having consumers closer to producers is a good thing.
+By optimizing on the mean first passage time, we are reducing the overall difficulty of getting to a producer, which is desirable behavior in the network.
+
+\subsection{Throughput}
+The first Perron eigenvector is the steady state of the network. %stronger beginning required
+Each entry in the eigenvector gives the percentage of people in that state in the long term. %weak
+By construction, the last n places in the steady state vector correspond to the number of people who are at a location of commerce in a given day.
+To maximize the number of people who visit the place of production, we want to increase the sum of the last n states in the steady state vector.
+This will maximize the throughput of the locations overall.
+If there are more people at the store daily, then revenues will increase, so this is a desirable behavior in the network.
+In order to optimize on the last section of the first Perron eigenvector, we take the proposed location for the new facility, calculate the transition matrix for the network with the proposed facility, and compute the first Perron eigenvector.
+Then, we sum the last n entries in the vector.
+Maximizing this sum will allow us to find the location where we have the most people passing through each facility.
+
+
 \section{Case Study}
 
 For members of the LDS Church, temples are a place of worship (Monson, 1995), and are believed to be imperative in the process of gaining salvation.
