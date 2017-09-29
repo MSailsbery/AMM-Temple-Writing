@@ -235,13 +235,17 @@ $$x_{cd} = x_{cd} + \frac{e}{n}$$
 
     % proposed solution
 
-\section{Proposed Metrics}
+\subsection{Proposed Metrics}
 The following metrics are ways to measure the effectiveness of a network.
 Each metric measures the network slightly differently and each can be used to optimize the network.
 We will explain each in detail and discuss what each metric measures.
 We will refer to the transition matrix in blocks, [[SS][ST][TS][TT]] where SS is the portion of the matrix referring to consumer->consumer, ST is consumer->producer, etc.
 
-\subsection{Mean First Passage Time}
+%include some things about the toy test cases, maybe a plot (subplot 3, graph on top of each other)
+%4 subplots with circles, euclidian as control
+%reference the plot in each subsection
+
+\subsubsection{Mean First Passage Time}
 The mean first passage time is given by EQUATION HERE.
 It is a matrix the same size as the transition matrix and the ijth entry gives the average number of timesteps required for a person starting in state i to move to state j.
 The block format of the transition matrix holds in the mean first passage time matrix.
@@ -253,7 +257,7 @@ So we take the harmonic mean (DEFINE) of all of the values in the ST section of 
 We want to make the harmonic mean of ST block as small as possible, as this represents a small average travel time to the producer, and having consumers closer to producers is a good thing.
 By optimizing on the mean first passage time, we are reducing the overall difficulty of getting to a producer, which is desirable behavior in the network.
 
-\subsection{Throughput}
+\subsubsection{Throughput}
 The first Perron eigenvector is the steady state of the network. %stronger beginning required
 Each entry in the eigenvector gives the percentage of people in that state in the long term. %weak
 By construction, the last n places in the steady state vector correspond to the number of people who are at a location of commerce in a given day.
@@ -264,6 +268,26 @@ In order to optimize on the last section of the first Perron eigenvector, we tak
 Then, we sum the last n entries in the vector.
 Maximizing this sum will allow us to find the location where we have the most people passing through each facility.
 
+\subsubsection{Top-tier}
+We also may be interested in capturing business from people who are currently have the most difficulty getting to producers.
+These locations will have the highest values in the equilibrium vector, implying that a high percentage of people are in that location at any given day.
+In order to get their business, we want them to leave their original location, which would correspond to a reduction in their entry in the Perron eigenvector.
+To do this, we compute the Perron eigenvector for the network before adding a new facility and note the states that have the highest values in the eigenvector.
+We choose the top X% to minimize.
+The best location under this metric will then be the location that minimizes these locations in the Perron eigenvector.
+By optimizing on this metric, we ensure that the people that have the most difficulty getting to a producer will be able to get to a producer.
+This is important for situations like hospitals or fire stations where the furthest people are the most important to consider.
+
+\subsubsection{Kemeny Constant}
+The Kemeny constant is defined to be (DEFINITION).
+It appears to measure the connectedness of the network.
+By optimizing on the Kemeny constant, the graph becomes more connected; that is, it is easier to reach any state from any other state.
+This would be useful in situations like warehouses and distribution centers, where it is important for there to be many links from warehouses to distribution centers to minimize distance driven by a trucker or the distance produce needs to travel.
+
+\subsubsection{Second Perron Eigenvector}
+While we did not do much analysis of the second Perron eigenvector, (CITATION) says that it describes the clustering of the graph.
+This can inform about the which producer and consumer clusters have the lowest ratio of producer to consumer, and placing a facility in such a cluster would theoretically have beneficial effects.
+The new facility could also be placed to attempt to merge clusters, allowing for greater connectivity in the network.
 
 \section{Case Study}
 
