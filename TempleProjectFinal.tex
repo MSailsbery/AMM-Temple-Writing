@@ -276,13 +276,21 @@ The new facility could also be placed to attempt to merge clusters, allowing for
 
 \section{Case Study}
 
-For members of the LDS Church, temples are a place of worship (Monson, 1995), and are believed to be imperative in the process of gaining salvation.
-Consequently, regular member access to temples is a high priority.
-Since constructing new temples is an expensive and time-intensive process, Church leaders try to build temples in locations that maximize temple access for its members.
+In this section we present an example of a facility location problem, in which some, but not all, of the metrics discussed previously give valuable information. 
+The example given here is that of The Church of Jesus Christ of Latter-Day Saints (the LDS church) building new temples in which its members can worship.
 
-Maximizing temple access means minimizing travel time for members, so the LDS temple problem can be defined as optimizing new temple locations by minimizing the average distance an LDS church member must travel to his or her nearest temple.
-In other words, the problem we address attempts to maximize the number of LDS Church members that have access to the temple by minimizing the average weighted distance that each member has to travel.
-The mathematical setup of the temple problem is as follows.
+
+For members of the LDS Church, temples are a place of worship and are believed to be imperative in the process of gaining salvation.
+In this problem, we assume that the LDS Church is attempting to satisfy one of two goals, either increasing the access that its member have to temples or generating the highest attendance to its temples overall.
+
+As a control case, we use a $P$-median method to minimize the distance of each church member to their closest temple.
+The distance is measured as a transformation of the geophysical distance, which is in turn calculated via Vincenty's Formulae. %Citation Needed
+The transformation is given by,
+\begin{equation}
+f(d_{vincenty}) = \frac{1}{1+e^{-0.053*(d_{vincenty} - 70)}} - 0.024.
+\end{equation}
+
+Note that, instead of using the residence of each individual member, $d_{vincenty}$ is calculated using the (insert stake stuff here).
 Let each stake (an LDS term for a building that represents the center of worship for a given geographical area) be represented as $s_i$, each temple as $t_j$, the set of all the stakes as $S$, the set of original temples as $T$, and the set of new temples as $T_{\text{new}}$.
 An example representation of the setup of this problem with each stake being connected to its two closest temples can be found in Figure 1.
 The average distance a given member of a LDS stake has to travel to get to their closest temple is
@@ -427,10 +435,9 @@ Ts_j = \sqrt{1\over{\sum_j{t_{ij}}}}
 \section{Conclusion}
 
 Discrete mathematics is already in wide use in facility location theory. %citation needed
-The development and discussion of the Markov chain is another example of a tool from discrete mathematics that  gives researchers and decision maker extra information.
+The development and discussion of methods based on the Markov chain is another example of using tool from discrete mathematics to give researchers and decision makers more information.
 A system modeled as a network via a Markov chain can be analyzed to optimize its throughput, connectedness, and many other mathematical properties, each with a possible application in the area of facility location theory.
-According to the arguments given here and the computational evidence, there is strong reason to believe that the simplified qualitative interpretation of the metrics used to optimize a network indeed work as one assumes.
-There is still much left to do (and write).
+According to the arguments given here and the computational evidence, there is strong reason to believe that the simplified qualitative interpretation of the metrics used to optimize a network indeed work as one would reason.
 
 % What has been accomplished/shown in this paper
 
