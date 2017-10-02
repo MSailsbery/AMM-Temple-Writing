@@ -61,16 +61,16 @@ We present an example construction including computational results for finding t
 
 \section{Introduction}
 
-A facility location problem is considered part of location theory (a subfield of operations research that generally involves a set of demands and a set of facilities that can satisfy some of those demands (Melo, Nickel, \& Saldanha-da-Gama, 2009)).
-Problems in location theory, such as the facility location problem, want to maximize the number of satisfied demands by finding optimal locations for facilities, either through adding new facilities or relocating existing ones.
+Problems in location theory, such as the facility location problem, are formulated to maximize the amount of satisfied demand by finding optimal locations for facilities, either through adding new facilities or relocating existing ones.
 There are a myriad of ways to define an optimal location, but the standard definition is a location that minimizes the average distance traveled to fulfill a demand (Owen \& Daskin, 1998).
-The simplest, most prominent of these types of problems is the $P$-median problem, which tries to minimize the distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990). %repetitive
-Typical applications of $P$-median problems include finding optimal locations for industrial warehouses to minimize shipping distances (Jakubovskis, 2017), stores to maximize availability to customers (Klose, Drexl, 2005), and emergency response public services where response time is imperative (Ghosh, Gosavi, 2017).
+In this paper, it is shown that a Markov chain can facilitate the study and understanding of other definitions of optimal.
 
-In this paper, we typify the standard set of solutions for a $P$-median problem by using the weighted Euclidean distance model that is correlated with the Fermat-Weber problem. %Change name from euclidean. Also, model?
-This problem, the oldest facility location problem, seeks a new point that will minimize the weighted distances between that point and a set of other points (Bose, Maheshwari, Morin, 2003).
-For notational convenience, we call the model associated with the Fermat-Weber problem the Weighted-Distance Model (WDM). %probably not a model in the rigorous sense
-This simple model only considers the Euclidean distance of the paths between the demands and the potential facility, but these paths can be manually adjusted individually to account for advantages or disadvantages in the path. %Change euclidean - direct distance?
+
+One of the simplest and most prominent facility location problems optimizing on distance is the $P$-median problem, which tries to minimize the distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990). %repetitive
+Typical applications of $P$-median problems include finding optimal locations for industrial warehouses to minimize shipping distances (Jakubovskis, 2017), stores to maximize availability to customers (Klose, Drexl, 2005), and emergency response public services where response time is imperative (Ghosh, Gosavi, 2017).
+As a special case of the $P$-median problem, we will be contrasting our analysis with the Fermat-Weber problem (Bose, Maheshwari, Morin, 2003). 
+For notational convenience, we call the method associated with the Fermat-Weber problem the Weighted-Distance Model (WDM). %probably not a model in the rigorous sense
+This method considers the Euclidean length of the paths between the demands and the potential facility, but these paths can be manually adjusted individually to account for advantages or disadvantages in the path. %Change euclidean - direct distance?
 An example of this model in application can be found in the paper by Ndiaye, Ndiaye and Ly (2012). %Describe paper?
 
 In comparison to the WDM, the main approach employed in this paper is to use a Markov chain to model the behavior of consumers as they interact with facilities. 
@@ -160,7 +160,7 @@ For a more in-depth background to Markov chain modeling please refer to the pape
 
 \subsubsection{Model Setup}
 
-The Markov model that we used is closely based on the Markov chain application of Faizrahnemoon, Schlote, Maggi, Crisostomi, and Shorten (2015).
+The Markov chain that we use is based on the Markov chain application of Faizrahnemoon, Schlote, Maggi, Crisostomi, and Shorten (2015).
 It involves two stages: the initialization of the model transition matrix and the computation of the Perron eigenvectors and the Mean First Passage Time described above.
 
 
@@ -186,7 +186,7 @@ $p$ - probability that a consumer visits the supplier in one time step
 
 $d_{i}$ - distance from consumer $i$ to the nearest supplier
 
-To begin, we initialize the transition matrix $X$ to be and empty $n \times n$ matrix.
+To begin, we initialize the transition matrix $X$ to be an empty $n \times n$ matrix.
 Each row and column $0 \leq i \leq k$ represents a consumer $x_i$ and each row and column $k < j \leq n$ represents a supplier $y_j$.
 This notation will continue to distinguish consumers and suppliers, though they are entries in one transition matrix. %will get confusing, probably
 
@@ -199,7 +199,7 @@ These are calculated as follows:
 
 $$x_{ii} = (1-p) + p(g(d_{i}))$$
 
-Any movement to another consumer is not accounted for. %movement is the wrong word?
+Any proprtion of the population moving from a consumer state to another consumer state is ignored. %movement is the wrong word?
 So, for $0 \leq i,m \leq k$, $x_{im} = 0$ and $x_{mi} = 0$ if $i \neq m$.
 
 Then to consider movement from a consumer to a supplier, we have $d(x_i, y_j)$ as the Euclidean distance from $x_i$ to $y_j$ and:
@@ -226,12 +226,12 @@ where,
 
 $$E_j = \sum_{m=0}^{k} (1-x_{mm})\times x_{kj}$$
 
-This overall ends as a row stochastic matrix.
+Note that this construction results in $X$ being a row stochastic matrix.
 However, there are possible visits of any consumer to any supplier at random.
-Thus, a "teleport" factor was included to make the matrix ergodic and to account for random perturbations in the network.
+Thus, a ``teleport'' factor was included to make the matrix ergodic and to account for random perturbations in the network.
 
 This was calculated as follows:
-With $e$ as a teleport factor, all elements of $X$ are multiplied by $(1-e)$ and 
+With $e$, a small number greater than zero, as a teleport factor, all elements of $X$ are multiplied by $(1-e)$ and 
 $$x_{cd} = x_{cd} + \frac{e}{n}$$
 This results in a matrix that is both row stochastic and ergodic.
 
@@ -262,29 +262,31 @@ Figure: The test cases - ellipse, hyperbola, circles, with the results from each
 \subsubsection{Mean First Passage Time}
 The mean first passage time is given by EQUATION HERE.
 It is a matrix the same size as the transition matrix and the ijth entry gives the average number of timesteps required for a person starting in state i to move to state j.
-The block format of the transition matrix holds in the mean first passage time matrix.
-We are not concerned with the amounts represented in SS, TS, or TT because only the ST section represents the amount of time it takes for consumers to get to producer.
+The block format of the transition matrix continues into the matrix of the mean first passage times.
+We are not concerned with the values in the SS, TS, or TT block because it is the ST block that represents the amount of time it takes for consumers to get to a producer.
+However, under a different problem formulation, these blocks could give meaningful information.
 In fact, we're not even interested in all of the values in the ST section, only those that are relatively small.
 In a large network, a person in Alabama is not likely to drive to Montana to do their shopping, so while there is a mean first passage time from Alabama to Montana, it is very large, and this time should have little effect on our decision.
 The harmonic mean is a way to discount the large outlying values while putting emphasis on the smaller values.
 So we take the harmonic mean (DEFINE) of all of the values in the ST section of our matrix, and optimize on that.
-We want to make the harmonic mean of ST block as small as possible, as this represents a small average travel time to the producer, and having consumers closer to producers is a good thing.
+We want to make the harmonic mean of the row of the ST block as small as possible, as this represents a small average travel time to the producer, and having consumers closer to producers is valuable to a producer.
 By optimizing on the mean first passage time, we are reducing the overall difficulty of getting to a producer, which is desirable behavior in the network.
 
 \subsubsection{Throughput}
 The first Perron eigenvector is the steady state of the network. %stronger beginning required
-Each entry in the eigenvector gives the percentage of people in that state in the long term. %weak
-By construction, the last n places in the steady state vector correspond to the number of people who are at a location of commerce in a given day.
-To maximize the number of people who visit the place of production, we want to increase the sum of the last n states in the steady state vector.
+Each entry in the eigenvector gives the percentage of people in that state in the long term or equilibrium. %weak
+By this construction, the last n places in the steady state vector correspond to the number of people who are at a location of commerce in a given day.
+To maximize the number of people who visit the supplier, it is desirable to increase the sum of the last n states in the steady state vector.
 This will maximize the throughput of the locations overall.
 If there are more people at the store daily, then revenues will increase, so this is a desirable behavior in the network.
 In order to optimize on the last section of the first Perron eigenvector, we take the proposed location for the new facility, calculate the transition matrix for the network with the proposed facility, and compute the first Perron eigenvector.
 Then, we sum the last n entries in the vector.
 Maximizing this sum will allow us to find the location where we have the most people passing through each facility.
+In comparison to the mean first passage time, the optimization problem induced by this metric is throughput-centric.
 
 \subsubsection{Top-tier}
-We also may be interested in capturing business from people who are currently have the most difficulty getting to producers.
-These locations will have the highest values in the equilibrium vector, implying that a high percentage of people are in that location at any given day.
+It also may be of interest to enlarge a consumer by focusing on increasing accessibility for those who are currently have the most difficulty getting to suppliers.
+The consumer entries with the highest values in the equilibrium vector will have the highest percentage of people are in that location at any given day.
 In order to get their business, we want them to leave their original location, which would correspond to a reduction in their entry in the Perron eigenvector.
 To do this, we compute the Perron eigenvector for the network before adding a new facility and note the states that have the highest values in the eigenvector.
 We choose the top X% to minimize.
