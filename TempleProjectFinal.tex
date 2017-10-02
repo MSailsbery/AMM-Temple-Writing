@@ -55,6 +55,7 @@ We present an example construction including computational results for finding t
 %   - Standardize citation method, put years next to the authors' names.
 %   - Advertise for our methods --> hearken back to the new things that we're doing as often as possible.
 %   - Standardize the language. (producer/consumer or something)
+%   - Remember that our audience wants to solve a problem, not do math.
 
 \begin{document}
 \maketitle
@@ -63,8 +64,8 @@ We present an example construction including computational results for finding t
 
 Problems in location theory, such as the facility location problem, are formulated to maximize the amount of satisfied demand by finding optimal locations for facilities, either through adding new facilities or relocating existing ones.
 There are a myriad of ways to define an optimal location, but the standard definition is a location that minimizes the average distance traveled to fulfill a demand (Owen \& Daskin, 1998).
-In this paper, it is shown that a Markov chain can facilitate the study and understanding of other definitions of optimal.
-
+Additional definitions of optimal include the location that minimizes the maximum distance to fulfill a demand, the location to maximize throughput in all producer centers, or the location that minimizes the average time for consumers to travel to producer centers. %Awkward terminology
+In this paper, we show that a Markov chain can facilitate the study and understanding of these other definitions of optimal, as well as solve facility location problems using these other definitions.
 
 One of the simplest and most prominent facility location problems optimizing on distance is the $P$-median problem, which tries to minimize the distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990). %repetitive
 Typical applications of $P$-median problems include finding optimal locations for industrial warehouses to minimize shipping distances (Jakubovskis, 2017), stores to maximize availability to customers (Klose, Drexl, 2005), and emergency response public services where response time is imperative (Ghosh, Gosavi, 2017).
@@ -82,7 +83,7 @@ Markov chains have been used in many applications, including: mathematical ecolo
 But they have not been commonly used in facility location problems. %fragment
 In this paper, we seek to show that Markov chains provide a robust, flexible, and efficient way to model facility location problems and they offer additional information not found in the standard analysis of the $P$-median problem.
 
-The rest of the paper will be outlined as follows.
+The rest of the paper is outlined as follows.
 Section 2 contains a literary review of facility location problems that Markov models could potentially be used on, the Euclidean distance model and the Markov model. %change euclidean
 Section 3 will outline the construction of the Markov transition matrix used to solve facility location problems, give the results of the general testing of the model and expand on insights gained while studying the model.
 Section 4 expounds on the set up and results of using our model to determine new locations for temples of The Church of Jesus Christ of Latter-Day Saints (LDS church).
@@ -144,7 +145,8 @@ Finally, we discuss the qualitative and quantitative results of the models that 
 A Markov chain is an example of a stochastic simulation of a $n$ state closed system in discrete time.
 We create an $n\times n$ matrix $P$ where $P_{i,j}$ represents the probability of moving from state $i$ to state $j$ in one time step.
 We observe that in each time step, the probability that a person moves from state $i$ to another state in the system is 1 because we have a closed system.
-This means that each row in our transition matrix should have sum equal to one, which is known as {\em row stochastic}. %Check if operations research does rows or columns
+This means that each row in our transition matrix should have sum equal to one, which is known as {\em row stochastic}.
+We note that an equivalent construction can be used where the columns sum to one, but we choose the convention of row stochastic.%Check if operations research does rows or columns
 
 One of the powerful applications of Markov chains is that we can simulate a steady state solution very easily.
 We can model any initial condition (or distribution of people) as a vector $x_0$ and see what happens after one time step by letting $x_1 = P x_0$.
@@ -162,27 +164,36 @@ For a more in-depth background to Markov chain modeling please refer to the pape
 
 The Markov chain that we use is based on the Markov chain application of Faizrahnemoon, Schlote, Maggi, Crisostomi, and Shorten (2015).
 It involves two stages: the initialization of the model transition matrix and the computation of the Perron eigenvectors and the Mean First Passage Time described above.
+\begin{figure}
+\[
+\renewcommand{\arraystretch}{1.5} % give some more room
+\left[\begin{array}{@{}c|c@{}}
+  SS &
+  ST
+\\ \hline
+  TS
+  & TT
+\end{array}\right]
+\]
+\caption{Block diagram of transition matrix}
+\end{figure}
 
-
-Figure: Block diagram of transition matrix:
-
-[[SS, ST],
-
-  [TS, TT]]
-
-
+\begin{table}
+\begin{tabular}{c | p{5cm}}
+Variable & Description\\
+\hline
+$n$ & Number of states\\
+$k$ & Number of states corresponding to consumers\\
+$X$ & Transition matrix of the Markov Chain\\
+$r$, $s$, $v$ & Parameters for weighted distance function\\
+$p$ & Probability a consumer visits the supplier in one time step\\
+$d_{i}$ & Distance from consumer $i$ to the nearest supplier\\
+\end{tabular}
+\caption{Generic variables used in the setup of the Markov chain.}
+\end{table}
 
 Delineation of generic variables:
 
-$n$ - number of states
-
-$k$ - number of consumer states
-
-$X$ - transition matrix of a markov chain
-
-$r, s, v$ - parameters for weighted distance function
-
-$p$ - probability that a consumer visits the supplier in one time step
 
 $d_{i}$ - distance from consumer $i$ to the nearest supplier
 
@@ -260,7 +271,9 @@ Figure: The test cases - ellipse, hyperbola, circles, with the results from each
 
 
 \subsubsection{Mean First Passage Time}
-The mean first passage time is given by EQUATION HERE.
+The mean first passage time is given by
+$$ M = [I - X^{\#} + J_{n}X_{d}^{\#}]\Pi^{-1} $$
+Where $I$ is the $n \times n$ identity matrix, $X^{\#}$ is the {\em group inverse} of the transition matrix $X$, $J_{n}$ is the $n \times n$ matrix of all ones, $X_{d}^{\#}$ is the $n \times n$ diagonal matrix whose diagonal entries are the corresponding diagonal entries of $X_{\#}$, and where $\Pi$ is the diagonal matrix whose diagonal entries are the corresponding entries of the equilibrium state vector of the transition matrix (Kirkland, Neumann, Sze, 2008) %This is copied pretty much word for word from the source, but I don't know of a better way to do it... Is that OK?
 It is a matrix the same size as the transition matrix and the ijth entry gives the average number of timesteps required for a person starting in state i to move to state j.
 The block format of the transition matrix continues into the matrix of the mean first passage times.
 We are not concerned with the values in the SS, TS, or TT block because it is the ST block that represents the amount of time it takes for consumers to get to a producer.
@@ -273,6 +286,8 @@ We want to make the harmonic mean of the row of the ST block as small as possibl
 By optimizing on the mean first passage time, we are reducing the overall difficulty of getting to a producer, which is desirable behavior in the network.
 
 \subsubsection{Throughput}
+In order to increase revenues, a reasonable thing to optimize is the number of people who go through a producer.
+For example, a restaurant wants the most people to go through each location.
 The first Perron eigenvector is the steady state of the network. %stronger beginning required
 Each entry in the eigenvector gives the percentage of people in that state in the long term or equilibrium. %weak
 By this construction, the last n places in the steady state vector correspond to the number of people who are at a location of commerce in a given day.
@@ -538,6 +553,12 @@ Jakubovskis A.
 Kirkland S.
 \newblock Load balancing for Markov chains with a specified directed graph.
 \newblock {\em Linear and Multilinear Algebra.} 2014; 62: 1491-1508.
+
+\bibitem[Kirkland, Neumann, Sze, 2014]{Kirkland:2008}
+Kirkland, S.J., Neumann, M. \& Sze, NS.
+\newblock On Optimal Condition Numbers for Markov Chains
+\newblock {\em Numer. Math.} 2008 110:521
+%https://doi.org/10.1007/s00211-008-0172-8
 
 \bibitem[Klose, Drexl, 2005]{Klose:2005}
 Klose A, Drexl A.
