@@ -264,7 +264,7 @@ The following metrics are ways to measure the effectiveness of a network.
 Each metric measures the network slightly differently and each can be used to optimize the network.
 We will explain each in detail and discuss what each metric measures.
 We will also give justification in the form of empirical test cases.
-We will refer to the transition matrix in blocks, as outlined in figure (>?).
+We will refer to the transition matrix in blocks, as outlined in figure (1).
 
 
 Figure: The test cases - ellipse, hyperbola, circles, with the results from each metric plotted on top.
@@ -307,13 +307,14 @@ In comparison to the mean first passage time, the optimization problem induced b
 
 \subsubsection{Top-tier}
 It also may be of interest to enlarge a consumer by focusing on increasing accessibility for those who are currently have the most difficulty getting to suppliers.
+This would encapsulate situations such as hospitals or fire stations that desire to minimize the maximum distance from a hospital or fire station.
+By doing this, the overall response time of the fire station will be decreased because the outliers are brought closer.
 The consumer entries with the highest values in the equilibrium vector will have the highest percentage of people are in that location at any given day.
 In order to get their business, we want them to leave their original location, which would correspond to a reduction in their entry in the Perron eigenvector.
 To do this, we compute the Perron eigenvector for the network before adding a new facility and note the states that have the highest values in the eigenvector.
 We choose the top X% to minimize.
 The best location under this metric will then be the location that minimizes these locations in the Perron eigenvector.
-By optimizing on this metric, we ensure that the people that have the most difficulty getting to a producer will be able to get to a producer.
-This is important for situations like hospitals or fire stations where the furthest people are the most important to consider.
+By optimizing on this metric, we ensure that the people that have the most difficulty getting to a producer will be benefited the most.
 
 \subsubsection{Kemeny Constant}
 The Kemeny constant is defined to be (DEFINITION).
