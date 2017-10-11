@@ -272,7 +272,7 @@ Figure: The test cases - ellipse, hyperbola, circles, with the results from each
 
 \subsubsection{Mean First Passage Time}
 Rather than minimizing the total distance traveled by all consumers, we may be interested in minimizing the average amount of time that consumers spend traveling.
-This would increase customer presence in consumer location because they would not have to travel as far.
+We assume this would increase the likelihood of a customer going to a location of business because they will not a long travel time to get to the producer's location. %Super awkward, needs revising.
 Here, we assume that the limiting factor for consumers is the travel time rather than distance.
 Using a Markov transition matrix, we can calculate the average amount of time spent traveling from a consumer state to a producer state. %Awkward term.
 We do this by utilizing the mean first passage time.
@@ -281,15 +281,20 @@ $$ M = [I - X^{\#} + J_{n}X_{d}^{\#}]\Pi^{-1} $$
 Where $I$ is the $n \times n$ identity matrix, $X^{\#}$ is the {\em group inverse} of the transition matrix $X$, $J_{n}$ is the $n \times n$ matrix of all ones, $X_{d}^{\#}$ is the $n \times n$ diagonal matrix whose diagonal entries are the corresponding diagonal entries of $X_{\#}$, and where $\Pi$ is the diagonal matrix whose diagonal entries are the corresponding entries of the equilibrium state vector of the transition matrix (Kirkland, Neumann, Sze, 2008) %This is copied pretty much word for word from the source, but I don't know of a better way to do it... Is that OK?
 The group inverse is the unique matrix that satisfies $X^{\#}XX^{\#} = X^{\#}$, $XX^{\#}X = X$, and $XX^{\#} = X^{\#}X$ (Kirkland et. al. 2008)
 It is a matrix the same size as the transition matrix and the ijth entry gives the average number of timesteps required for a person starting in state i to move to state j.
-The block format of the transition matrix continues into the matrix of the mean first passage times.
-We are not concerned with the values in the SS, TS, or TT block because it is the ST block that represents the amount of time it takes for consumers to get to a producer.
+The block format and meaning of the transition matrix carries over into the matrix of the mean first passage times.
+We are not concerned with the values in the SS, TS, or TT block because it is only the ST block that represents the amount of time it takes for consumers to get to a producer.
 However, under a different problem formulation, these blocks could give meaningful information.
-In fact, we're not even interested in all of the values in the ST section, only those that are relatively small.
-In a large network, a person in Alabama is not likely to drive to Montana to do their shopping, so while there is a mean first passage time from Alabama to Montana, it is very large, and this time should have little effect on our decision.
+In fact, we are not even interested in all of the values in the ST section, only those that are relatively small.
+In a large network, a person in Alabama is not likely to drive to Montana to do their shopping, so while there is a mean first passage time from a consumer in Alabama to a center in Montana, it is very large, and this time should have no effect on our decision because it is not correct behavior.
 The harmonic mean is a way to discount the large outlying values while putting emphasis on the smaller values.
-So we take the harmonic mean (DEFINE) of all of the values in the ST section of our matrix, and optimize on that.
-We want to make the harmonic mean of the row of the ST block as small as possible, as this represents a small average travel time to the producer, and having consumers closer to producers is valuable to a producer.
+So we take the harmonic mean of all of the values in the ST section of our matrix, and optimize on that.
+Given values $x_{1}, \hdots, x_{n}$, the harmonic mean is 
+$$\frac{1}{\frac{1}{x_{1}} + \hdots + \frac{1}{x_{n}}}$$
+This form of the mean emphasizes relatively small values without being swayed by large outliers.
+We want to make the harmonic mean of the row of the ST block as small as possible, as this represents a small average travel time from a consumer to a producer, and having consumers closer to producers is valuable to a producer.
 By optimizing on the mean first passage time, we are reducing the overall difficulty of getting to a producer, which is desirable behavior in the network.
+
+%Is the harmonic mean enough?  We should check what kind of values that kicks out and see how much it's being swayed by the big numbers.
 
 \subsubsection{Throughput}
 In order to increase revenues, a reasonable thing to optimize is the number of people who go through a producer.
