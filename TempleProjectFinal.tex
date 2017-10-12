@@ -299,25 +299,34 @@ By optimizing on the mean first passage time, we are reducing the overall diffic
 \subsubsection{Throughput}
 In order to increase revenues, a reasonable thing to optimize is the number of people who go through a producer.
 For example, a restaurant wants the most people to go through each location.
-The first Perron eigenvector is the steady state of the network. %stronger beginning required
+Referencing the first Perron eigenvector again, we can see the steady state of the network. %stronger beginning required
 Each entry in the eigenvector gives the percentage of people in that state in the long term or equilibrium. %weak
-By this construction, the last n places in the steady state vector correspond to the number of people who are at a location of commerce in a given day.
+By this construction, the last $n$ places in the steady state vector correspond to the number of people who are at a location of commerce in a given day.
 To maximize the number of people who visit the supplier, it is desirable to increase the sum of the last n states in the steady state vector.
 This will maximize the throughput of the locations overall.
+Intuitively, this means that a higher percentage of people will visit the producer's location daily.
 If there are more people at the store daily, then revenues will increase, so this is a desirable behavior in the network.
 In order to optimize on the last section of the first Perron eigenvector, we take the proposed location for the new facility, calculate the transition matrix for the network with the proposed facility, and compute the first Perron eigenvector.
-Then, we sum the last n entries in the vector.
-Maximizing this sum will allow us to find the location where we have the most people passing through each facility.
+Then, we sum over the last $n$ entries in the vector.
+Maximizing this sum will allow us to find the location where we have the most people passing through all facilities.
 In comparison to the mean first passage time, the optimization problem induced by this metric is throughput-centric.
 
 \subsubsection{Top-tier}
 It also may be of interest to enlarge a consumer by focusing on increasing accessibility for those who are currently have the most difficulty getting to suppliers.
-This would encapsulate situations such as hospitals or fire stations that desire to minimize the maximum distance from a hospital or fire station.
+This would encapsulate situations such as hospitals or fire stations that desire to minimize the difficulty for outliers to get to a producer's location.
 By doing this, the overall response time of the fire station will be decreased because the outliers are brought closer.
+Again, we are assuming that the limiting factor is the travel time rather than the distance.
+In order to have the most benefit for the consumers that have the most difficulty getting to the producers, we consider the first Perron eigenvector.
 The consumer entries with the highest values in the equilibrium vector will have the highest percentage of people are in that location at any given day.
 In order to get their business, we want them to leave their original location, which would correspond to a reduction in their entry in the Perron eigenvector.
 To do this, we compute the Perron eigenvector for the network before adding a new facility and note the states that have the highest values in the eigenvector.
-We choose the top X% to minimize.
+We choose the top X\% to minimize.
+This percentage must be chosen heuristically.
+If we choose a large percentage of consumers to minimize, then we may not be affecting the true outliers, and if we choose too small a percentage, then a few locations will dominate the decision-making process.
+For example, if we choose only one location to reduce, then the logical thing to do would be to place a producer right on that consumer's location.
+This will benefit that particular consumer, but the network as a whole could be better served by choosing a more optimal location.
+So the correct percentage must be chosen carefully.
+In our tests, we used 10\%.
 The best location under this metric will then be the location that minimizes these locations in the Perron eigenvector.
 By optimizing on this metric, we ensure that the people that have the most difficulty getting to a producer will be benefited the most.
 
