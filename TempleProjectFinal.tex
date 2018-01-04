@@ -62,29 +62,28 @@ We present an example construction including computational results for finding t
 
 \section{Introduction}
 
-Problems in location theory, such as the facility location problem, are formulated to maximize the amount of satisfied demand by finding optimal locations for facilities, either through adding new facilities or relocating existing ones.
-There are a myriad of ways to define an optimal location, but the standard definition is a location that minimizes the average distance traveled to fulfill a demand (Owen \& Daskin, 1998).
-Additional definitions of optimal include the location that minimizes the maximum distance to fulfill a demand, the location to maximize throughput in all producer centers, or the location that minimizes the average time for consumers to travel to producer centers. %Awkward terminology
-In this paper, we show that a Markov chain can facilitate the study and understanding of these other definitions of optimal, as well as solve facility location problems using these other definitions.
+Problems in facility location theory focus on finding optimal locations for facilities to meet consumer demand, either in adding new facilities or relocating existing ones.
+There are a myriad of ways to define an optimal location, but the standard definition is a location that minimizes the average distance traveled by a consumer to fulfill a demand (Owen \& Daskin, 1998).
+Additional definitions of optimal include the location that minimizes the maximum distance traveled to fulfill a demand, the location to maximize the throughput of the producer centers, or the location that minimizes the average time consumers have to travel to producer centers.
+In this paper, we show that a Markov chain can be used to solve facility location problems based on some of these definitions of optimal, as well as others we introduce in the section on proposed metrics.
 
-One of the simplest and most prominent facility location problems optimizing on distance is the $P$-median problem, which tries to minimize the distance that a demand must travel to reach its nearest facility (Current, Min, \& Schilling, 1990). %repetitive
+A fundamental facility location problem is the $P$-median problem, which tries to minimize the distance that a consumer must travel to reach their nearest facility (Current, Min, \& Schilling, 1990).
 Typical applications of $P$-median problems include finding optimal locations for industrial warehouses to minimize shipping distances (Jakubovskis, 2017), stores to maximize availability to customers (Klose, Drexl, 2005), and emergency response public services where response time is imperative (Ghosh, Gosavi, 2017).
 As a special case of the $P$-median problem, we will be contrasting our analysis with the Fermat-Weber problem (Bose, Maheshwari, Morin, 2003). 
-For notational convenience, we call the method associated with the Fermat-Weber problem the Weighted-Distance Model (WDM). %probably not a model in the rigorous sense
-This method considers the Euclidean length of the paths between the demands and the potential facility, but these paths can be manually adjusted individually to account for advantages or disadvantages in the path. %Change euclidean - direct distance?
-An example of this model in application can be found in the paper by Ndiaye, Ndiaye and Ly (2012). %Describe paper?
+We call our approximate solution to the Fermat-Weber problem the Weighted-Distance Method (WDM). %Pick a name and call it that. Just make sure to check the rest of the paper.
+This method considers the Euclidean distance between the consumers and the potential facility. 
+An example of this model in application can be found in the paper by Ndiaye, Ndiaye and Ly (2012).
 
 In comparison to the WDM, the main approach employed in this paper is to use a Markov chain to model the behavior of consumers as they interact with facilities. 
 An interaction could be a sale made, a visit to a retail location, or any other meaningful experience that a consumer would have with a producer.
-The model does not require each interaction to be of the same type.
-Markov chains reveal the effects that simple local behaviors have on more complex global behaviors through modeling the behavior as a network. %Maybe end before "through..."
+Markov chains reveal the effects that simple local behaviors have on more complex global behaviors through modeling the behavior as a network.
 This is similar to the goal of many facility location problems, as it is often the case that the behavior being optimized is about the aggregate populous and not the specific actions of certain individuals.
-Markov chains have been used in many applications, including: mathematical ecology (Kirkland, 2014), computational biology (Krogh, Brown, Mian, Sjolander, Haussler, 1994), and network modeling (Newman, 2003). %transition needed
-But they have not been commonly used in facility location problems. %fragment
-In this paper, we seek to show that Markov chains provide a robust, flexible, and efficient way to model facility location problems and they offer additional information not found in the standard analysis of the $P$-median problem.
+Markov chains have been used in many applications, including: mathematical ecology (Kirkland, 2014), computational biology (Krogh, Brown, Mian, Sjolander, Haussler, 1994), and network modeling (Newman, 2003), but they have not been commonly used in facility location problems.
+In this paper, we show that Markov chains provide a flexible and efficient way to model facility location problems.
+Also, they offer additional information not found in the standard analysis of the $P$-median problem.
 
-The rest of the paper is outlined as follows.
-Section 2 contains a literary review of facility location problems that Markov models could potentially be used on, the Euclidean distance model and the Markov model. %change euclidean
+This paper proceeds as follows.
+Section 2 contains a literary review of facility location problems on which Markov chains could potentially be used, as well as literature pertaining to the WDM and the Markov chain method. 
 Section 3 will outline the construction of the Markov transition matrix used to solve facility location problems, give the results of the general testing of the model and expand on insights gained while studying the model.
 Section 4 expounds on the set up and results of using our model to determine new locations for temples of The Church of Jesus Christ of Latter-Day Saints (LDS church).
 Section 5 will conclude the paper with suggestions for further work.
