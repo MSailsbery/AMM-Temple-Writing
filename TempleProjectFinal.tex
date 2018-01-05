@@ -133,27 +133,27 @@ Because the transition matrix can be easily updated, we can easily measure the l
 
 \section{Markov Chain Modeling}
 
-Using properties of a Markov chain, one can make decisions about the ``best'' place to place a facility under different definitions of ``best''.
-Where the $P$-median problem optimizes solely on distance, a Markov chain can be used to optimize on many different attributes of the network.
-In this section, we develop this idea through a brief mathematical review of Markov chains.
-Then, we demonstrate the construction and analysis of such on real-world networks. %Really?
-Finally, we discuss the qualitative and quantitative results of the models that were created, in which the strengths and weaknesses of each objective function is discussed. %The ordering of these might be a little off.
+Using properties of a Markov chain, one can make decisions about the ``best'' place to have a facility under different definitions of ``best''.
+Where the $P$-median problem seeks to optimize distance, a Markov chain can be used to optimize many different attributes of a supply network.
+In this section, we develop this idea and demonstrate the construction and analysis of such on real-world networks.
+Finally, we discuss the qualitative and quantitative results of the models that were created, in which the strengths and weaknesses of each objective function is discussed.
 
 \subsubsection{Background}
 
-A Markov chain is an example of a stochastic simulation of a $n$ state closed system in discrete time.
+A Markov chain is an example of a stochastic simulation of a closed system with $n$ states in discrete time.
 We create an $n\times n$ matrix $P$ where $P_{i,j}$ represents the probability of moving from state $i$ to state $j$ in one time step.
-We observe that in each time step, the probability that a person moves from state $i$ to another state in the system is 1 because we have a closed system.
+As this is a closed system, in each time step the probability that a person moves from state $i$ to some state in the system (including remaining at $i$) is 1. 
 This means that each row in our transition matrix should have sum equal to one, which is known as {\em row stochastic}.
-We note that an equivalent construction can be used where the columns sum to one, but we choose the convention of row stochastic.%Check if operations research does rows or columns
+We note that an equivalent construction can be used where the columns sum to one, but we continue with row stochasticity here.%Check if operations research does rows or columns
 
-One of the powerful applications of Markov chains is that we can simulate a steady state solution very easily.
-We can model any initial condition (or distribution of people) as a vector $x_0$ and see what happens after one time step by letting $x_1 = P x_0$.
-More generally, we say $x_{n + 1} = P x_n$.
-Because we have a row stochastic matrix, we can see that the all-ones vector is an eigenvector of $P$, which implies that its spectral radius is 1. %citation
-The Perron Frobenious Theorem tells us that in this case, the dominant left eigenvalue is 1, and that it has an all-positive eigenvector.%cite
-This eigenvector is known as the Perron eigenvector and is important for our analysis of the model because it represents the steady state of the model. %citation
-We use this steady state solution to observe what happens to the distribution of people when a new facility is added in any given location.
+One of the powerful applications of Markov chains is that we can derive a steady state, or equilibrium solution, very easily.
+We can model any initial condition (i.e. distribution of people) as a vector $x_0$ and see what happens after one time step by letting $x_1 = x_0 P$.
+More generally, we say $x_{n + 1} = x_n P$.
+Because we have a row stochastic matrix, we can see that the all-ones vector is a right eigenvector of $P$.
+In the subsection Model Setup, we add a ``teleport'' factor to P, which results in it being an all positive matrix.
+The Perron?Frobenius Theorem tells us that, in this case, the dominant eigenvalue of P is 1 and that it has an all-positive left eigenvector.
+This eigenvector is known as the Perron eigenvector and represents the steady state of the model. %citation
+We use this steady state solution to observe what happens to the distribution of consumers when a new facility is added in a given location.
 
 For a more in-depth background to Markov chain modeling please refer to the paper by Faizrahnemoon, Schlote, Maggi, Crisostomi, and Shorten (2015).
 
