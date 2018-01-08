@@ -142,7 +142,7 @@ Finally, we discuss the qualitative and quantitative results of the models that 
 
 A Markov chain is an example of a stochastic simulation of a closed system with $n$ states in discrete time.
 We create an $n\times n$ matrix $P$ where $P_{i,j}$ represents the probability of moving from state $i$ to state $j$ in one time step.
-As this is a closed system, in each time step the probability that a person moves from state $i$ to some state in the system (including remaining at $i$) is 1. 
+As this is a closed system, in each time step the probability that a person moves from state $i$ to some state in the system (including possibly remaining at $i$) is 1. 
 This means that each row in our transition matrix should have sum equal to one, which is known as {\em row stochastic}.
 We note that an equivalent construction can be used where the columns sum to one, but we continue with row stochasticity here.%Check if operations research does rows or columns
 
@@ -155,13 +155,13 @@ The Perron?Frobenius Theorem tells us that, in this case, the dominant eigenvalu
 This eigenvector is known as the Perron eigenvector and represents the steady state of the model. %citation
 We use this steady state solution to observe what happens to the distribution of consumers when a new facility is added in a given location.
 
-For a more in-depth background to Markov chain modeling please refer to the paper by Faizrahnemoon, Schlote, Maggi, Crisostomi, and Shorten (2015).
+For a more in-depth background to Markov chain modeling please refer to the paper by Faizrahnemoon et al. (2015).
 
 %Justification for use in location theory?  The outline has it here, but we may cover it well enough elsewhere
 
 \subsubsection{Model Setup}
 
-The Markov chain that we use is based on the Markov chain application of Faizrahnemoon, Schlote, Maggi, Crisostomi, and Shorten (2015).
+The Markov chain method that we use is based on that of Faizrahnemoon et al. (2015).
 It involves two stages: the initialization of the model transition matrix and the computation of the Perron eigenvectors and the Mean First Passage Time described above.
 \begin{figure}
 \[
@@ -188,7 +188,7 @@ $r$, $s$, $v$ & Parameters for weighted distance function\\
 $p$ & Probability a consumer visits the supplier in one time step\\
 $d_{i}$ & Distance from consumer $i$ to the nearest supplier\\
 \end{tabular}
-\caption{Generic variables used in the setup of the Markov chain.}
+\caption{Generic variables used in the setup of the Markov chain method.}
 \end{table}
 
 Delineation of generic variables:
@@ -201,7 +201,9 @@ Each row and column $0 \leq i \leq k$ represents a consumer $x_i$ and each row a
 This notation will continue to distinguish consumers and suppliers, though they are entries in one transition matrix. %will get confusing, probably
 
 All distance values in the formulation of the model will be weighted by a logistic equation $g(d): \mathbb{R} \rightarrow [0,1]$ of the form:
-$$g(d) = \frac{1}{1 + e^{r(d-s)}} - v$$
+\begin{equation}
+g(d) = \frac{1}{1 + e^{r(d-s)}} - v
+\end{equation}
 Where $r$,$s$, and $v$ are parameters which model  a weighted distance between $0$ and $1$ to represent the motivations of the consumer when they are distance $x$ from a supplier. %can we get better intuition of what r, s, v represent?  What kind of motivations?
 
 The values on the diagonal where $0 \leq i \leq k$ are computed to represent the probability of staying at consumer location for one time step.
@@ -260,9 +262,9 @@ This results in a matrix that is both row stochastic and ergodic.
 
 \subsection{Proposed Metrics}
 The following metrics are ways to measure the effectiveness of a network.
-Each metric measures the network slightly differently and each can be used to optimize the network.
-We will explain each in detail and discuss what each metric measures.
-We will also give justification in the form of empirical test cases.
+Each metric measures the network differently and each can be optimized in the network.
+We will explain each in detail including what each metric measures.
+We will also give justification in the form of an empirical test case.
 We will refer to the transition matrix in blocks, as outlined in figure (1).
 
 
@@ -346,8 +348,8 @@ In this section we present an example of a facility location problem, in which s
 The example given here is that of The Church of Jesus Christ of Latter-Day Saints (the LDS church) building new temples.
 
 
-For members of the LDS Church, temples are a facility of worship and are believed to be imperative in the process of gaining salvation.
-In this problem, we assume that the LDS Church is attempting to satisfy one of two goals, either increasing the access that its members have to temples or generating the highest attendance to its temples overall.
+For members of the LDS Church, temples are a facility of worship and visiting them is believed to be imperative in the process of gaining salvation.
+In this problem, we assume that the LDS Church is attempting to satisfy one of two goals, either increasing the access that its members have to temples (Top-tier metric) or generating the highest attendance to its temples overall (Throughput metric).
 
 As a control case, we use a $P$-median method to minimize the distance of each church member to their closest temple.
 The distance is measured as a transformation of the geophysical distance, which is in turn calculated via Vincenty's Formulae. %Citation Needed
@@ -361,22 +363,22 @@ This is a special case of g(d) with the constants $r$, $s$, and $v$ chosen to mi
 Here, the assumption is that the difference between having a temple 5 miles away and 10 miles away is marginal, as is the difference between having a temple 200 miles away and 400 miles away.
 The assumption implies that the biggest impact will come from people who were previously about 90 miles away from a temple and are now 20 miles away.
 
-In the LDS church, members are grouped by geographical area.
-Each cluster of members is called a stake, and a building of worship, called a stake center, is located within each stake.
+In the LDS church, church members are grouped by geographical area.
+Each grouping of members is called a stake, and a building of worship, called a stake center, is located within each stake.
 For our model, instead of the residence of each individual member, we use the location of the stake center to calculate $d_{v}$.
 %Note that, instead of using the residence of each individual member, $d_{v}$ is calculated using the location of a stake center.
 Let each stake center be represented as $s_i$, each temple as $t_j$, the set of all the stake centers as $S$, the set of original temples as $T$, and the set of new temples as $T_{\text{new}}$. %Delineate with the other case study-related variables.
 An example representation of the setup of this problem with each stake being connected to its two closest temples can be found in Figure 1.
-The average distance a given member of a LDS stake has to travel to get to their closest temple is
+The average distance a given member of an LDS stake has to travel to get to their closest temple is
 
 \begin{equation}
-	f(S,T) = \sum_i \underset{j}{\text{min}}\{d(s_i,t_j)\}.
+	h(S,T) = \frac{1}{n} \sum_i \underset{j}{\text{min}}\{d(s_i,t_j)\}.
 \end{equation}
 Thus, the unconstrained optimization problem can be written as
 
 \begin{equation}
 \begin{aligned}
-	\minimize_{T^*} f(S,T^*), \text{ where } T^* = T \cup T_{\text{new}}.
+	\minimize_{T^*} h(S,T^*), \text{ where } T^* = T \cup T_{\text{new}}.
 \end{aligned}
 \end{equation}
 
@@ -409,7 +411,7 @@ Thus, the unconstrained optimization problem can be written as
 (10) edge node [right] {0.8} (6)
 (10) edge node [above] {0.2} (8);
 \end{tikzpicture}
-\caption{A sample graph including $7$ stakes and $3$ temples. \textbf{Note}: Edges in this figure are a measure of distance, not a measure of probability.} % Maybe edges should correspond to probability?
+\caption{A sample graph including $7$ stakes and $3$ temples. \textbf{Note}: Edges in this figure are a measure of distance, not a measure of probability. Not to scale.} % Maybe edges should correspond to probability?
 \label{fig:M1}
 \end{figure}
 
@@ -418,17 +420,16 @@ We found that the US is spread out enough that determining the location of multi
 Thus, for ease of computation, we only considered $T_{\text{new}}$ with carnality 1;
 That is, we assume only one temple is to be added at a time.
 
-To minimize the objective function, we used a pseudo Monte Carlo method in which we divided the United States into one million evenly spaced points and evaluated the objective function at each point.
+To minimize the objective function, we sampled the value of $h$ in the United States at one million evenly spaced points.
 For the test case, we used the WDM as a comparison of what the $P$-median problem would yield.
-The proposed metrics used were mean first passage time and throughput because they correlate with the two factors that we considered to be most important in this case.
 \subsection{Weighted Distance Model Setup}
 
 To fully understand the model, it is crucial to know what factors were considered relevant.
 Chief among these factors is the distance $d(s_i,t_j)$ from a stake center to a temple. %standardize distance notation
 % Do we need to add a reference for the Vincenty algorithm below?
 This distance is measured using the Vincenty Algorithm in order to account for the shape of the earth and give accurate measurements based on latitude and longitude. %mentioned earlier, could be expanded upon there and deleted here (l. 319)
-We admit that this is a naive Euclidean distance not based upon actual driving distances.
-We found that using a Google API to find all of these actual distances was time-consuming, but could be considered for increased accuracy in future work. %awkward
+This is a naive Euclidean distance not based upon actual driving or walking distances.
+Using an API to find all of these actual distances could be considered for increased accuracy in future work.
 This factor was used in both our Weighted Distance and Markov models.
 
 The only other relevant factor to the WDM was the weight associated with each distance, $\omega_i$. %put in delineation of variables.
@@ -443,7 +444,7 @@ The only assumption made about the behavior of church members is that they desir
 \subsection{Markov Model Setup}
 
 To solve this problem, we used the Markov chain model that can be found in Section 3 using the variables in Table 1.
-To simplify this model and to make an analytical review of temple location optimization possible, a number of assumptions were made.
+To simplify this model a number of assumptions were made.
 First, we assumed that every LDS stake in the United States has the same number of active, temple-going members contained within its boundaries.
 This approximation, combined with the assumption that every stake center is located at the center of the stake, allowed us to estimate the member density of each stake, $\rho_i$.
 The purpose of $\rho_{i}$ is to relate how much traffic each stake would provide to its nearest five temples. %should probably use just nearest 1, it makes more sense.
@@ -471,7 +472,7 @@ We determined the busyness of a temple, $\tau_i$, based on the number of stakes 
 
 In order to create this model, we initialize a square probability matrix $P$ in which the first $k$ rows and columns correspond to the stakes in the United States and the next $m$ rows and columns correspond to the temples in the United States.
 Each $P_{ij}$ in the matrix represents the probability that a person in row $i$ will travel to column $j$ in the current state.
-The diagonal entries $P_{ii}$ represent the probability that a person will remain in their current state.
+The diagonal entries $P_{ii}$ represent the probability that a person will remain in their current state (i.e. not visit a temple on a given day).
 The time, in this case, is in days, so each multiplication of the transition matrix onto a distribution vector will simulate one day passing.
 
 % Create a visual matrix representation of the matrix initialized | There's a version where the magnitude of the entry is color in No_Busyness_Test.ipynb
@@ -513,7 +514,7 @@ We will present the results of the case study, compare them to the results from 
 \section{Conclusion}
 
 Discrete mathematics is already in wide use in facility location theory. %citation needed
-The development and discussion of methods based on the Markov chain is another example of using tool from discrete mathematics to give researchers and decision makers more information.
+The development and discussion of methods based on Markov chains is another example of using tools from discrete mathematics to give researchers and decision makers more information.
 A system modeled as a network via a Markov chain can be analyzed to optimize its throughput, connectedness, and many other mathematical properties, each with possible applications in the area of facility location theory.
 According to the arguments given here and the computational evidence, there is strong reason to believe that the simplified qualitative interpretation of the metrics used to optimize a network indeed work as presented.
 
