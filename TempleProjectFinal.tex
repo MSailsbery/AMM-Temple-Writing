@@ -71,28 +71,27 @@ We present an example construction including computational results for finding t
 
 Problems in facility location theory focus on finding optimal locations for facilities to meet consumer demand, either in adding new facilities or relocating existing ones.
 There are a myriad of ways to define an optimal location, but the standard definition is a location that minimizes the average distance traveled by a consumer to fulfill a demand (Owen \& Daskin, 1998).
-Additional definitions of optimal include the location that minimizes the maximum distance traveled to fulfill a demand, the location to maximize the throughput of the suppliers, or the location that minimizes the average time consumers have to travel to suppliers.
+Additional definitions of optimal include the location that minimizes the maximum distance traveled to fulfill a demand, the location to maximize the throughput of the suppliers, or the location that minimizes the average time consumers are required to travel to reach suppliers.
 In this paper, we show that a Markov chain can be used to solve facility location problems based on some of these definitions of optimal, as well as others we introduce in the section on proposed metrics.
 
 A fundamental facility location problem is the $P$-median problem, which tries to minimize the distance that a consumer must travel to reach their nearest facility (Current, Min, \& Schilling, 1990).
 Typical applications of $P$-median problems include finding optimal locations for industrial warehouses to minimize shipping distances (Jakubovskis, 2017), stores to maximize availability to customers (Klose, Drexl, 2005), and emergency response public services where response time is imperative (Ghosh, Gosavi, 2017).
-As a special case of the $P$-median problem, we will be contrasting our analysis with the Fermat-Weber problem (Bose, Maheshwari, Morin, 2003). 
+As a special case of the $P$-median problem, we will be contrasting our analysis with the Fermat-Weber problem (Bose, Maheshwari, Morin, 2003).
 We call our approximate solution to the Fermat-Weber problem the Weighted-Distance Method (WDM). %Pick a name and call it that. Just make sure to check the rest of the paper.
-This method considers the Euclidean distance between the consumers and the potential facility. 
+This method considers the Euclidean distance between the consumers and the potential facility under a function that we believe models the effect of distance on the likelihood of people to visit the consumer. %Probably the wrong use of likelihood. 
 An example of this model in application can be found in the paper by Ndiaye, Ndiaye and Ly (2012).
 
 In comparison to the WDM, the main approach employed in this paper is to use a Markov chain to model the behavior of consumers as they interact with facilities. 
-An interaction could be a sale made, a visit to a retail location, or any other meaningful experience that a consumer would have with a supplier.
+An interaction could be a sale made, a visit to a retail location, or any other meaningful experience that a consumer would have with a supplier. %Include other "Meaningful experiences" in the further research section.
 Markov chains reveal the effects that simple local behaviors have on more complex global behaviors through modeling the behavior as a network.
 This is similar to the goal of many facility location problems, as it is often the case that the behavior being optimized is about the aggregate populous and not the specific actions of certain individuals.
 Markov chains have been used in many applications, including: mathematical ecology (Kirkland, 2014), computational biology (Krogh, Brown, Mian, Sjolander, Haussler, 1994), and network modeling (Newman, 2003), but they have not been commonly used in facility location problems.
-In this paper, we show that Markov chains provide a flexible and efficient way to model facility location problems.
-Also, they offer additional information not found in the standard analysis of the $P$-median problem.
+In this paper, we show that Markov chains provide a flexible and efficient way to model facility location problems that offers additional information not found in the standard analysis of the $P$-median problem.
 
 This paper proceeds as follows.
-Section 2 contains a literary review of facility location problems on which Markov chains could potentially be used, as well as literature pertaining to the WDM and the Markov chain method. 
+Section 2 contains a literary review of facility location problems on which Markov chains could potentially be used, as well as literature pertaining to the WDM and the Markov chain method. %Maybe inaccurate.  Do we talk about potential problems in the lit review?
 Section 3 will outline the construction of the Markov transition matrix used to solve facility location problems, give the results of the general testing of the model and expand on insights gained while studying the model.
-Section 4 expounds on the set up and results of using our model to determine new locations for temples of The Church of Jesus Christ of Latter-Day Saints (LDS church).
+Section 4 details the set up and use of our model through a case study about determining new locations for temples of The Church of Jesus Christ of Latter-day Saints (LDS church).  %expounds on the set up and results of using our model to determine new locations for temples of The Church of Jesus Christ of Latter-Day Saints (LDS church).
 Section 5 will conclude the paper with suggestions for further work.
 
 \section{Literature Review}
@@ -101,7 +100,7 @@ Facility location management is a well-established area within operations resear
 Current, Min and Schilling report that facility location management has been researched through the perspective of many different academic disciplines and cite a recent bibliography on this subject that had over 1500 titles, showing the vast expanse of research in this area (1990). %it's great they cite it, should we cite it directly?
 Owen and Daskin, in their literature review, give an overview of the most-used models among this immense amount of literature.
 They comment on 15 differing subsets of facility location problems, again demonstrating the vastness of the literature and applicability of the problem (1998).
-Although the library of facility location management is large, this review focuses primarily on literature pertaining to median problems, with a specific emphasis on the use of Markov chain models. %model?  This seems like we want to talk about the use of markov chains in facility location management, which they aren't really.
+Although the library of facility location management is large, this review focuses primarily on literature pertaining to median problems, with a specific emphasis on the use of Markov chains. % This seems like we want to talk about the use of markov chains in facility location management, which they aren't really.
 
 The study of location theory began in 1909 when Alfred Weber was researching possible warehouse location based on the average distance to be traveled by those who would visit the warehouse (Owen \& Daskin, 1998).
 His research created the basis for {\em median problems}, or problems that determine a facility location by minimizing the average distance traveled by consumers.
@@ -129,13 +128,16 @@ Paragraph (or two) about distance models, applications, successes, and disadvant
 
 Consider, for example, the $P$-median problem.
 Using the optimization techniques developed by the literature, a decision maker can introduce a new facility that will give the most access, as measured by the inverse of distance, to the consumers that they want to reach. %Citation needed
-Even with some additional conditions imposed on the problem, such as ******* and *******, there are still studied solutions to these questions.%Citation needed
-Via modeling the same system as a network, a Markov chain can be used to optimize the ease of access to a facility under the feedback mechanism of busyness; the amount of throughput occurring in each facility; the access of only those consumers who have the least access initially, and so on. %claim of the paper, probably should be at end of lit review.
+Even with some additional conditions imposed on the problem, such as access to multiple facilities and geographical obstacles, there are still studied solutions to these questions.%Citation needed
+Via modeling the same system as a network, a Markov chain can be used to optimize many things, including the ease of access to a facility under the feedback mechanism of busyness, the amount of throughput occurring in each facility, the access of only those consumers who have the least access initially, and so on. %claim of the paper, probably should be at end of lit review.
 
-One of the significant tools in this process is the steady-state, or equilibrium state, of the Markov chain.
+One of the significant tools in this process is the equilibrium state, or steady state, of the Markov chain.
 This can be calculated in a straightforward manner from the transition matrix used in the Markov chain.
-This steady-state is a vector consisting of what is qualitatively understood as the long-term proportion of consumers that are in a certain state. %Cite some PageRank stuff and the bus paper
+This equilibrium state is a vector consisting of what is qualitatively understood as the long-term proportion of consumers that are in a certain state. %Cite some PageRank stuff and the bus paper
 As the transition matrix can be easily updated, we can easily measure the long-term effects of placing a new facility in a particular location.
+An example of this is a paper by Faizrahnemoon et al. detailing the access to a hospital by changing the location of bus stops in a transportation network in England (2015).
+By measuring the long term effects of a change, we can find the optimal location for a new facility or the relocation of a facility.
+Because it is simple to create a network that models the desirable qualities, properties, and obstacles in the real life situation, we have a flexible and adaptable framework with which to solve facility location problems.
 	% Mostly the bus paper unless we find more
 
 \section{Markov Chain Modeling}
@@ -151,9 +153,9 @@ A Markov chain is an example of a stochastic simulation of a closed system with 
 We create an $n\times n$ matrix $X$ where $x_{i,j}$ represents the probability of moving from state $i$ to state $j$ in one time step.
 As this is a closed system, in each time step the probability that a person moves from state $i$ to some state in the system (including possibly remaining at $i$) is 1. 
 This means that each row in our transition matrix should have sum equal to one, which is known as {\em row stochastic}.
-We note that an equivalent construction can be used where the columns sum to one, but we continue with row stochasticity here.%Check if operations research does rows or columns
+We note that an equivalent construction can be used where the columns sum to one, but we continue with the row stochastic formulation here.%Check if operations research does rows or columns
 
-One of the powerful applications of Markov chains is that we can derive a steady state, or equilibrium solution, very easily.
+One of the powerful applications of Markov chains is that we can derive a equilibrium solution, or steady state solution, very easily. %This has already been mentioned.  Do we want to say it twice?
 We can model any initial condition (i.e. distribution of people) as a vector $w_0$ and see what happens after one time step by letting $w_1 = w_0 X$.
 More generally, we say $w_{n + 1} = w_n X$.
 Because we have a row stochastic matrix, we can see that the all-ones vector is a right eigenvector of $X$.
@@ -162,14 +164,15 @@ The Perron-Frobenius Theorem tells us that, in this case, the dominant eigenvalu
 This eigenvector is known as the Perron eigenvector and represents the steady state of the model. %citation
 We use this steady state solution to observe what happens to the distribution of consumers when a new facility is added in a given location.
 
-For a more in-depth background to Markov chain modeling please refer to the paper by Faizrahnemoon et al. (2015).
+For a more in-depth background to Markov chain modeling please refer to the ``backround" section of the paper by Faizrahnemoon et al. (2015).
 
 %Justification for use in location theory?  The outline has it here, but we may cover it well enough elsewhere
 
 \subsubsection{Model Setup}
 
 The Markov chain method that we use is based on that of Faizrahnemoon et al. (2015).
-It involves two stages: the initialization of the model transition matrix and the computation of the Perron eigenvectors along with other variables.
+It involves two stages: the initialization of the model transition matrix and the computation of the metrics, including the Perron eigenvector and mean first passage time.
+
 \begin{figure}
 \[
 \renewcommand{\arraystretch}{1.5}
@@ -186,66 +189,78 @@ It involves two stages: the initialization of the model transition matrix and th
 
 
 To begin, we initialize the transition matrix $X$ to be an empty $n \times n$ matrix.
-Each row and column $0 \leq i \leq k$ represents a consumer $i$ and each row and column $k < j \leq n$ represents a supplier $j$. %how about c and s?
+Each row and column $0 \leq i \leq k$ represents a consumer $i$ and each row and column $k < j \leq n$ represents a supplier $j$.
 We use this notation will continue to distinguish consumers and suppliers.
-However, for individual entries in the matrix, we employ the standard notation, $x_{i,j}$ as discussed previously.
+However, for individual entries in the matrix, we employ the standard notation, $x_{i,j}$.
 
-Let $d_{i}$ be distance from consumer $y_i$ to their nearest supplier.
+Let $d_{i}$ be the distance from consumer $i$ to their nearest supplier.
 These distances are transformed by a sigmoid function $g(d_i): \mathbb{R} \rightarrow [0,1]$ of the form:
 \begin{equation}
 g(d_i) = \frac{1}{1 + e^{\gamma(d_i-\alpha)}} - \beta.
 \end{equation}
 This transformation allows the modeler to define a region of significance.
-As an example of the use of this function, if a potential customer of a retail chain lives several hundreds of miles aways from the nearest location, then cutting that distance by twenty percent will not be a significance change for that consumer.
+As an example of the use of this function, if a potential customer of a retail chain lives several hundreds of miles away from the nearest location, then cutting that distance by twenty percent will not be a significance change for that consumer.
+Equally useful is that this function allows the modeler to determine a minimum distance of significance.
+For example, if a potential customer lives three hundred yards away from the nearest supplier, then cutting that will have a negligible effect on the customer.
+Thus, an annulus of significance can be defined.
 The parameters $\gamma$, $\alpha$, and $\beta$ represent, respectively, a stretch factor, a domain shift, and a range shift.
 These will vary with the desired region of significance.
+If this region of significance does not hold significance for the modeler, a different transformation can best suit the situation.
 
 It is assumed that no consumer relocates to a different area.
-So, for $0 \leq i,m \leq k$, $x_{im} = 0$ and $x_{mi} = 0$ if $i \neq m$.
+Even though people often move, Markov chains use and report information about aggregate behavior, so this is a reasonable assumption to make. %This isn't a great sentence, but the idea is important.
+So, for $0 \leq i,m \leq k$, $x_{i,m} = x_{m,i} = 0$ if $i \neq m$.
 
-Let $p$ be the probability that a consumer in the immediate vicinity of a supplier visits that supplier on any given day.
-The values on the diagonal of $X$ represent the probability of a consumer not visiting a supplier for one time step.
+Let $p$ be the probability that a consumer in the immediate vicinity of a supplier visits that supplier on any given time step.
+The values on the diagonal of $X$ represent the probability of a consumer not visiting a supplier in one time period.
 These are calculated as follows:
 
-$$x_{ii} = (1-p) + p(g(d_{i}))$$
+$$x_{i,i} = p + (1-p) \cdot (g(d_{i}))$$
 
 where $0 \leq i \leq k$.
+We observe here that the greater the distance a given consumer has to its nearest supplier, the less likely that consumer is to visit a supplier.
+This is desirable behavior in our model because it represents tendencies that people have.
 
-Then to consider movement from a consumer to a supplier, we have $d(i, j)$ as the Euclidean distance from consumer $i$ to supplier $j$ and:
-$$D_i = \sum_{j=k}^{n} \frac{1}{e^{d(x_i,y_j)}}$$
+To consider movement from a consumer to a supplier, we have $d(i, j)$ as the Euclidean distance from consumer $i$ to supplier $j$ and:
+$$D_i = \sum_{j=k}^{n} \frac{1}{e^{d(i,j)}}$$
 
 Then,
-$$x_{ij} = x_{ii} \times \frac{\frac{1}{e^{d(x_i,y_j)}}}{D_i}$$
+$$x_{i,j} = x_{i,i} \times \frac{\frac{1}{e^{d(i,j)}}}{D_i}$$
 %Needs to be corrected, as do other formulae in this portion.
 
 The movement from suppliers to other suppliers is then set to 0.
 So,
 
-$$y_{jj} = 0.$$
+$$y_{j,j} = 0.$$
 
 And, for $k < l \leq n$,
 
-$$y_{jl} = 0.$$
+$$y_{j,l} = 0.$$
 
 Or, equivalently, the SS block is the appropriately-sized matrix of zeroes.
+This models the assumption that once a consumer has visited a supplier, they have no intention of waiting around at that supplier or immediately visiting another supplier.
+Once again, although there may be individual exceptions to this assumption, the overall behavior being modeled fits the assumption.
 
-The next consideration is movement from suppliers to consumers, which is calculatedas follows:
+The next consideration is movement from suppliers to consumers, which is calculated as follows:
 
-$$y_{ji} = \frac{(1-x_{ii})\times x_{ji}}{E_j}$$
+$$y_{j,i} = \frac{(1-x_{i,i})\times x_{j,i}}{E_j}$$
 
 where, 
 
-$$E_j = \sum_{m=0}^{k} (1-x_{mm})\times x_{kj}.$$
+$$E_j = \sum_{m=0}^{k} (1-x_{m,m})\times x_{k,j}.$$
+
+%The previous equations should be described and explained.
 
 This construction results in $X$ being a row stochastic matrix.
 To make $X$ a positive matrix, we add a ``teleport'' factor distributed across each entry of each row.
+While this does not model true behavior, it ensures that the matrix satisfies the hypotheses of the analysis and speeds convergence.
+%See the page rank paper?  This is similar to what they do (maybe even identical).
 
 This is done as follows:
-Let $e$, a small number greater than zero, all elements of $X$ are multiplied by $(1-e)$ and 
+Given $e$, a small number greater than zero, all elements of $X$ are multiplied by $(1-e)$ and 
 $$x_{cd} = x_{cd} + \frac{e}{n}$$
-This results in a matrix that is both row stochastic and ergodic.%For our records, what is our def. of ergodic that is being employed here?
-
-
+This results in a matrix that is both row stochastic and ergodic.%For our records, what is our def. of ergodic that is being employed here? | Positive, I think.  It's just a fancy word to be helpful.
+$e$ should be chosen to be significantly smaller than any values in the transition matrix so the results are not influenced too greatly by the presence of the teleport factor.
     
 \begin{table}
 \begin{tabular}{c | p{5cm}}
@@ -263,6 +278,7 @@ $e$ & Teleport factor
 \end{tabular}
 \caption{Generic variables and parameters used in the setup of the Markov chain method.}
 \end{table}
+%Does the table need to be referenced anywhere in the paper?
 
 % analysis
 
@@ -280,7 +296,7 @@ $e$ & Teleport factor
 The following metrics are ways to measure the effectiveness of a network.
 Each metric measures the network differently and each can be optimized in the network.
 We will explain each in detail including what each metric measures.
-We will also give justification in the form of an empirical test case.
+We will also give justification in the form of an empirical test case. %Empirical is a strong word...
 We will refer to the transition matrix in blocks, as outlined in figure 1.%watch figure numbers
 
 
@@ -288,42 +304,57 @@ Figure: The test cases - ellipse, hyperbola, circles, with the results from each
 
 
 \subsubsection{Mean First Passage Time}
-Instead of minimizing the median Euclidean distance or the transformed distance from equation (1), minimizing a function of the mean first passage time minimizes the average number of time steps required for a given consumer to visit a certain supplier as the system progresses. %Develop this idea more, specifically with an example.
+Instead of minimizing the median Euclidean distance or the transformed distance from equation (1), we consider minimizing the mean first passage time.
+The mean first passage time from $a$ to $b$ represents the average amount of time taken for Markov chain to reach state $b$ given that it started in state $a$.
+Using the formulation of our transition matrix, the mean first passage time from $i$ to $j$ would represent the average time it takes for consumer $i$ to visit supplier $j$.
+Thus, by minimizing the mean first passage time, we can minimize the average amount of time it takes for a consumer to visit a supplier.
+However, the mean first passage time is a measure from one specific state to another specific state, so to use it to measure the network, we must use a function of the entries in the mean first passage time matrix.
+%Develop this idea more, specifically with an example.
 
 Following the notation and exposition in Kirkland et al. (2008), the mean first passage time is given by
 $$ M = [I - X^{\#} + J_{n}X_{d}^{\#}]\Pi^{-1}$$
 Where $I$ is the $n \times n$ identity matrix, $X^{\#}$ is the {\em group inverse} of the transition matrix $X$, $J_{n}$ is the $n \times n$ matrix of all ones, $X_{d}^{\#}$ is the $n \times n$ diagonal matrix whose diagonal entries are the corresponding diagonal entries of $X_{\#}$, and where $\Pi$ is the diagonal matrix whose diagonal entries are the corresponding entries of the equilibrium state vector of the transition matrix.%This is copied pretty much word for word from the source, which is not ok.
 The group inverse is the unique matrix that satisfies $X^{\#}XX^{\#} = X^{\#}$, $XX^{\#}X = X$, and $XX^{\#} = X^{\#}X$.
-It is a matrix the same size as the transition matrix and the $ij$th entry gives the average number of timesteps required for a person starting in state $i$ to get to state $j$.
-The block format and meaning of the transition matrix carries over into the matrix of the mean first passage times.
+It is a matrix the same size as the transition matrix and the $i,j$th entry gives the average number of time steps required for a person starting in state $i$ to get to state $j$.
+The block format and meaning of the transition matrix carries over into the matrix of mean first passage times.
 
 We are not concerned with the values in the CC, SC, or SS block because it is only the CS block that represents the amount of steps it takes for consumers to get to a supplier.
 However, under a different problem formulation, these blocks could give meaningful information.
-In fact, we are not even interested in all of the values in the CS section, only those that are relatively small.
-In a large network, a person in Alabama is not likely to drive to Montana to do their shopping, so while there is a mean first passage time from a consumer in Alabama to a center in Montana, it is very large, and this time should have little effect on our decision because it is not correct behavior.
-The harmonic mean is a way to discount the large outlying values while putting emphasis on the smaller values.
-So we take the harmonic mean of all of the values in a given row in the CS section of our matrix, and optimize on that.
-Given values $m_{1}, \hdots, m_{n}$, the harmonic mean is 
-$$\frac{1}{\frac{1}{m_{1}} + \hdots + \frac{1}{m_{n}}}$$
-We want to make the harmonic mean of the row of the CS block as small as possible, as this represents a small average travel time for a consumer to arrive at a supplier, and having consumers closer to suppliers is valuable to a supplier.
+In fact, we are not even interested in all of the values in the CS section, only the smallest entry in each row.
+In a large network, a person in Alabama is not likely to drive to Montana to do their shopping, so while there is a mean first passage time from a consumer in Alabama to a center in Montana, it is very large, and this time should have little effect on our decision because it is not typical behavior.
+Thus, we sum the minimum of each row in the CS block of the mean first passage time matrix.
+%Do we need a formula for this?
+
+%It's not for sure that we're moving away from the harmonic mean, as it seems to give reasonable answers where the smallest doesn't.
+%The harmonic mean is a way to discount the large outlying values while putting emphasis on the smaller values.
+%So we take the harmonic mean of all of the values in a given row in the CS section of our matrix, and optimize on that.
+%Given values $m_{1}, \hdots, m_{n}$, the harmonic mean is 
+%$$\frac{1}{\frac{1}{m_{1}} + \hdots + \frac{1}{m_{n}}}$$
+%We want to make the harmonic mean of the row of the CS block as small as possible, as this represents a small average travel time for a consumer to arrive at a supplier, and having consumers closer to suppliers is valuable to a supplier.
+We want to minimize this sum, as this represents a small average travel time for a consumer to arrive at a supplier, and having consumers closer to suppliers is valuable to a supplier.
 By optimizing on the mean first passage time, we are reducing the overall difficulty of getting to a supplier, which can be a desirable behavior in the network.
+
+To minimize the relevant portion of the mean first passage time, we choose a set of locations where we may desire new facilities. 
+For each location in the set, we add the location to the existing network, create the transition matrix for the modified network, and compute the mean first passage time matrix.
+Following this, we sum the smallest entries in each row.
+We accept the location with the smallest sum as the most optimal location in the set of proposed locations.
 
 %Is the harmonic mean enough?  We should check what kind of values that kicks out and see how much it's being swayed by the big numbers.
 %We have an alternate hypothesis about just taking the minimum MFPT entry for each row. This could be good, but we should discuss it more first.
 
 \subsubsection{Throughput}
-In order to increase revenues, a reasonable thing to maximize is the number of people that visit suppliers as time goes on.
+In order to increase revenues, a reasonable thing to maximize is the number of people that visit suppliers during each time step.
 For example, a restaurant wants the most people to go through each location.
-If there are more people at the store daily, then revenues will increase, which can be a desirable behavior in the network.
+If there are more people at the store daily, then revenues will increase, which is likely a desirable behavior in the network.
 
 Referencing the first Perron eigenvector again, we can see the steady state of the network. 
 Each entry in the eigenvector gives the proportion of people in the in that state in the long term or equilibrium. 
-By this construction, the last $n$ places in the eigenvector correspond to the number of people who visit a supplier in a given day.
-To maximize the number of people who visit the supplier, we maximize the sum of these last n places in the eigenvector.
+By this construction, the last $n - k$ places in the eigenvector correspond to the number of people who visit a supplier in a given day.
+To maximize the number of people who visit the supplier, we maximize the sum of these last $n - k$ places in the eigenvector.
 To carry this out, we take the proposed location for the new facility, calculate the transition matrix for the network with the proposed facility, and compute the first Perron eigenvector.
-Then, we sum over the last $n$ entries in the vector.
+Then, we sum over the last $n - k$ entries in the vector.
 In comparison to the mean first passage time, the optimization problem induced by this metric is throughput-centric.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Top-tier}
 It also may be of interest to enlarge a consumer base by focusing on increasing accessibility for those who are currently having the most difficulty getting to suppliers.
 This would represent situations such as hospitals or fire stations that desire to minimize the difficulty for outliers to get to a supplier's location.
@@ -475,13 +506,13 @@ We determined the busyness of a temple, $\tau_i$, based on the number of stakes 
 % Insert mathematical formula here.
 
 In order to create this model, we initialize a square probability matrix $P$ in which the first $k$ rows and columns correspond to the stakes in the United States and the next $m$ rows and columns correspond to the temples in the United States.
-Each $P_{ij}$ in the matrix represents the probability that a person in row $i$ will travel to column $j$ in the current state.
-The diagonal entries $P_{ii}$ represent the probability that a person will remain in their current state (i.e. not visit a temple on a given day).
+Each $P_{i,j}$ in the matrix represents the probability that a person in row $i$ will travel to column $j$ in the current state.
+The diagonal entries $P_{i,i}$ represent the probability that a person will remain in their current state (i.e. not visit a temple on a given day).
 The time, in this case, is in days, so each multiplication of the transition matrix onto a distribution vector will simulate one day passing.
 
 % Create a visual matrix representation of the matrix initialized | There's a version where the magnitude of the entry is color in No_Busyness_Test.ipynb
 
-We begin populating the matrix by allowing the diagonals $P_{ii} = p + f(d)$ with $p$ = $29/30$ which numerically represents the assumption that in each state, $1/30$ of a stake's temple attendees will attend the temple in a given day (using f from $(1)$).
+We begin populating the matrix by allowing the diagonals $P_{i,i} = p + f(d)$ with $p$ = $29/30$ which numerically represents the assumption that in each state, $1/30$ of a stake's temple attendees will attend the temple in a given day (using f from $(1)$).
 We follow the procedures outlined in section 3.2 to populate the remainder of the matrix.
 %We then adjust this number according to $g(d)$ described in 
 %To do so, we compute a measure of busyness by taking into account the number of stakes within a close proximity to each temple.
@@ -489,7 +520,7 @@ We follow the procedures outlined in section 3.2 to populate the remainder of th
 
 %\begin{equation}
 %\begin{aligned}
-%Ts_j = \sqrt{1\over{\sum_j{t_{ij}}}}
+%Ts_j = \sqrt{1\over{\sum_j{t_{i,j}}}}
 %\end{aligned}
 %\end{equation}
 
