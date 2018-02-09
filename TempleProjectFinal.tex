@@ -98,25 +98,31 @@ Section 5 will conclude the paper with suggestions for further work.
 
 \section{Literature Review}
 
-Facility location management is a well-established area within operations research. %obvious
-Current, Min and Schilling report that facility location management has been researched through the perspective of many different academic disciplines and cite a recent bibliography on this subject that had over 1500 titles, showing the vast expanse of research in this area (1990). %it's great they cite it, should we cite it directly?
+Facility location management is one of the most thoroughly-analyzed areas of operations research (Abin, 2016).
+In fact, Current, Min and Schilling cite a recent bibliography on this subject that had over 1500 titles, showing the vast expanse of research in this area (1990). %it's great they cite it, should we cite it directly?
+% In regards to above, I don't have access to this article anymore. But if someone does, I'll change the reference. - McKell
 Owen and Daskin, in their literature review, give an overview of the most-used models among this immense amount of literature.
 They comment on 15 differing subsets of facility location problems, again demonstrating the vastness of the literature and applicability of the problem (1998).
-Although the library of facility location management is large, this review focuses primarily on literature pertaining to median problems, with a specific emphasis on the use of Markov chains. % This seems like we want to talk about the use of markov chains in facility location management, which they aren't really.
+Although the library of facility location management is large, this review will primarily focus on various approaches to median problems.
+As we use Markov chains as an approach to median problems later, we will also review literature pertaining to traditional uses of Markov chains.
 
 The study of location theory began in 1909 when Alfred Weber was researching possible warehouse location based on the average distance to be traveled by those who would visit the warehouse (Owen \& Daskin, 1998).
 His research created the basis for {\em median problems}, or problems that determine a facility location by minimizing the average distance traveled by consumers.
-This distance is often weighted using factors like speed limits, traffic, proximity to competitors, and tolls. %citation needed
 As noted by Melo, Nickel and Saldanha-da-Gamma, the $P$-median problem is considered to be the foundational median problem.
 They define the $P$-median problem as the problem of placing $P$ facilities in locations that minimize the total weighted distance (or costs) to satisfy customer demands (2009).
 
 From this rudimentary definition of a $P$-median problem arises a multitude of slight variations that account for the context of the problem.
 For example, Berman, Drezner, and Wesolowsky use a model formulation which allows demands to be serviced by facilities other than the one closest to them (2003).
 Bruni, Beraldi, and Conforti use an undirected graph to model a complex water distribution network (2016).
-% Make a comment on how Markov chains are useful for all of these subproblems
-% Insert other examples here of P-median problems that Markov models can be used to solve
+Lastly, Agra, Cerdeira, and Requejo decompose a large $P$-median problem into smaller $P$-median problems.
+Once the optimal locations for each of these smaller problems are found, they are used to find a more globally optimal solution (2017).
+
+$P$-median problems have been approached from the perspective of many different academic disciplines.
+Approaches such as interval optimization (Yadav, Karmakar, Dikshit, Bhurjee, 2018), iterative goal programming (Karatas, Yakici, 2018), hyper heuristics with space reductions (Ren, Jiang, Xuan, Luo, 2010), and ... have been used.
 
 Paragraph (or two) about distance models, applications, successes, and disadvantages.
+
+This distance is often weighted using factors like speed limits, traffic, proximity to competitors, and tolls. %citation needed
 
 % Euclidean distance model
 
@@ -574,6 +580,16 @@ An interaction could be a sale made, a visit to a retail location, or any other 
 
 \begin{thebibliography}{99}
 
+\bibitem[Abin, 2016]{Abin:2016}
+Abin A.
+\newblock Querying Beneficial Constraints Before Clustering Using Facility Location Analysis.
+\newblock {\em IEEE Transactions on Cybernetics} 2016; 48: 312-323.
+
+\bibitem[Agra, Cerdeira, Requejo, 2017]{Agra:2017}
+Agra A, Cerdeira J, Requejo C.
+\newblock A decomposition approach for the p-median problem on disconnected graphs.
+\newblock{\em Computers \& Operations Research.} 2017; 86:79-85.
+
 \bibitem[Berman, Drezner, Wesolowsky, 2003]{Berman:2003}
 Berman O, Drezner Z, Wesolowsky G.
 \newblock Locating service facilities whose reliability is distance dependent.
@@ -608,6 +624,11 @@ Ghosh S, Gosavi A.
 Jakubovskis A.
 \newblock Strategic facility location, capacity aquisition, and technology choice decisions under demand uncertainty: Robust vs. non-robust optimizations approaches.
 \newblock {\em European Journal of Operational Research.} 2017; 260:1095-1104.
+
+\bibitem[Karatas, Yakici, 2018]{Karatas:2018}
+Karatas M, Yakici E.
+\newblock An iterative solution approach to a multi-objective facility location problem.
+\newblock {\em Applied Soft Computing} 2018; 62: 272-287.
 
 \bibitem[Kirkland, 2014]{Kirkland:2014}
 Kirkland S.
@@ -654,6 +675,16 @@ Newman M E J.
 Owen S, Daskin M.
 \newblock Strategic facility location: a review.
 \newblock {\em European Journal of Operational Research.} 1998; 111:423-447.
+
+\bibitem[Ren, Jiang, Xuan, Luo, 2010]{Ren:2010}
+Ren Z, Jiang H, Xuan J, Luo Z.
+\newblock Ant Based Hyper Heuristics with Space Reduction: A Case Study of the p-Median Problem.
+\newblock {\em Lecture Notes in Computer Science.} 2010; 6238:546-55.
+
+\bibitem[Yadav, Karmakar, Dikshit, Bhurjee, 2018]{Yadav:2018}
+Yadav V, Karmakar S, Dikshit A, Bhurjee A.
+\newblock Interval-valued facility location model: An appraisal of municipal solid waste management system.
+\newblock {\em Journal of Cleaner Production.} 2018; 171:250-263.
 
 \end{thebibliography}
 
