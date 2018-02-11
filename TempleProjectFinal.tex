@@ -99,8 +99,7 @@ Section 5 will conclude the paper with suggestions for further work.
 \section{Literature Review}
 
 Facility location management is one of the most thoroughly-analyzed areas of operations research (Abin, 2016).
-In fact, Current, Min and Schilling cite a recent bibliography on this subject that had over 1500 titles, showing the vast expanse of research in this area (1990). %it's great they cite it, should we cite it directly?
-% In regards to above, I don't have access to this article anymore. But if someone does, I'll change the reference. - McKell
+In fact, Current, Min and Schilling cite a recent bibliography on this subject that had over 1500 titles, showing the vast expanse of research in this area (1990).
 Owen and Daskin, in their literature review, give an overview of the most-used models among this immense amount of literature.
 They comment on 15 differing subsets of facility location problems, again demonstrating the vastness of the literature and applicability of the problem (1998).
 Although the library of facility location management is large, this review will primarily focus on various approaches to median problems.
@@ -118,19 +117,22 @@ Lastly, Agra, Cerdeira, and Requejo decompose a large $P$-median problem into sm
 Once the optimal locations for each of these smaller problems are found, they are used to find a more globally optimal solution (2017).
 
 $P$-median problems have been approached from the perspective of many different academic disciplines.
-Approaches such as interval optimization (Yadav, Karmakar, Dikshit, Bhurjee, 2018), iterative goal programming (Karatas, Yakici, 2018), hyper heuristics with space reductions (Ren, Jiang, Xuan, Luo, 2010), and ... have been used.
+Example approaches have ranged from interval optimization (Yadav, Karmakar, Dikshit, Bhurjee, 2018), iterative goal programming (Karatas, Yakici, 2018), hyper heuristics with space reductions (Ren, Jiang, Xuan, Luo, 2010), to hybrid binary particle swarm optimization (Lin, Guan, 2018).
+Typically, weighted-distance models (WDMs) involving Euclidean distance have been used (Francis, Lowe, Rayco, Tamir, 2009).
+Other distances that can be used can be found in a paper by Bach (1981).
 
-Paragraph (or two) about distance models, applications, successes, and disadvantages.
+Many WDMs using Euclidean distance have had past successes.
+Yang and Mei were able to create a sustainable agricultural development model for Zhenyuan County of Gansu province in China (2017).
+Bargos, Lamas, Bargos, Neto, and Pardal found that the Euclidean WDM could accurately find optimal locations for sugarcane mills in Brazil (2016).
+Lastly, Xie, Zhou, Xiao, Kulturel-Konak, and Konak used it as part of a hybrid model for real industrial applications (2018).
 
-This distance is often weighted using factors like speed limits, traffic, proximity to competitors, and tolls. %citation needed
+There are several disadvantages of the WDM.
+For instance, Carling, Han, and Hakansson showed that in rural areas the model is sensitive to distance measure and spatial positioning of demand points (2012).
+They also point out that in rural areas, the unit transportation cost will vary considerably, leading to unreliable weighted distance models.
+Additionally, some weights (such as the ones that consider the attractiveness of facilities) can give unstable solutions (Carling, Han, Hakansson, Rebreyend, 2015).
+Lastly, the WDM is also very computationally expensive, leading to consumers being grouped together (Carling, Han, Hakansson, Rebreyend, 2014). 
+This practice of consolidating consumer populations has a significantly adverse effect on the final solution (Hillsman, Rhoda, 1978) (Zhao, Batta, 1999).
 
-% Euclidean distance model
-
-	% applications
-
-    % successes
-
-    % disadvantages
 
 % Markov models(.5 of Lit Review)
 
@@ -590,6 +592,16 @@ Agra A, Cerdeira J, Requejo C.
 \newblock A decomposition approach for the p-median problem on disconnected graphs.
 \newblock{\em Computers \& Operations Research.} 2017; 86:79-85.
 
+\bibitem[Bach, 1981]{Bach:1981}
+Bach L.
+\newblock The Problem of Aggregation and Distance for Analyses of Accessibility and Access Opportunity in Location-Allocation Models.
+\newblock {\em Environment and Planning A: Economy and Space} 1981; 13:955-978.
+
+\bibitem[Bargos, Lamas, Bargos, Neto, Pardal, 2016]{Bargos:2016}
+Bargos F, Lamas W, Bargos D, Neto M, Pardal P.
+\newblock Location problem method applied to sugar and ethanol mills location optimization.
+\newblock {\em Renewable \& Sustainable Energy Reviews} 2016; 65:274-282.
+
 \bibitem[Berman, Drezner, Wesolowsky, 2003]{Berman:2003}
 Berman O, Drezner Z, Wesolowsky G.
 \newblock Locating service facilities whose reliability is distance dependent.
@@ -605,6 +617,21 @@ Bruni M, Beraldi P, Conforti D.
 \newblock Water distribution networks design under uncertainty.
 \newblock {\em TOP.} 2016; 25:111-126.
 
+\bibitem[Carling, Han, Hakansson, 2012]{Carling:2012}
+Carling K, Han M, Hakansson J.
+\newblock Does Euclidean distance work well when the p-median model is applied in rural areas?
+\newblock {\em Annals of Operations Research} 2012; 201:83-97.
+
+\bibitem[Carling, Han, Hakansson, Rebreyend, 2014]{Carling:2014}
+Carling K, Han M, Hakansson J, Rebreyend P.
+\newblock Distance measure and the p-median problem in rural areas.
+\newblock {\em Annals of Operations Research} 2014: 226:89-99.
+
+\bibitem[Carling, Han, Hakansson, Rebreyend, 2015]{Carling:2015}
+Carling K, Han M, Hakansson J, Rebreyend P.
+\newblock Testing the gravity p-median model empirically.
+\newblock {\em Operations Research Perspectives} 2015; 2:124-132.
+
 \bibitem[Current, Min, Schilling, 1990]{Current:1990}
 Current J, Min H, Schilling D.
 \newblock Multiobjective analysis of facility location decisions.
@@ -615,10 +642,20 @@ Faizrahnemoon M, Schlote A, Maggi L, Crisostomi E, Shorten R.
 \newblock A big-data model for multi-modal public transportation with application to macroscopic control and optimisation.
 \newblock {\em International Journal of Control.} 2015; 88:2354-2368.
 
+\bibitem[Francis, Lowe, Rayco, Tamir, 2009]{Francis:2009}
+Francis R, Lowe T, Rayco M, Tamir A.
+\newblock Aggregation error for location models: survey and analysis.
+\newblock {\em Annals of Operations Research} 2009; 167:171-208.
+
 \bibitem[Ghosh, Gosavi, 2017]{Ghosh:2017}
 Ghosh S, Gosavi A.
 \newblock A semi-Markov model for post-earthquake emergency response in a smart city.
-\newblock {\em Control Theory and Technology.} 2017; 15: 13-25.
+\newblock {\em Control Theory and Technology} 2017; 15: 13-25.
+
+\bibitem[Hillsman, Rhoda, 1978]{Hillsman:1978}
+Hillsman E, Rhoda R.
+\newblock Errors in measuring distances from populations to service others.
+\newblock {\em The Annals of Regional Science} 1978; 12:74-88.
 
 \bibitem[Jakubovskis, 2017]{Jakubovskis:2017}
 Jakubovskis A.
@@ -639,7 +676,6 @@ Kirkland S.
 Kirkland, S.J., Neumann, M. \& Sze, NS.
 \newblock On Optimal Condition Numbers for Markov Chains
 \newblock {\em Numer. Math.} 2008 110:521
-%https://doi.org/10.1007/s00211-008-0172-8
 
 \bibitem[Klose, Drexl, 2005]{Klose:2005}
 Klose A, Drexl A.
@@ -651,15 +687,15 @@ Krogh A, Brown M, Mian I S, Sjolander K, Haussler D.
 \newblock Hidden Markov models in computational biology: applications to protein modeling.
 \newblock {\em Journal of Molecular Biology.} 1994; 235:1501-1531.
 
+\bibitem[Lin, Guan, 2018]{Lin:2018}
+Lin G, Guan J.
+\newblock A hybrid binary particle swarm optimization for the obnoxious p-median problem.
+\newblock {\em Information Sciences.} 2018; 425:1-17.
+
 \bibitem[Melo, Nickel, Saldanha-da-Gama, 2009]{Melo:2009}
 Melo M, Nickel S, Saldanha-da-Gama F.
 \newblock Facility location and supply-chain management - A review.
 \newblock {\em European Journal of Operational Research.}  2009; 196:401-412.
-
-\bibitem[Monson, 1995]{Monson:1995}
-Monson T.
-\newblock Blessings of the Temple. 1995;
-\newblock Retrieved from https://www.lds.org/church/temples/why-we-build-temples/blessings-of-the-temple?lang=eng
 
 \bibitem[Ndiaye, Ndiaye, Ly, 2012]{Ndiaye:2012}
 Ndiaye F, Ndiaye B M, Ly I.
@@ -681,10 +717,25 @@ Ren Z, Jiang H, Xuan J, Luo Z.
 \newblock Ant Based Hyper Heuristics with Space Reduction: A Case Study of the p-Median Problem.
 \newblock {\em Lecture Notes in Computer Science.} 2010; 6238:546-55.
 
+\bibitem[Xie, Zhou, Xiao, Kulturel-Konak, Konak, 2018]{Xie:2018}
+Xie Y, Zhou S, Xiao Y, Kulturel-Konak S, Konak A.
+\newblock A beta-accurate linearization method of Euclidean distance for the facility layout problem with heterogeneous distance metrics.
+\newblock {\em European Journal of Operational Research} 2018; 265:26-38.
+
 \bibitem[Yadav, Karmakar, Dikshit, Bhurjee, 2018]{Yadav:2018}
 Yadav V, Karmakar S, Dikshit A, Bhurjee A.
 \newblock Interval-valued facility location model: An appraisal of municipal solid waste management system.
 \newblock {\em Journal of Cleaner Production.} 2018; 171:250-263.
+
+\bibitem[Yang S, Mei X]{Yang:2017}
+Yang S, Mei X.
+\newblock A sustainable agricultural development assessment method and a case study in China based on euclidean distance theory.
+\newblock {\em Journal of Clean Production.} 2017; 168:551-557.
+
+\bibitem[Zhao, Batta, 1999]{Zhao:1999}
+Zhao P, Batta R.
+\newblock Theory and Methodology: Analysis of centroid aggregation for the Euclidean distance p-median problem.
+\newblock {\em European Journal of Operational Research.} 199: 113:147-168.
 
 \end{thebibliography}
 
