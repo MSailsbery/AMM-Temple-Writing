@@ -79,15 +79,15 @@ Additional definitions of optimal include the location that minimizes the maximu
 In this paper, we show that a Markov chain can be used to solve facility location problems based on these definitions of optimal.
 
 A fundamental facility location problem is the $P$-median problem, which tries to minimize the distance that a consumer must travel to reach their nearest facility (Current, Min, \& Schilling, 1990).
-Typical applications of $P$-median problems include finding optimal locations for industrial warehouses to minimize shipping distances (Jakubovskis, 2017), stores to maximize availability to customers (Klose, Drexl, 2005), and emergency response public services where response time is imperative (Ghosh, Gosavi, 2017).
-As a special case of the $P$-median problem, we will be contrasting our methods with an approximate solution to the Fermat-Weber problem, the Weighted-Distance Model (WDM) (Bose, Maheshwari, Morin, 2003).
+Typical applications of $P$-median problems include finding optimal locations for industrial warehouses to minimize shipping distances (Jakubovskis, 2017), stores to maximize availability to customers (Klose, \& Drexl, 2005), and emergency response public services where response time is imperative (Ghosh, \& Gosavi, 2017).
+As a special case of the $P$-median problem, we will be contrasting our methods with an approximate solution to the Fermat-Weber problem, the Weighted-Distance Model (WDM) (Bose, Maheshwari, \& Morin, 2003).
 This solution seeks to minimize the average distance between consumers and a supplier.
 An example of this model in application can be found in the paper by Ndiaye, Ndiaye and Ly (2012).
 
 In comparison to the WDM, we use a Markov chain to model the behavior of consumers as they interact with facilities. 
 Markov chains reveal the effects that simple local behaviors have on more complex global behaviors through modeling the behavior as a network.
 This is similar to the goal of many facility location problems, as it is often the case that the behavior being optimized is about the aggregate populous and not the specific actions of certain individuals.
-Markov chains have been used in many applications, including: mathematical ecology (Kirkland, 2014), computational biology (Krogh, Brown, Mian, Sjolander, Haussler, 1994), and network modeling (Newman, 2003), but they have not been commonly used in facility location problems.
+Markov chains have been used in many applications, including: mathematical ecology (Kirkland, 2014), computational biology (Krogh, Brown, Mian, Sjolander, \& Haussler, 1994), and network modeling (Newman, 2003), but they have not been commonly used in facility location problems.
 In this paper, we show that Markov chains provide a flexible and efficient way to model facility location problems that offers additional information not found in the standard analysis of the $P$-median problem.
 
 This paper proceeds as follows.
@@ -117,7 +117,7 @@ Lastly, Agra, Cerdeira, and Requejo decompose a large $P$-median problem into sm
 Once the optimal locations for each of these smaller problems are found, they are used to find a more globally optimal solution (2017).
 
 $P$-median problems have been approached from the perspective of many different academic disciplines.
-Example approaches have ranged from interval optimization (Yadav, Karmakar, Dikshit, Bhurjee, 2018), iterative goal programming (Karatas, Yakici, 2018), hyper heuristics with space reductions (Ren, Jiang, Xuan, Luo, 2010), to hybrid binary particle swarm optimization (Lin, Guan, 2018).
+Example approaches have ranged from interval optimization (Yadav, Karmakar, Dikshit, \& Bhurjee, 2018), iterative goal programming (Karatas, \& Yakici, 2018), hyper heuristics with space reductions (Ren, Jiang, Xuan, \& Luo, 2010), to hybrid binary particle swarm optimization (Lin, \& Guan, 2018).
 Typically, weighted-distance models (WDMs) involving Euclidean distance have been used (Francis, Lowe, Rayco, Tamir, 2009).
 Other distances that can be used can be found in a paper by Bach (1981).
 
@@ -129,12 +129,20 @@ Lastly, Xie, Zhou, Xiao, Kulturel-Konak, and Konak used it as part of a hybrid m
 There are several disadvantages of the WDM.
 For instance, Carling, Han, and Hakansson showed that in rural areas the model is sensitive to distance measure and spatial positioning of demand points (2012).
 They also point out that in rural areas, the unit transportation cost will vary considerably, leading to unreliable weighted distance models.
-Additionally, some weights (such as the ones that consider the attractiveness of facilities) can give unstable solutions (Carling, Han, Hakansson, Rebreyend, 2015).
-Lastly, the WDM is also very computationally expensive, leading to consumers being grouped together (Carling, Han, Hakansson, Rebreyend, 2014). 
-This practice of consolidating consumer populations has a significantly adverse effect on the final solution (Hillsman, Rhoda, 1978) (Zhao, Batta, 1999).
+Additionally, some weights (such as the ones that consider the attractiveness of facilities) can give unstable solutions (Carling, Han, Hakansson, \& Rebreyend, 2015).
+Lastly, the WDM is also very computationally expensive, leading to consumers being grouped together (Carling, Han, Hakansson, 
+\& Rebreyend, 2014). 
+This practice of consolidating consumer populations has a significantly adverse effect on the final solution (Hillsman, \& Rhoda, 1978) (Zhao, \& Batta, 1999).
 
+Due to the disadvantages of WDMs, we are interested in contrasting it with a Hidden Markov Model (HMM).
+HMMs stochastically model the transitioning of $n$ states in a closed systems in discrete time, with the assumption that the state transition depends only on the current state (McMurtrey, Morgan, Pratt, \& Wirthlin, 2008).
+It has been used in a variety of applications, including modeling contributions to online communities (Chen, Wei, Zhu, 2018), augmentation segmentation of infant cry signals (Naithani et al, 2018), automatic detection of seismic events (Bhatti et al., 2016).
 
-% Markov models(.5 of Lit Review)
+In terms of applications to location theory, the literature is fairly sparse.
+In their paper, Rosenthal, White and Young used a infinite-horizon Markov decision chain in location analysis.
+In particular, they modeled the relocation of facilities as consumers dynamically relocate.
+They use a Markov chain to model the dynamic relocation of consumers, but do not use it to determine the optimal location of demand-filling facilities (Rosenthal, 1978).
+
 
 Consider, for example, the $P$-median problem.
 Using the optimization techniques developed by the literature, a decision maker can introduce a new facility that will give the most access, as measured by the inverse of distance, to the consumers that they want to reach. %Citation needed
@@ -583,54 +591,64 @@ An interaction could be a sale made, a visit to a retail location, or any other 
 \begin{thebibliography}{99}
 
 \bibitem[Abin, 2016]{Abin:2016}
-Abin A.
+Abin, Ahmad Ali.
 \newblock Querying Beneficial Constraints Before Clustering Using Facility Location Analysis.
 \newblock {\em IEEE Transactions on Cybernetics} 2016; 48: 312-323.
 
-\bibitem[Agra, Cerdeira, Requejo, 2017]{Agra:2017}
-Agra A, Cerdeira J, Requejo C.
+\bibitem[Agra et al., 2017]{Agra:2017}
+Agra, Agostinho, et al.
 \newblock A decomposition approach for the p-median problem on disconnected graphs.
 \newblock{\em Computers \& Operations Research.} 2017; 86:79-85.
 
 \bibitem[Bach, 1981]{Bach:1981}
-Bach L.
+Bach, L.
 \newblock The Problem of Aggregation and Distance for Analyses of Accessibility and Access Opportunity in Location-Allocation Models.
 \newblock {\em Environment and Planning A: Economy and Space} 1981; 13:955-978.
 
-\bibitem[Bargos, Lamas, Bargos, Neto, Pardal, 2016]{Bargos:2016}
-Bargos F, Lamas W, Bargos D, Neto M, Pardal P.
+\bibitem[Bargos et al., 2016]{Bargos:2016}
+Bargos, Fabiano Fernandes, et al.
 \newblock Location problem method applied to sugar and ethanol mills location optimization.
 \newblock {\em Renewable \& Sustainable Energy Reviews} 2016; 65:274-282.
 
-\bibitem[Berman, Drezner, Wesolowsky, 2003]{Berman:2003}
-Berman O, Drezner Z, Wesolowsky G.
+\bibitem[Berman et al., 2003]{Berman:2003}
+Berman, Oded, et al.
 \newblock Locating service facilities whose reliability is distance dependent.
 \newblock {\em Computers \& Operations Research.} 2003; 30:1683-1695.
 
-\bibitem[Bose, Maheshwari, Morin, 2003]{Bose:2003}
-Bose P, Maheshwari A, Morin P.
+\bibitem[Bhatti et al., 2016]{Bhatti:2016}
+Bhatti, Sohail Masood, et al.
+\newblock Automatic detection of volcano-seismic events by modeling state and event duration in hidden Markov models.
+\newblock{\em Journal of Volcanology and Geothermal Research.} 2016; 324:134-143.
+
+\bibitem[Bose et al., 2003]{Bose:2003}
+Bose, Prosenjit, et al.
 \newblock Fast approximations for sums of distances, clustering and the Fermat-Weber problem.
 \newblock {\em Computational Geometry.} 2003; 24:135-146.
 
-\bibitem[Bruni, Beraldi, Conforti, 2016]{Bruni:2016}
-Bruni M, Beraldi P, Conforti D.
+\bibitem[Bruni et al, 2016]{Bruni:2016}
+Bruni, M. E., et al.
 \newblock Water distribution networks design under uncertainty.
 \newblock {\em TOP.} 2016; 25:111-126.
 
-\bibitem[Carling, Han, Hakansson, 2012]{Carling:2012}
-Carling K, Han M, Hakansson J.
+\bibitem[Carling et al, 2012]{Carling:2012}
+Carling, Kenneth, et al.
 \newblock Does Euclidean distance work well when the p-median model is applied in rural areas?
 \newblock {\em Annals of Operations Research} 2012; 201:83-97.
 
-\bibitem[Carling, Han, Hakansson, Rebreyend, 2014]{Carling:2014}
-Carling K, Han M, Hakansson J, Rebreyend P.
+\bibitem[Carling et al., 2014]{Carling:2014}
+Carling, Kenneth, et al.
 \newblock Distance measure and the p-median problem in rural areas.
 \newblock {\em Annals of Operations Research} 2014: 226:89-99.
 
-\bibitem[Carling, Han, Hakansson, Rebreyend, 2015]{Carling:2015}
-Carling K, Han M, Hakansson J, Rebreyend P.
+\bibitem[Carling et al., 2015]{Carling:2015}
+Carling, Kenneth, et al.
 \newblock Testing the gravity p-median model empirically.
 \newblock {\em Operations Research Perspectives} 2015; 2:124-132.
+
+\bibitem[Chen et al., 2018]{Chen:2018}
+Chen, Wei, et al.
+\newblock Engaging voluntary contributions in online communities: a Hidden Markov Model.
+\newblock {\em Mis Quarterly.} 2018; 42: 83-100.
 
 \bibitem[Current, Min, Schilling, 1990]{Current:1990}
 Current J, Min H, Schilling D.
@@ -692,10 +710,20 @@ Lin G, Guan J.
 \newblock A hybrid binary particle swarm optimization for the obnoxious p-median problem.
 \newblock {\em Information Sciences.} 2018; 425:1-17.
 
+\bibitem[McMurtrey, Morgan, Pratt, Wirthlin, 2008]{McMurtrey:2008}
+McMurtrey D, Morgan K, Pratt B, Wirthlin M.
+\newblock Estimating TMR Reliability on FPGAs Using Markov Models.
+\newblock {\em BYU ScholarsArchive: All Faculty Publications} 2008; 149
+
 \bibitem[Melo, Nickel, Saldanha-da-Gama, 2009]{Melo:2009}
 Melo M, Nickel S, Saldanha-da-Gama F.
 \newblock Facility location and supply-chain management - A review.
 \newblock {\em European Journal of Operational Research.}  2009; 196:401-412.
+
+\bibitem[Naithani et al., 2018]{Naithani:2018}
+Naithani G, Kivinummi J, Virtanen T, Tammela O, Peltola M, Leppanen J.
+\newblock Automatic segmentation of infant cry signals using hidden Markov models.
+\newblock {\em EURASIP Journal on Audio Speech \& Music Processing.} 2018; 1:1-14.
 
 \bibitem[Ndiaye, Ndiaye, Ly, 2012]{Ndiaye:2012}
 Ndiaye F, Ndiaye B M, Ly I.
@@ -708,32 +736,37 @@ Newman M E J.
 \newblock {\em SIAM REVIEW.} 2003; 45:167-256.
 
 \bibitem[Owen, Daskin, 1998]{Owen:1998}
-Owen S, Daskin M.
+Owen, Susan Hesse and Mark S. Daskin.
 \newblock Strategic facility location: a review.
 \newblock {\em European Journal of Operational Research.} 1998; 111:423-447.
 
-\bibitem[Ren, Jiang, Xuan, Luo, 2010]{Ren:2010}
-Ren Z, Jiang H, Xuan J, Luo Z.
+\bibitem[Ren et al., 2010]{Ren:2010}
+Ren, Zhilei, et al.
 \newblock Ant Based Hyper Heuristics with Space Reduction: A Case Study of the p-Median Problem.
 \newblock {\em Lecture Notes in Computer Science.} 2010; 6238:546-55.
 
-\bibitem[Xie, Zhou, Xiao, Kulturel-Konak, Konak, 2018]{Xie:2018}
-Xie Y, Zhou S, Xiao Y, Kulturel-Konak S, Konak A.
+\bibitem[Rosenthal et al, 1978]{Rosenthal:1978}
+Rosental, Richard E., et al.
+\newblock Stochastic decision processes in location analysis.
+\newblock {\em Management Science} 1978; 24:645-653
+
+\bibitem[Xie et al., 2018]{Xie:2018}
+Xie, Yue, et al.
 \newblock A beta-accurate linearization method of Euclidean distance for the facility layout problem with heterogeneous distance metrics.
 \newblock {\em European Journal of Operational Research} 2018; 265:26-38.
 
-\bibitem[Yadav, Karmakar, Dikshit, Bhurjee, 2018]{Yadav:2018}
-Yadav V, Karmakar S, Dikshit A, Bhurjee A.
+\bibitem[Yadav et al. 2018]{Yadav:2018}
+Yadav, Vinay, et al.
 \newblock Interval-valued facility location model: An appraisal of municipal solid waste management system.
 \newblock {\em Journal of Cleaner Production.} 2018; 171:250-263.
 
 \bibitem[Yang S, Mei X]{Yang:2017}
-Yang S, Mei X.
+Yang, Shiqi and Xurong Mei.
 \newblock A sustainable agricultural development assessment method and a case study in China based on euclidean distance theory.
 \newblock {\em Journal of Clean Production.} 2017; 168:551-557.
 
 \bibitem[Zhao, Batta, 1999]{Zhao:1999}
-Zhao P, Batta R.
+Zhao, Pweiwu, and Rajan Batta.
 \newblock Theory and Methodology: Analysis of centroid aggregation for the Euclidean distance p-median problem.
 \newblock {\em European Journal of Operational Research.} 199: 113:147-168.
 
