@@ -135,35 +135,26 @@ Lastly, the WDM is also very computationally expensive, leading to consumers bei
 This practice of consolidating consumer populations has a significantly adverse effect on the final solution (Hillsman, \& Rhoda, 1978) (Zhao, \& Batta, 1999).
 
 Due to the disadvantages of WDMs, we are interested in contrasting it with a Hidden Markov Model (HMM).
-HMMs stochastically model the transitioning of $n$ states in a closed systems in discrete time, with the assumption that the state transition depends only on the current state (McMurtrey, Morgan, Pratt, \& Wirthlin, 2008).
-It has been used in a variety of applications, including modeling contributions to online communities (Chen, Wei, Zhu, 2018), augmentation segmentation of infant cry signals (Naithani et al, 2018), automatic detection of seismic events (Bhatti et al., 2016).
+HMMs stochastically model the transitioning of states in a closed system in discrete time, with the assumption that the state transition depends only on the current state (McMurtrey, Morgan, Pratt, \& Wirthlin, 2008).
+They have been used in a variety of applications, including modeling contributions to online communities (Chen, Wei, Zhu, 2018), augmentation segmentation of infant cry signals (Naithani et al, 2018), and automatic detection of seismic events (Bhatti et al., 2016).
 
 In terms of applications to location theory, the literature is fairly sparse.
 In their paper, Rosenthal, White and Young used a infinite-horizon Markov decision chain in location analysis.
 In particular, they modeled the relocation of facilities as consumers dynamically relocate.
-They use a Markov chain to model the dynamic relocation of consumers, but do not use it to determine the optimal location of demand-filling facilities (Rosenthal, 1978).
+They used a Markov chain to model the dynamic relocation of consumers, but do not use it to determine the optimal location of demand-filling facilities (Rosenthal, 1978).
 
-
-Consider, for example, the $P$-median problem.
-Using the optimization techniques developed by the literature, a decision maker can introduce a new facility that will give the most access, as measured by the inverse of distance, to the consumers that they want to reach. %Citation needed
-Even with some additional conditions imposed on the problem, such as access to multiple facilities and geographical obstacles, there are still studied solutions to these questions.%Citation needed
-Via modeling the same system as a network, a Markov chain can be used to optimize many things, including the ease of access to a facility under the feedback mechanism of busyness, the amount of throughput occurring in each facility, the access of only those consumers who have the least access initially, and so on. %claim of the paper, probably should be at end of lit review.
-
-One of the significant tools in this process is the equilibrium state, or steady state, of the Markov chain.
-This can be calculated in a straightforward manner from the transition matrix used in the Markov chain.
-This equilibrium state is a vector consisting of what is qualitatively understood as the long-term proportion of consumers that are in a certain state. %Cite some PageRank stuff and the bus paper
-As the transition matrix can be easily updated, we can easily measure the long-term effects of placing a new facility in a particular location.
-An example of this is a paper by Faizrahnemoon et al. detailing the access to a hospital by changing the location of bus stops in a transportation network in England (2015).
-By measuring the long term effects of a change, we can find the optimal location for a new facility or the relocation of a facility.
-Because it is simple to create a network that models the desirable qualities, properties, and obstacles in the real life situation, we have a flexible and adaptable framework with which to solve facility location problems.
-	% Mostly the bus paper unless we find more
+We aim to fill this gap in the literature by showing that Markov chains can be used to find the optimal location of facilities.
+Whereas other models exists to find optimal locations, they often only consider one unit of measurement of "optimal".
+For example, the WDM only considers the average distance to a facility of every customer.
+And the Voronoi diagram can find the maximum geographical area that a facility serves (Sugihara, 2008).
+The Markov chain, in contrast, can take into consideration several different metrics.
+We will specifically focus on the mean first passage time, throughput, Kemeny constant, and top-tier as discussed in Faizrahnemoon et al. in regards to detailing the access to a hospital by bus stops (2015).
 
 \section{Markov Chain Modeling}
 
-Using properties of a Markov chain, one can make decisions about the ``best'' place to have a facility under different definitions of ``best''.
-Where the $P$-median problem seeks to optimize distance, a Markov chain can be used to optimize many different attributes of a supply network.
-In this section, we develop this idea and demonstrate the construction and analysis of such on real-world networks.
-Finally, we discuss the qualitative and quantitative results of the models that were created, in which the strengths and weaknesses of each objective function is discussed.
+Various properties of a Markov Chains can determine optimal facility locations, each representing a different metric.
+These properties used in tandem can optimize many different attributes of a supply network.
+In this section, we develop the construction of the Markov chain, its properties and how they relate to various metrics.
 
 \subsubsection{Background}
 
@@ -749,6 +740,11 @@ Ren, Zhilei, et al.
 Rosental, Richard E., et al.
 \newblock Stochastic decision processes in location analysis.
 \newblock {\em Management Science} 1978; 24:645-653
+
+\bibitem[Sugihara, 2008]{Sugihara:2008}
+Sugihara, Kokichi.
+\newblock Voronoi Diagrams in Facility Location.
+\newblock {\em Encyclopedia of Optimization} 2008; 2009:4040-4045.
 
 \bibitem[Xie et al., 2018]{Xie:2018}
 Xie, Yue, et al.
