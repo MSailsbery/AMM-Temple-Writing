@@ -144,7 +144,7 @@ In particular, they modeled the relocation of facilities as consumers dynamicall
 They used a Markov chain to model the dynamic relocation of consumers, but do not use it to determine the optimal location of demand-filling facilities (Rosenthal, 1978).
 
 We aim to fill this gap in the literature by showing that Markov chains can be used to find the optimal location of facilities.
-Whereas other models exists to find optimal locations, they often only consider one unit of measurement of "optimal".
+Whereas other models exists to find optimal locations, they often only consider one unit of measurement of ``optimal''.
 For example, the WDM only considers the average distance to a facility of every customer.
 And the Voronoi diagram can find the maximum geographical area that a facility serves (Sugihara, 2008).
 The Markov chain, in contrast, can take into consideration several different metrics.
@@ -156,31 +156,56 @@ Various properties of a Markov Chains can determine optimal facility locations, 
 These properties used in tandem can optimize many different attributes of a supply network.
 In this section, we develop the construction of the Markov chain, its properties and how they relate to various metrics.
 
-\subsubsection{Background}
+\subsection{Background}
 
 A Markov chain is an example of a stochastic simulation of a closed system with $n$ states in discrete time.
-We create an $n\times n$ matrix $X$ where $x_{i,j}$ represents the probability of moving from state $i$ to state $j$ in one time step.
+We create an $n\times n$ transition matrix $\textbf{X}$ where $\textbf{X}_{i, j}$ represents the probability of moving from state $i$ to state $j$ in one time step.
 As this is a closed system, in each time step the probability that a person moves from state $i$ to some state in the system (including possibly remaining at $i$) is 1. 
-This means that each row in our transition matrix should have sum equal to one, which is known as {\em row stochastic}.
-We note that an equivalent construction can be used where the columns sum to one, but we continue with the row stochastic formulation here.%Check if operations research does rows or columns
+Therefore, each row sums to one, making $\textbf{X}$ {\em row stochastic}.
+\footnote{An equivalent construction could use a column stochastic transition matrix, but, without loss of generality, we continue with the row stochastic formulation here.}
 
-One of the powerful applications of Markov chains is that we can derive a equilibrium solution, or steady state solution, very easily. %This has already been mentioned.  Do we want to say it twice?
-We can model any initial condition (i.e. distribution of people) as a vector $w_0$ and see what happens after one time step by letting $w_1 = w_0 X$.
-More generally, we say $w_{n + 1} = w_n X$.
-Because we have a row stochastic matrix, we can see that the all-ones vector is a right eigenvector of $X$.
-In the subsection Model Setup, we add a ``teleport'' factor to $X$, which results in it being an all positive matrix.
-The Perron-Frobenius Theorem tells us that, in this case, the dominant eigenvalue of $X$ is 1 and that it has an all-positive left eigenvector.
+One of the powerful applications of Markov chains is that we can derive an equilibrium solution, or steady state solution, easily. 
+We can model any initial condition (i.e. distribution of people) as a vector $\vec{\textbf{w}}_0$ and see what happens after one time step by letting $\vec{\textbf{w}}_1 = \vec{\textbf{w}}_0 \textbf{X}$.
+More generally, we say $\vec{\textbf{w}}_{n + 1} = \vec{\textbf{w}}_n \textbf{X}$.
+Because $\textbf{X}$ is row stochastic, the all ones vector is a right eigenvector.
+As the matrix only contains probabilities in the range $[0, 1]$, add a small ``teleport'' factor everywhere so that $\textbf{X} > 0$.
+Therefore, by the Perron-Frobenius theorem, the dominant eigenvalue of $\textbf{X}$ is 1 and that it has an all-positive left eigenvector.
+% We need to be more explicit with this. The PF theorem tells us that X has a simple eigenvalue equal to its spectral radius. So if we show the spectral radius is 1, then the dominant eigenvalue is 1. Also, it says that is has an eigenvector. It is not specifiy whether it is right or left. -McKell
+% If we are looking at left eigenvectors, shouldn't we point out above that the all ones vector is a left eigenvector, not a right eigenvector? -McKell
 This eigenvector is known as the Perron eigenvector and represents the steady state of the model. %citation
+% Was someone wanting to site the bus paper? Because it uses different assumptions and conclusions, so I didn't find it appropriate to cite. -McKell
 We use this steady state solution to observe what happens to the distribution of consumers when a new facility is added in a given location.
 
-For a more in-depth background to Markov chain modeling please refer to the ``backround" section of the paper by Faizrahnemoon et al. (2015).
+For a more in-depth background to Markov chain modeling please refer to the ``background" section of the paper by Faizrahnemoon et al. (2015).
+The Markov chain model that we use is based on the model used in their paper.
+It involves two stages: the initialization of $\textbf{X}$ and the computation of the metrics.
 
-%Justification for use in location theory?  The outline has it here, but we may cover it well enough elsewhere
+\subsection{The Transition Matrix}
+\label{sec:model_setup}
 
-\subsubsection{Model Setup}
+% I took the below table out because I didn't think it added to our paper. We explain each variable as we use it, so it seems redundant, but I left it here in case someone wants to put it back in. But if you do, please keep it earlier in the Markov modeling section instead of later where it originally was, because the variables were already explained and used frequently before it showed up in the paper. - McKell
+%\begin{table}
+%\begin{tabular}{|c | p{5cm}|}
+%\hline
+%Variable & Description\\
+%\hline
+%$i$ & A consumer location \\
+%$j$ & A supplier location \\
+%$n$ & Number of states\\
+%$k$ & Number of states corresponding to consumers\\
+%$X$ & Transition matrix of the Markov Chain\\
+%$\gamma$, $\alpha$, $\beta$  & Parameters for weighted distance function\\
+%$p$ & Probability a consumer visits the supplier in one time step\\
+%$d_{i}$ & Distance from consumer $i$ to the nearest supplier\\
+%$e$ & Teleport factor \\
+%\hline
+%\end{tabular}
+%\caption{Generic variables and parameters used in the setup of the Markov chain method.}
+%\end{table}
 
-The Markov chain method that we use is based on that of Faizrahnemoon et al. (2015).
-It involves two stages: the initialization of the model transition matrix and the computation of the metrics, including the Perron eigenvector and mean first passage time.
+Let the first $k$ rows and columns of $\textbf{X}$ correspond to consumer locations, where $k$ is the number of consumer locations.
+The remaining columns and rows will correspond to the supplier locations as shown in Figure \ref{fig:block_diagram}.
+We will now detail the process of finding $\textbf{X}_{i, j}$ for all $i$, $j$.
 
 \begin{figure}
 \[
@@ -193,165 +218,104 @@ It involves two stages: the initialization of the model transition matrix and th
   & SS
 \end{array}\right]
 \]
-\caption{Block diagram of transition matrix}
+\caption{A block diagram of the transition matrix \textbf{X}. 
+$C$ represents a consumer location and $S$ a supplier location.
+$CC$ corresponds to a person moving from one consumer location to another.
+The other parts of the matrix follow similarly.
+}
+\label{fig:block_diagram}
 \end{figure}
 
+As Markov chains only consider aggregate behavior, assume that consumers don't transition from one consumer location to another (or from one supplier location to another, including staying at that location).
+In other words, $\textbf{X}_{i, j} = 0$ for all $i, j$ such that $0 \leq i, j < k$  and $i \neq j$ (or $k \leq i, j < n$).
 
-To begin, we initialize the transition matrix $X$ to be an empty $n \times n$ matrix.
-Each row and column $0 \leq i \leq k$ represents a consumer $i$ and each row and column $k < j \leq n$ represents a supplier $j$.
-We use this notation will continue to distinguish consumers and suppliers.
-However, for individual entries in the matrix, we employ the standard notation, $x_{i,j}$.
 
-Let $d_{i}$ be the distance from consumer $i$ to their nearest supplier.
-These distances are transformed by a sigmoid function $g(d_i): \mathbb{R} \rightarrow [0,1]$ of the form:
-\begin{equation}
-g(d_i) = \frac{1}{1 + e^{\gamma(d_i-\alpha)}} - \beta.
-\end{equation}
-This transformation allows the modeler to define a region of significance.
-As an example of the use of this function, if a potential customer of a retail chain lives several hundreds of miles away from the nearest location, then cutting that distance by twenty percent will not be a significance change for that consumer.
-Equally useful is that this function allows the modeler to determine a minimum distance of significance.
-For example, if a potential customer lives three hundred yards away from the nearest supplier, then cutting that will have a negligible effect on the customer.
-Thus, an annulus of significance can be defined.
-The parameters $\gamma$, $\alpha$, and $\beta$ represent, respectively, a stretch factor, a domain shift, and a range shift.
-These will vary with the desired region of significance.
+Let $d_{i}$ be the distance from the consumer location $i$ to the nearest supplier location.
+In order to define a region of significance, transform $d_i$ by a variant of the sigmoid function $\sigma(d_i): \mathbb{R} \rightarrow [0,1]$
+\begin{equation*}
+\sigma(d_i) = \frac{1}{1 + e^{\gamma(d_i-\alpha)}} - \beta,
+\end{equation*}
+where $\gamma$, $\alpha$, and $\beta$ represent, respectively, a stretch factor, a domain shift, and a range shift.
+This transformation accounts for situations where consumers are located far or near enough away from a supplier location that reducing the distance  between the two locations would have a negligible effect on the probability of the consumer going to the supplier location.
 If this region of significance does not hold significance for the modeler, a different transformation can best suit the situation.
 
-It is assumed that no consumer relocates to a different area.
-Even though people often move, Markov chains use and report information about aggregate behavior, so this is a reasonable assumption to make. %This isn't a great sentence, but the idea is important.
-So, for $0 \leq i,m \leq k$, $x_{i,m} = x_{m,i} = 0$ if $i \neq m$.
+The values on the diagonal of $\textbf{X}$ represent the probability of a consumer not visiting a supplier in one time period.
+Let $p$ be the probability that a consumer visits the nearest supplier facility 
+on any given time step.
+Thus, for $0 \leq i < k$, 
+$$\textbf{X}_{i, i} = p + (1-p) \cdot g(d_{i}).$$
+As is common with consumers, this formula makes the probability of a consumer not visiting a facility inversely proportional to the distance to that facility.
+% Where does that equation come from??? Is it right? Do we consider the probability of a consumer going to only the nearest facility in this set up? Or are other supplier locations considered as well? Also, why do we multiply by distance? Wouldn't the probability already by in terms of distance? Or is the probability the same for every single consumer->location regardless of other factors? Our explanation is still a little vague- McKell
 
-Let $p$ be the probability that a consumer in the immediate vicinity of a supplier visits that supplier on any given time step.
-The values on the diagonal of $X$ represent the probability of a consumer not visiting a supplier in one time period.
-These are calculated as follows:
-
-$$x_{i,i} = p + (1-p) \cdot (g(d_{i}))$$
-
-where $0 \leq i \leq k$.
-We observe here that the greater the distance a given consumer has to its nearest supplier, the less likely that consumer is to visit a supplier.
-This is desirable behavior in our model because it represents tendencies that people have.
-
-To consider movement from a consumer to a supplier, we have $d(i, j)$ as the Euclidean distance from consumer $i$ to supplier $j$ and:
-$$D_i = \sum_{j=k}^{n} \frac{1}{e^{d(i,j)}}$$
-
+To consider movement from a consumer to a supplier, let
+$$D_i = \sum_{k = j}^{n} \frac{1}{e^{d(i,j)}}$$
+ where $d(i, j)$ is the Euclidean distance between two locations.
+% Do we need to justify using Euclidean distance? Because it isn't perfect for this situation. -McKell
 Then,
-$$x_{i,j} = x_{i,i} \times \frac{\frac{1}{e^{d(i,j)}}}{D_i}$$
-%Needs to be corrected, as do other formulae in this portion.
+$$\textbf{X}_{i, j} = \textbf{X}_{i, i} \cdot \frac{\frac{1}{e^{d(i,j)}}}{D_i}$$
+for all $0 \leq i < k$ and $k \leq j < n$.
+% Where does this equation come from? And why do we use this instead of the variant of the sigmoid? 
+% Will this actually make a row stochastic matrix, and do we have to justify that? - McKell
 
-The movement from suppliers to other suppliers is then set to 0.
-So,
+% I deleted the below comment because it seemed horribly wrong. But if its right, you can add it in. I was just thinking it was saying that the entire right side of the matrix is zeros. - McKell
+% And, for $k < l \leq n$,
+%$$y_{j,l} = 0.$$
 
-$$y_{j,j} = 0.$$
+Now consider the movement from suppliers to consumers
+$$\textbf{X}_{i, j} = \frac{(1 - \textbf{X}_{j, j})\cdot \textbf{X}_{i, j}}{E_i}$$
+where 
+$$E_i = \sum_{m=0}^{k} (1 - \textbf{X}_{m,m})\cdot \textbf{X}_{k, i}$$
+and $k \leq i < n$ and $0 \leq j < k$.
+% These equations come out of nowhere. I would appreciate an explanation of the intuition behind them and the justification of their correct usage. -McKell
 
-And, for $k < l \leq n$,
+This construction results in $\textbf{X}$ being a row stochastic matrix.
+To make $\textbf{X}$ a positive matrix, we add a ``teleport'' factor to each entry in $\textbf{X}$.
+While this does not model true behavior, it ensures that the matrix satisfies the Perron-Frobenius theorem.
 
-$$y_{j,l} = 0.$$
-
-Or, equivalently, the SS block is the appropriately-sized matrix of zeroes.
-This models the assumption that once a consumer has visited a supplier, they have no intention of waiting around at that supplier or immediately visiting another supplier.
-Once again, although there may be individual exceptions to this assumption, the overall behavior being modeled fits the assumption.
-
-The next consideration is movement from suppliers to consumers, which is calculated as follows:
-
-$$y_{j,i} = \frac{(1-x_{i,i})\times x_{j,i}}{E_j}$$
-
-where, 
-
-$$E_j = \sum_{m=0}^{k} (1-x_{m,m})\times x_{k,j}.$$
-
-%The previous equations should be described and explained.
-
-This construction results in $X$ being a row stochastic matrix.
-To make $X$ a positive matrix, we add a ``teleport'' factor distributed across each entry of each row.
-While this does not model true behavior, it ensures that the matrix satisfies the hypotheses of the analysis and speeds convergence.
-%See the page rank paper?  This is similar to what they do (maybe even identical).
-
-This is done as follows:
-Given $e$, a small number greater than zero, all elements of $X$ are multiplied by $(1-e)$ and 
-$$x_{cd} = x_{cd} + \frac{e}{n}$$
-This results in a matrix that is both row stochastic and ergodic.%For our records, what is our def. of ergodic that is being employed here? | Positive, I think.  It's just a fancy word to be helpful.
-$e$ should be chosen to be significantly smaller than any values in the transition matrix so the results are not influenced too greatly by the presence of the teleport factor.
-    
-\begin{table}
-\begin{tabular}{c | p{5cm}}
-Variable & Description\\
-\hline
-$i$ & A given consumer\\
-$j$ & A given supplier\\
-$n$ & Number of states\\
-$k$ & Number of states corresponding to consumers\\
-$X$ & Transition matrix of the Markov Chain\\
-$\gamma$, $\alpha$, $\beta$  & Parameters for weighted distance function\\
-$p$ & Probability a consumer visits the supplier in one time step\\
-$d_{i}$ & Distance from consumer $i$ to the nearest supplier\\
-$e$ & Teleport factor
-\end{tabular}
-\caption{Generic variables and parameters used in the setup of the Markov chain method.}
-\end{table}
-%Does the table need to be referenced anywhere in the paper?
-
-% analysis
-
-	% what we learned about Markov models
-
-    % results from general testing of our model
-
-    	% situations with ground truth
-
-        % sensitivity
-
-    % proposed solution
+% I deleted the below paragraph because it seemed unnecessary/trivial. And because ergodic means that you can go from one state in the markov chain to any other, which isn't true in our case. But I left it here in case people want to put it back. -McKell
+%This is done as follows:
+%Given $e$, a small number greater than zero, all elements of $X$ are multiplied by $(1-e)$ and 
+%$$x_{cd} = x_{cd} + \frac{e}{n}$$
+%This results in a matrix that is both row stochastic and ergodic.
+%$e$ should be chosen to be significantly smaller than any values in the transition matrix so the results are not influenced too greatly by the presence of the teleport factor.
 
 \subsection{Proposed Metrics}
-The following metrics are ways to measure the effectiveness of a network.
-Each metric measures the network differently and each can be optimized in the network.
-We will explain each in detail including what each metric measures.
-We will also give justification in the form of an empirical test case. %Empirical is a strong word...
-We will refer to the transition matrix in blocks, as outlined in figure 1.%watch figure numbers
+\label{sec:proposed_metrics}
 
-
-Figure: The test cases - ellipse, hyperbola, circles, with the results from each metric plotted on top.
-
+As previously discussed, current facility location models only consider one metric to measure the optimality of a network.
+In contrast, a Markov chain can consider several metrics.
+In this section we will discuss four of these metrics, namely: mean first passage time, throughput, top-tier and the Kemeny constant.
+We will refer to $\textbf{X}$ in blocks, as outlined in Figure \ref{fig:block_diagram}.
 
 \subsubsection{Mean First Passage Time}
-Instead of minimizing the median Euclidean distance or the transformed distance from equation (1), we consider minimizing the mean first passage time.
-The mean first passage time from $a$ to $b$ represents the average amount of time taken for Markov chain to reach state $b$ given that it started in state $a$.
-Using the formulation of our transition matrix, the mean first passage time from $i$ to $j$ would represent the average time it takes for consumer $i$ to visit supplier $j$.
-Thus, by minimizing the mean first passage time, we can minimize the average amount of time it takes for a consumer to visit a supplier.
-However, the mean first passage time is a measure from one specific state to another specific state, so to use it to measure the network, we must use a function of the entries in the mean first passage time matrix.
-%Develop this idea more, specifically with an example.
 
-Following the notation and exposition in Kirkland et al. (2008), the mean first passage time is given by
-$$ M = [I - X^{\#} + J_{n}X_{d}^{\#}]\Pi^{-1}$$
-Where $I$ is the $n \times n$ identity matrix, $X^{\#}$ is the {\em group inverse} of the transition matrix $X$, $J_{n}$ is the $n \times n$ matrix of all ones, $X_{d}^{\#}$ is the $n \times n$ diagonal matrix whose diagonal entries are the corresponding diagonal entries of $X_{\#}$, and where $\Pi$ is the diagonal matrix whose diagonal entries are the corresponding entries of the equilibrium state vector of the transition matrix.%This is copied pretty much word for word from the source, which is not ok.
-The group inverse is the unique matrix that satisfies $X^{\#}XX^{\#} = X^{\#}$, $XX^{\#}X = X$, and $XX^{\#} = X^{\#}X$.
-It is a matrix the same size as the transition matrix and the $i,j$th entry gives the average number of time steps required for a person starting in state $i$ to get to state $j$.
-The block format and meaning of the transition matrix carries over into the matrix of mean first passage times.
+In block $CS$, the mean first passage time from $i$ to $j$ would represent the average time it takes for consumer at location $i$ to visit the supplier location $j$.
+By minimizing the mean first passage time, we minimize the average amount of time it takes for a consumer to visit a supplier.
+To measure an entire network, we use a function of the entries of the mean first passage time matrix.
 
-We are not concerned with the values in the CC, SC, or SS block because it is only the CS block that represents the amount of steps it takes for consumers to get to a supplier.
-However, under a different problem formulation, these blocks could give meaningful information.
-In fact, we are not even interested in all of the values in the CS section, only the smallest entry in each row.
-In a large network, a person in Alabama is not likely to drive to Montana to do their shopping, so while there is a mean first passage time from a consumer in Alabama to a center in Montana, it is very large, and this time should have little effect on our decision because it is not typical behavior.
-Thus, we sum the minimum of each row in the CS block of the mean first passage time matrix.
-%Do we need a formula for this?
+This matrix is defined as in Kirkland et al. (2008),
+$$ \textbf{M} = [\textbf{I} - \textbf{X}^{\#} + \textbf{J}_{n}\textbf{X}_{d}^{\#}]\mathbf{\Pi}^{-1}$$
+where $\textbf{I}$ is the $n \times n$ identity matrix, $\textbf{X}^{\#}$ is the {\em group inverse} of $\textbf{X}$, $\textbf{J}_{n}$ is the $n \times n$ matrix of all ones, $\textbf{X}_{d}^{\#}$ is the $n \times n$ diagonal matrix whose diagonal entries are the corresponding diagonal entries of $\textbf{X}_{\#}$, and where $\mathbf{\Pi}$ is the diagonal matrix whose diagonal entries are the corresponding entries of the equilibrium state vector of the transition matrix.%This is copied pretty much word for word from the source, which is not ok.
+% I went to change this so it isn't plagarism, but I couldn't find the reference. It is neither in our dropbox nor in our references below. There are articles by Kirkland, but none with multiple authors and written in 2008. Sorry :/ Hopefully someone else can find it. - McKell
+ The group inverse is the unique $n \times n$ matrix that satisfies $\textbf{X}^{\#}\textbf{X}\textbf{X}^{\#} = \textbf{X}^{\#}$, $\textbf{X}\textbf{X}^{\#}\textbf{X} = \textbf{X}$, and $\textbf{X}\textbf{X}^{\#} = \textbf{X}^{\#}\textbf{X}$.
+The $i, j$-th entry of $\textbf{X}^{\#}$ gives the average number of time steps required for a person starting in state $i$ to get to state $j$.
+% Out of curiousity, why do we use the mean first passage time over the group inverse? Aren't they essentially the same thing, but one is much more computationally expensive than the other? Should we justify our choice? - McKell
+% Also, how does one calculate the group inverse? And should we mention that in our paper? Or give a reference to information about it?
 
-%It's not for sure that we're moving away from the harmonic mean, as it seems to give reasonable answers where the smallest doesn't.
-%The harmonic mean is a way to discount the large outlying values while putting emphasis on the smaller values.
-%So we take the harmonic mean of all of the values in a given row in the CS section of our matrix, and optimize on that.
-%Given values $m_{1}, \hdots, m_{n}$, the harmonic mean is 
-%$$\frac{1}{\frac{1}{m_{1}} + \hdots + \frac{1}{m_{n}}}$$
-%We want to make the harmonic mean of the row of the CS block as small as possible, as this represents a small average travel time for a consumer to arrive at a supplier, and having consumers closer to suppliers is valuable to a supplier.
-We want to minimize this sum, as this represents a small average travel time for a consumer to arrive at a supplier, and having consumers closer to suppliers is valuable to a supplier.
-By optimizing on the mean first passage time, we are reducing the overall difficulty of getting to a supplier, which can be a desirable behavior in the network.
+ $\textbf{X}^{\#}$ has the same block structure as Figure \ref{fig:block_diagram}.
+In this paper, we are only concerned with the $CS$ block of this matrix.
+However, under a different problem formulation, other blocks could give meaningful information.
+As a consumer would typically only visit the facility closest to them, we are only concerned with the smallest value in each row of the $CS$ block.
+Consequently, we want to minimize the sum of the minimum value of each row.
+By optimizing $\textbf{M}$ on this metric, we reduce the overall difficulty of a consumer getting to a supplier location.
 
-To minimize the relevant portion of the mean first passage time, we choose a set of locations where we may desire new facilities. 
-For each location in the set, we add the location to the existing network, create the transition matrix for the modified network, and compute the mean first passage time matrix.
-Following this, we sum the smallest entries in each row.
-We accept the location with the smallest sum as the most optimal location in the set of proposed locations.
-
-%Is the harmonic mean enough?  We should check what kind of values that kicks out and see how much it's being swayed by the big numbers.
-%We have an alternate hypothesis about just taking the minimum MFPT entry for each row. This could be good, but we should discuss it more first.
+To use this metric, choose a set of new facility locations. 
+For each location, add it to the existing network, and compute $\textbf{M}$.
+Following this, sum the smallest entries in each row.
+The optimal location will be determined by the location with the smallest sum.
 
 \subsubsection{Throughput}
+
 In order to increase revenues, a reasonable thing to maximize is the number of people that visit suppliers during each time step.
 For example, a restaurant wants the most people to go through each location.
 If there are more people at the store daily, then revenues will increase, which is likely a desirable behavior in the network.
@@ -363,7 +327,7 @@ To maximize the number of people who visit the supplier, we maximize the sum of 
 To carry this out, we take the proposed location for the new facility, calculate the transition matrix for the network with the proposed facility, and compute the first Perron eigenvector.
 Then, we sum over the last $n - k$ entries in the vector.
 In comparison to the mean first passage time, the optimization problem induced by this metric is throughput-centric.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsubsection{Top-tier}
 It also may be of interest to enlarge a consumer base by focusing on increasing accessibility for those who are currently having the most difficulty getting to suppliers.
 This would represent situations such as hospitals or fire stations that desire to minimize the difficulty for outliers to get to a supplier's location.
