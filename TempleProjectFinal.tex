@@ -47,7 +47,7 @@
 \noindent We consider using Markov chains to solve facility location problems.
 We find that Markov chains, coupled with realistic assumptions, can find optimal facility locations defined in terms of four metrics.
 Namely, the mean first passage time, consumer throughput, top-tier, and the Kemeny constant.
-As a case study, we present a novel Markov chain construction that finds the optimal location for a new religious center of a denomination.
+As a case study, we present a novel Markov chain construction that finds the optimal location for a new religious center of a Christian denomination.
 \end{abstract}
 }
 
@@ -93,7 +93,7 @@ In this paper, we show that Markov chains provide a flexible and efficient way t
 This paper proceeds as follows.
 Section 2 contains a literary review of facility location problems, as well as literature pertaining to the WDM and the Markov chain method.
 Section 3 will outline the construction of the Markov transition matrix used to solve facility location problems, give the results of the general testing of the model and expand on insights gained while studying the model.
-Section 4 details the set up and results of our model to determine new locations for religious centers of a denomination.
+Section 4 details the set up and results of our model to determine new locations for religious centers of a Christian denomination.
 Section 5 will conclude the paper with suggestions for further work.
 
 \section{Literature Review}
@@ -105,7 +105,7 @@ They comment on 15 differing subsets of facility location problems, again demons
 Although the library of facility location management is large, this review will primarily focus on various approaches to median problems.
 As we use Markov chains as an approach to median problems later, we will also review literature pertaining to traditional uses of Markov chains.
 
-The study of location theory began in 1909 when Alfred Weber was researching possible warehouse location based on the average distance to be traveled by those who would visit the warehouse (Owen \& Daskin, 1998).
+The study of location theory began in 1909 when Alfred Weber was researching possible warehouse locations based on the average distance to be traveled by those who would visit the warehouse (Owen \& Daskin, 1998).
 His research created the basis for {\em median problems}, or problems that determine a facility location by minimizing the average distance traveled by consumers.
 As noted by Melo, Nickel and Saldanha-da-Gamma, the $P$-median problem is considered to be the foundational median problem.
 They define the $P$-median problem as the problem of placing $P$ facilities in locations that minimize the total weighted distance (or costs) to satisfy customer demands (2009).
@@ -134,9 +134,10 @@ Lastly, the WDM is also very computationally expensive, leading to consumers bei
 \& Rebreyend, 2014). 
 This practice of consolidating consumer populations has a significantly adverse effect on the final solution (Hillsman, \& Rhoda, 1978) (Zhao, \& Batta, 1999).
 
-Due to the disadvantages of WDMs, we are interested in contrasting it with a Hidden Markov Model (HMM).
-HMMs stochastically model the transitioning of states in a closed system in discrete time, with the assumption that the state transition depends only on the current state (McMurtrey, Morgan, Pratt, \& Wirthlin, 2008).
+Due to the disadvantages of WDMs, we are interested in contrasting it with a Markov chain.
+Markov chains stochastically model the transitioning of states in a closed system in discrete time, with the assumption that the state transition depends only on the current state (McMurtrey, Morgan, Pratt, \& Wirthlin, 2008).
 They have been used in a variety of applications, including modeling contributions to online communities (Chen, Wei, Zhu, 2018), augmentation segmentation of infant cry signals (Naithani et al, 2018), and automatic detection of seismic events (Bhatti et al., 2016).
+% Make sure that these are applications of Markov chains, not HMM (The paper originally used HMM instead of Mc, which is not what we're actually using)
 
 In terms of applications to location theory, the literature is fairly sparse.
 In their paper, Rosenthal, White and Young used a infinite-horizon Markov decision chain in location analysis.
@@ -146,7 +147,7 @@ They used a Markov chain to model the dynamic relocation of consumers, but do no
 We aim to fill this gap in the literature by showing that Markov chains can be used to find the optimal location of facilities.
 Whereas other models exists to find optimal locations, they often only consider one unit of measurement of ``optimal''.
 For example, the WDM only considers the average distance to a facility of every customer.
-And the Voronoi diagram can find the maximum geographical area that a facility serves (Sugihara, 2008).
+A Voronoi diagram can find the maximum geographical area that a facility serves (Sugihara, 2008).
 The Markov chain, in contrast, can take into consideration several different metrics.
 We will specifically focus on the mean first passage time, throughput, Kemeny constant, and top-tier as discussed in Faizrahnemoon et al. in regards to detailing the access to a hospital by bus stops (2015).
 
@@ -164,17 +165,19 @@ As this is a closed system, in each time step the probability that a person move
 Therefore, each row sums to one, making $\textbf{X}$ {\em row stochastic}.
 \footnote{An equivalent construction could use a column stochastic transition matrix, but, without loss of generality, we continue with the row stochastic formulation here.}
 
-One of the powerful applications of Markov chains is that we can derive an equilibrium solution, or steady state solution, easily. 
-We can model any initial condition (i.e. distribution of people) as a vector $\vec{\textbf{w}}_0$ and see what happens after one time step by letting $\vec{\textbf{w}}_1 = \vec{\textbf{w}}_0 \textbf{X}$.
+One of the powerful applications of Markov chains is that we can easily derive an equilibrium solution, or steady state solution. 
+We can model any initial condition (i.e. distribution of people) as a vector $\vec{\textbf{w}}_0$ and see the state of the system after one time step by taking $\vec{\textbf{w}}_1 = \vec{\textbf{w}}_0 \textbf{X}$.
 More generally, we say $\vec{\textbf{w}}_{n + 1} = \vec{\textbf{w}}_n \textbf{X}$.
+Thus, we can find the distribution of the system at any given time for any given starting distribution.
 Because $\textbf{X}$ is row stochastic, the all ones vector is a right eigenvector.
-As the matrix only contains probabilities in the range $[0, 1]$, add a small ``teleport'' factor everywhere so that $\textbf{X} > 0$.
+As the matrix only contains probabilities in the range $[0, 1]$, we can add a small ``teleport'' factor everywhere so that $\textbf{X} > 0$.
 Therefore, by the Perron-Frobenius theorem, the dominant eigenvalue of $\textbf{X}$ is 1 and that it has an all-positive left eigenvector.
 % We need to be more explicit with this. The PF theorem tells us that X has a simple eigenvalue equal to its spectral radius. So if we show the spectral radius is 1, then the dominant eigenvalue is 1. Also, it says that is has an eigenvector. It is not specifiy whether it is right or left. -McKell
 % If we are looking at left eigenvectors, shouldn't we point out above that the all ones vector is a left eigenvector, not a right eigenvector? -McKell
 This eigenvector is known as the Perron eigenvector and represents the steady state of the model. %citation
 % Was someone wanting to site the bus paper? Because it uses different assumptions and conclusions, so I didn't find it appropriate to cite. -McKell
-We use this steady state solution to observe what happens to the distribution of consumers when a new facility is added in a given location.
+We use this steady state solution to observe the effect of a new facility on the distribution of consumers.
+By altering the location of this proposed facility, we can find the optimal location for the new facility.
 
 For a more in-depth background to Markov chain modeling please refer to the ``background" section of the paper by Faizrahnemoon et al. (2015).
 The Markov chain model that we use is based on the model used in their paper.
@@ -226,18 +229,18 @@ The other parts of the matrix follow similarly.
 \label{fig:block_diagram}
 \end{figure}
 
-As Markov chains only consider aggregate behavior, assume that consumers don't transition from one consumer location to another (or from one supplier location to another, including staying at that location).
-In other words, $\textbf{X}_{i, j} = 0$ for all $i, j$ such that $0 \leq i, j < k$  and $i \neq j$ (or $k \leq i, j < n$).
+As Markov chains only consider aggregate behavior, assume that consumers do not transition from one consumer location to another (or from one supplier location to another, including staying at that location).
+In other words, $\textbf{X}_{i, j} = 0$ for all $i, j$ such that $0 \leq i, j < k$  and $i \neq j$ or $k \leq i, j < n$.
 
 
 Let $d_{i}$ be the distance from the consumer location $i$ to the nearest supplier location.
 In order to define a region of significance, transform $d_i$ by a variant of the sigmoid function $\sigma(d_i): \mathbb{R} \rightarrow [0,1]$
-\begin{equation*}
+\begin{equation}
 \sigma(d_i) = \frac{1}{1 + e^{\gamma(d_i-\alpha)}} - \beta,
-\end{equation*}
+\end{equation}
 where $\gamma$, $\alpha$, and $\beta$ represent, respectively, a stretch factor, a domain shift, and a range shift.
 This transformation accounts for situations where consumers are located far or near enough away from a supplier location that reducing the distance  between the two locations would have a negligible effect on the probability of the consumer going to the supplier location.
-If this region of significance does not hold significance for the modeler, a different transformation can best suit the situation.
+If this region of significance does not hold significance for the modeler, a different transformation which best suits the situation should be chosen.
 
 The values on the diagonal of $\textbf{X}$ represent the probability of a consumer not visiting a supplier in one time period.
 Let $p$ be the probability that a consumer visits the nearest supplier facility 
@@ -289,6 +292,8 @@ We will refer to $\textbf{X}$ in blocks, as outlined in Figure \ref{fig:block_di
 
 \subsubsection{Mean First Passage Time}
 
+%feels abrupt. intro
+
 In block $CS$, the mean first passage time from $i$ to $j$ would represent the average time it takes for consumer at location $i$ to visit the supplier location $j$.
 By minimizing the mean first passage time, we minimize the average amount of time it takes for a consumer to visit a supplier.
 To measure an entire network, we use a function of the entries of the mean first passage time matrix.
@@ -310,8 +315,11 @@ Consequently, we want to minimize the sum of the minimum value of each row.
 By optimizing $\textbf{M}$ on this metric, we reduce the overall difficulty of a consumer getting to a supplier location.
 
 To use this metric, choose a set of new facility locations. 
+To use this metric, choose a set of proposed facility locations.
 For each location, add it to the existing network, and compute $\textbf{M}$.
 Following this, sum the smallest entries in each row.
+The optimal location from this set is the location that has the smallest row sum in M.
+
 The optimal location will be determined by the location with the smallest sum.
 
 \subsubsection{Throughput}
@@ -320,9 +328,10 @@ In order to increase revenues, a reasonable thing to maximize is the number of p
 For example, a restaurant wants the most people to go through each location.
 If there are more people at the store daily, then revenues will increase, which is likely a desirable behavior in the network.
 
+
 Referencing the first Perron eigenvector again, we can see the steady state of the network. 
 Each entry in the eigenvector gives the proportion of people in the in that state in the long term or equilibrium. 
-By this construction, the last $n - k$ places in the eigenvector correspond to the number of people who visit a supplier in a given day.
+By this construction, the last $n - k$ terms in the eigenvector correspond to the proportion of people who visit a supplier in a given day.
 To maximize the number of people who visit the supplier, we maximize the sum of these last $n - k$ places in the eigenvector.
 To carry this out, we take the proposed location for the new facility, calculate the transition matrix for the network with the proposed facility, and compute the first Perron eigenvector.
 Then, we sum over the last $n - k$ entries in the vector.
@@ -341,6 +350,7 @@ We choose the top $L$\% to minimize, where $L$ varies based on the context of th
 If $L$ is large, this metric turns into the throughput metric.
 If $L$ is very small, then a few locations will dominate the decision-making process.
 For example, if we choose only one location to reduce, then the logical thing to do would be to place a supplier right on that consumer's location.
+
 By optimizing on this metric, we ensure that the people that have the most difficulty getting to a supplier will be benefited the most.
 
 \subsubsection{Kemeny Constant}
@@ -364,11 +374,11 @@ As a control case, we use a $P$-median method to minimize the distance of each c
 The distance is measured as a transformation of the geophysical distance, which is in turn calculated via Vincenty's Formulae. %Citation Needed
 We will refer to the Vincenty distance by $d_{v}$. %explanation of vincenty's formula?
 The transformation is given by:
-\begin{equation}
-f(d_{v}) = \frac{1}{1+e^{-0.053*(d_{v} - 70)}} - 0.024.
-\end{equation}
+\begin{equation*}
+f(d_{v}) = \frac{1}{1+e^{-0.053*(d_{v} - 70)}} - 0.024
+\end{equation*}
 
-This is a special case of \(1\) with the constants $\gamma$, $\alpha$, and $\beta$ chosen to mimic the effect of a temple a certain distance away.
+This is a special case of (1) with the constants $\gamma$, $\alpha$, and $\beta$ chosen to mimic the effect of a temple a certain distance away.
 Here, the assumption is that the difference between having a temple 5 miles away and 10 miles away is marginal, as is the difference between having a temple 200 miles away and 400 miles away.
 The assumption implies that the biggest impact will come from people who were previously about 90 miles away from a temple and are now 20 miles away.
 
@@ -380,16 +390,16 @@ Let each stake center be represented as $s_i$, each temple as $t_j$, the set of 
 An example representation of the setup of this problem with each stake being connected to its two closest temples can be found in Figure 1.
 The average distance a given member of an LDS stake has to travel to get to their closest temple is
 
-\begin{equation}
+\begin{equation*}
 	h(S,T) = \frac{1}{n} \sum_i \underset{j}{\text{min}}\{d(s_i,t_j)\}.
-\end{equation}
+\end{equation*}
 Thus, the unconstrained optimization problem can be written as
 
-\begin{equation}
+\begin{equation*}
 \begin{aligned}
 	\minimize_{T^*} h(S,T^*), \text{ where } T^* = T \cup T_{\text{new}}.
 \end{aligned}
-\end{equation}
+\end{equation*}
 
 \begin{figure}[h!]
 \centering
@@ -424,7 +434,7 @@ Thus, the unconstrained optimization problem can be written as
 \label{fig:M1}
 \end{figure}
 
-To determine the cardinality of $T_{\text{new}}$ to use in our experiments, we performed hill climbing to see if building multiple temples at once would change where the new temple locations would be. %explanation
+To determine the cardinality of $T_{\text{new}}$ to use in our experiments, we performed stochastic gradient descent to see if building multiple temples at once would change where the new temple locations would be. %explanation
 We found that the US is spread out enough that determining the location of multiple temples at once is not significantly different than determining the temples' locations one at a time.
 Thus, for ease of computation, we only considered $T_{\text{new}}$ with carnality 1;
 That is, we assume only one temple is to be added at a time.
