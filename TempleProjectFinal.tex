@@ -137,7 +137,7 @@ This practice of consolidating consumer populations has a significantly adverse 
 Due to the disadvantages of WDMs, we are interested in contrasting it with a Markov chain.
 Markov chains stochastically model the transitioning of states in a closed system in discrete time, with the assumption that the state transition depends only on the current state (McMurtrey, Morgan, Pratt, \& Wirthlin, 2008).
 They have been used in a variety of applications, including modeling contributions to online communities (Chen, Wei, Zhu, 2018), augmentation segmentation of infant cry signals (Naithani et al, 2018), and automatic detection of seismic events (Bhatti et al., 2016).
-% Make sure that these are applications of Markov chains, not HMM (The paper originally used HMM instead of Mc, which is not what we're actually using)
+*** This section talked about hidden markov models, so the three examples given are for hidden markov models.  Is this OK or do we need to find some different applications of regular markov models? ***
 
 In terms of applications to location theory, the literature is fairly sparse.
 In their paper, Rosenthal, White and Young used a infinite-horizon Markov decision chain in location analysis.
@@ -170,10 +170,9 @@ We can model any initial condition (i.e. distribution of people) as a vector $\v
 More generally, we say $\vec{\textbf{w}}_{n + 1} = \vec{\textbf{w}}_n \textbf{X}$.
 Thus, we can find the distribution of the system at any given time for any given starting distribution.
 Because $\textbf{X}$ is row stochastic, the all ones vector is a right eigenvector.
-As the matrix only contains probabilities in the range $[0, 1]$, we can add a small ``teleport'' factor everywhere so that $\textbf{X} > 0$.
+As the matrix only contains probabilities in the range $[0, 1]$, we can add a small ``teleport'' factor everywhere so that $0 \prec \textbf{X} \prec 1$.
 Therefore, by the Perron-Frobenius theorem, the dominant eigenvalue of $\textbf{X}$ is 1 and that it has an all-positive left eigenvector.
-% We need to be more explicit with this. The PF theorem tells us that X has a simple eigenvalue equal to its spectral radius. So if we show the spectral radius is 1, then the dominant eigenvalue is 1. Also, it says that is has an eigenvector. It is not specifiy whether it is right or left. -McKell
-% If we are looking at left eigenvectors, shouldn't we point out above that the all ones vector is a left eigenvector, not a right eigenvector? -McKell
+% We need to be more explicit with this. The PF theorem tells us that X has a simple eigenvalue equal to its spectral radius. So if we show the spectral radius is 1, then the dominant eigenvalue is 1. -McKell
 This eigenvector is known as the Perron eigenvector and represents the steady state of the model. %citation
 % Was someone wanting to site the bus paper? Because it uses different assumptions and conclusions, so I didn't find it appropriate to cite. -McKell
 We use this steady state solution to observe the effect of a new facility on the distribution of consumers.
@@ -252,35 +251,57 @@ As is common with consumers, this formula makes the probability of a consumer no
 
 To consider movement from a consumer to a supplier, let
 $$D_i = \sum_{k = j}^{n} \frac{1}{e^{d(i,j)}}$$
- where $d(i, j)$ is the Euclidean distance between two locations.
-% Do we need to justify using Euclidean distance? Because it isn't perfect for this situation. -McKell
+ where $d(i, j)$ is the distance between two locations.
+The distance can be calculated in any way that is suitable for the situation.
+The Euclidean distance can be used for ease of computation, but any other way of measuring distance between two points, such as arc length along the Earth or driving distance using Google Maps, would be appropriate in certain situations.
 Then,
 $$\textbf{X}_{i, j} = \textbf{X}_{i, i} \cdot \frac{\frac{1}{e^{d(i,j)}}}{D_i}$$
 for all $0 \leq i < k$ and $k \leq j < n$.
-% Where does this equation come from? And why do we use this instead of the variant of the sigmoid? 
-% Will this actually make a row stochastic matrix, and do we have to justify that? - McKell
-
-% I deleted the below comment because it seemed horribly wrong. But if its right, you can add it in. I was just thinking it was saying that the entire right side of the matrix is zeros. - McKell
-% And, for $k < l \leq n$,
-%$$y_{j,l} = 0.$$
+% Where does this equation come from? And why do we use this instead of the variant of the sigmoid? -McKell
 
 Now consider the movement from suppliers to consumers
-$$\textbf{X}_{i, j} = \frac{(1 - \textbf{X}_{j, j})\cdot \textbf{X}_{i, j}}{E_i}$$
+$$\textbf{X}_{i, j} = \frac{(1 - \textbf{X}_{j, j})\cdot \textbf{X}_{j, i}}{E_i}$$
 where 
-$$E_i = \sum_{m=0}^{k} (1 - \textbf{X}_{m,m})\cdot \textbf{X}_{k, i}$$
+$$E_i = \sum_{m=0}^{k} (1 - \textbf{X}_{m,m})\cdot \textbf{X}_{m, i}$$
 and $k \leq i < n$ and $0 \leq j < k$.
 % These equations come out of nowhere. I would appreciate an explanation of the intuition behind them and the justification of their correct usage. -McKell
 
 This construction results in $\textbf{X}$ being a row stochastic matrix.
+We can see this by fixing $i \leq k$ where k is the number of consumers.
+Then 
+
+\begin{align*}
+\sum_{j=0}^n \textbf{X}_{i, j} &=  \textbf{X}_{i,i} + \sum_{j=k}^n (1 - \textbf{X}_{i, i}) \cdot \dfrac{\frac{1}{e^{d(i, j)}}}{\sum_{l=k}^n \frac{1}{e^{d(i, k)}}} \\
+&= \textbf{X}_{i,i} + (1 - \textbf{X}_{i, i}) \sum_{j=k}^n  \dfrac{\frac{1}{e^{d(i, j)}}}{\sum_{l=k}^n \frac{1}{e^{d(i, k)}}} \\
+&= \textbf{X}_{i,i} + (1 - \textbf{X}_{i, i}) \dfrac{\sum_{j=k}^n \frac{1}{e^{d(i, j)}}}{\sum_{l=k}^n \frac{1}{e^{d(i, k)}}} \\
+&= \textbf{X}_{i,i} + (1 - \textbf{X}_{i, i}) \\
+&= \textbf{X}_{i,i} + 1 - \textbf{X}_{i, i} \\
+&= 1
+\end{align*}
+
+Thus, the first $k$ rows are stochastic.
+
+To see that the remainder of the rows are stochastic, fix $i$ such that $ k < i \leq n$.  Then:
+
+\begin{align*}
+\sum_{j=0}^n \textbf{X}_{i, j} &= \sum_{j=0}^n \dfrac{(1-\textbf{X}_{j, j}) \cdot X_{j,i}}{\sum_{m=0}^k (1-\textbf{X}_{m, m}) \cdot \textbf{X}_{m, i}} \\
+&= \dfrac{ \sum_{j=0}^n (1-\textbf{X}_{j, j}) \cdot \textbf{X}_{j,i}}{\sum_{m=0}^k (1-\textbf{X}_{m, m}) \cdot \textbf{X}_{m, i}} \\
+&= \dfrac{ \sum_{j=0}^k (1-\textbf{X}_{j, j}) \cdot X_{j,i}}{\sum_{m=0}^k (1-\textbf{X}_{m, m}) \cdot \textbf{X}_{m, i}} \\
+&= 1
+\end{align*}
+
+Where the third equality holds because $\textbf{X}_{j, i} = 0$ for $ k < j \leq n$
+Thus, we see that $\textbf{X}$ is row stochastic.
+
 To make $\textbf{X}$ a positive matrix, we add a ``teleport'' factor to each entry in $\textbf{X}$.
 While this does not model true behavior, it ensures that the matrix satisfies the Perron-Frobenius theorem.
+This is done as follows:
 
-% I deleted the below paragraph because it seemed unnecessary/trivial. And because ergodic means that you can go from one state in the markov chain to any other, which isn't true in our case. But I left it here in case people want to put it back. -McKell
-%This is done as follows:
-%Given $e$, a small number greater than zero, all elements of $X$ are multiplied by $(1-e)$ and 
-%$$x_{cd} = x_{cd} + \frac{e}{n}$$
-%This results in a matrix that is both row stochastic and ergodic.
-%$e$ should be chosen to be significantly smaller than any values in the transition matrix so the results are not influenced too greatly by the presence of the teleport factor.
+Given $e$, a small number greater than zero, let
+$$\textbf{X}_{i,j} = (1-e) \textbf{X}_{i, j} + \frac{e}{n}$$
+for all $i, j$.
+This preserves the row stochastic nature of the matrix and ensures there is a positive value in every entry, therefore making the matrix ergodic.
+We choose $e$ to be significantly smaller than any values in the transition matrix so the results are not influenced too greatly by the presence of the teleport factor.
 
 \subsection{Proposed Metrics}
 \label{sec:proposed_metrics}
@@ -292,7 +313,9 @@ We will refer to $\textbf{X}$ in blocks, as outlined in Figure \ref{fig:block_di
 
 \subsubsection{Mean First Passage Time}
 
-%feels abrupt. intro
+The mean first passage time represents the average time it takes to pass from one state to another.
+This can be computed for every pair of states.
+Many organizations care about increasing customer accessibility to their facilities, and optimizing on this metric will increase accessibility.
 
 In block $CS$, the mean first passage time from $i$ to $j$ would represent the average time it takes for consumer at location $i$ to visit the supplier location $j$.
 By minimizing the mean first passage time, we minimize the average amount of time it takes for a consumer to visit a supplier.
@@ -300,8 +323,7 @@ To measure an entire network, we use a function of the entries of the mean first
 
 This matrix is defined as in Kirkland et al. (2008),
 $$ \textbf{M} = [\textbf{I} - \textbf{X}^{\#} + \textbf{J}_{n}\textbf{X}_{d}^{\#}]\mathbf{\Pi}^{-1}$$
-where $\textbf{I}$ is the $n \times n$ identity matrix, $\textbf{X}^{\#}$ is the {\em group inverse} of $\textbf{X}$, $\textbf{J}_{n}$ is the $n \times n$ matrix of all ones, $\textbf{X}_{d}^{\#}$ is the $n \times n$ diagonal matrix whose diagonal entries are the corresponding diagonal entries of $\textbf{X}_{\#}$, and where $\mathbf{\Pi}$ is the diagonal matrix whose diagonal entries are the corresponding entries of the equilibrium state vector of the transition matrix.%This is copied pretty much word for word from the source, which is not ok.
-% I went to change this so it isn't plagarism, but I couldn't find the reference. It is neither in our dropbox nor in our references below. There are articles by Kirkland, but none with multiple authors and written in 2008. Sorry :/ Hopefully someone else can find it. - McKell
+where $\textbf{I}$ is the $n \times n$ identity matrix, $\textbf{X}^{\#}$ is the {\em group inverse} of $\textbf{X}$, $\textbf{J}_{n}$ is the $n \times n$ matrix of all ones, $\textbf{X}_{d}^{\#}$ is the $n \times n$ diagonal matrix whose diagonal entries are the corresponding diagonal entries of $\textbf{X}_{\#}$, and where $\mathbf{\Pi}$ is the diagonal matrix whose diagonal entries are the corresponding entries of the equilibrium state vector of the transition matrix (Kirkland, Neumann, Sze, 2008).%Although cited, this is copied pretty much word for word from the source.  Can we quote it?
  The group inverse is the unique $n \times n$ matrix that satisfies $\textbf{X}^{\#}\textbf{X}\textbf{X}^{\#} = \textbf{X}^{\#}$, $\textbf{X}\textbf{X}^{\#}\textbf{X} = \textbf{X}$, and $\textbf{X}\textbf{X}^{\#} = \textbf{X}^{\#}\textbf{X}$.
 The $i, j$-th entry of $\textbf{X}^{\#}$ gives the average number of time steps required for a person starting in state $i$ to get to state $j$.
 % Out of curiousity, why do we use the mean first passage time over the group inverse? Aren't they essentially the same thing, but one is much more computationally expensive than the other? Should we justify our choice? - McKell
@@ -327,7 +349,6 @@ The optimal location will be determined by the location with the smallest sum.
 In order to increase revenues, a reasonable thing to maximize is the number of people that visit suppliers during each time step.
 For example, a restaurant wants the most people to go through each location.
 If there are more people at the store daily, then revenues will increase, which is likely a desirable behavior in the network.
-
 
 Referencing the first Perron eigenvector again, we can see the steady state of the network. 
 Each entry in the eigenvector gives the proportion of people in the in that state in the long term or equilibrium. 
@@ -366,7 +387,6 @@ This would be useful in situations like warehouses and distribution centers, whe
 In this section we present an example of a facility location problem, in which some, but not all, of the metrics discussed previously give valuable information. 
 The example given here is that of The Church of Jesus Christ of Latter-Day Saints (the LDS church) building new temples.
 
-
 For members of the LDS Church, temples are a facility of worship and visiting them is believed to be imperative in the process of gaining salvation.
 In this problem, we assume that the LDS Church is attempting to satisfy one of two goals, either increasing the access that its members have to temples (Top-tier metric) or generating the highest attendance to its temples overall (Throughput metric).
 
@@ -385,8 +405,7 @@ The assumption implies that the biggest impact will come from people who were pr
 In the LDS church, church members are grouped by geographical area.
 Each grouping of members is called a stake, and a building of worship, called a stake center, is located within each stake.
 For our model, instead of the residence of each individual member, we use the location of the stake center to calculate $d_{v}$.
-%Note that, instead of using the residence of each individual member, $d_{v}$ is calculated using the location of a stake center.
-Let each stake center be represented as $s_i$, each temple as $t_j$, the set of all the stake centers as $S$, the set of original temples as $T$, and the set of new temples as $T_{\text{new}}$. %Delineate with the other case study-related variables.
+Let each stake center be represented as $s_i$, each temple as $t_j$, the set of all the stake centers as $S$, the set of original temples as $T$, and the set of new temples as $T_{\text{new}}$.
 An example representation of the setup of this problem with each stake being connected to its two closest temples can be found in Figure 1.
 The average distance a given member of an LDS stake has to travel to get to their closest temple is
 
@@ -434,9 +453,9 @@ Thus, the unconstrained optimization problem can be written as
 \label{fig:M1}
 \end{figure}
 
-To determine the cardinality of $T_{\text{new}}$ to use in our experiments, we performed stochastic gradient descent to see if building multiple temples at once would change where the new temple locations would be. %explanation
-We found that the US is spread out enough that determining the location of multiple temples at once is not significantly different than determining the temples' locations one at a time.
-Thus, for ease of computation, we only considered $T_{\text{new}}$ with carnality 1;
+%To determine the cardinality of $T_{\text{new}}$ to use in our experiments, we performed stochastic gradient descent to see if building multiple temples at once would change where the new temple locations would be. %explanation
+%We found that the US is spread out enough that determining the location of multiple temples at once is not significantly different than determining the temples' locations one at a time.
+For ease of computation, we only considered $T_{\text{new}}$ with carnality 1;
 That is, we assume only one temple is to be added at a time.
 
 To minimize the objective function, we sampled the value of $h$ in the United States at one million evenly spaced points.
@@ -655,7 +674,7 @@ Kirkland S.
 \newblock Load balancing for Markov chains with a specified directed graph.
 \newblock {\em Linear and Multilinear Algebra.} 2014; 62: 1491-1508.
 
-\bibitem[Kirkland, Neumann, Sze, 2014]{Kirkland:2008}
+\bibitem[Kirkland, Neumann, Sze, 2008]{Kirkland:2008}
 Kirkland, S.J., Neumann, M. \& Sze, NS.
 \newblock On Optimal Condition Numbers for Markov Chains
 \newblock {\em Numer. Math.} 2008 110:521
