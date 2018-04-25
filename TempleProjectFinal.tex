@@ -36,12 +36,7 @@
 \pretitle{\begin{center}\Huge\bfseries}
 \posttitle{\end{center}}
 \title{Facility Location Using Markov Chains}
-\author{
-\textsc{Applied Mathematical Modeling Research Team}\\[1ex]
-\normalsize Brigham Young University \\
-\normalsize \href{mailto:amm@math.byu.edu}{amm@math.byu.edu}
-}
-\date{\today}
+\author{Mitchell Sailsbery, Jacob Heiner, Connor Robertson, McKell Stauffer, Tyler Jarvis*}
 \renewcommand{\maketitlehookd}{
 \begin{abstract}
 \noindent We consider using Markov chains to solve facility location problems.
@@ -85,7 +80,7 @@ This solution seeks to minimize the average distance between consumers and a sup
 An example of this model in application can be found in the paper by Ndiaye, Ndiaye and Ly (2012).
 
 In comparison to the WDM, we use a Markov chain to model the behavior of consumers as they interact with facilities. 
-Markov chains reveal the effects that simple local behaviors have on more complex global behaviors through modeling the behavior as a network.
+Markov chains reveal the effects that simple local behaviors have on more complex global behaviors.
 This is similar to the goal of many facility location problems, as it is often the case that the behavior being optimized is about the aggregate populous and not the specific actions of certain individuals.
 Markov chains have been used in many applications, including: mathematical ecology (Kirkland, 2014), computational biology (Krogh, Brown, Mian, Sjolander, \& Haussler, 1994), and network modeling (Newman, 2003), but they have not been commonly used in facility location problems.
 In this paper, we show that Markov chains provide a flexible and efficient way to model facility location problems that offers additional information not found in the standard analysis of the $P$-median problem.
@@ -99,7 +94,7 @@ Section 5 will conclude the paper with suggestions for further work.
 \section{Literature Review}
 
 Facility location management is one of the most thoroughly-analyzed areas of operations research (Abin, 2016).
-In fact, Current, Min and Schilling cite a recent bibliography on this subject that had over 1500 titles, showing the vast expanse of research in this area (1990).
+In fact, Current, Min and Schilling cite a recent bibliography on this subject that has over 1500 titles, showing the vast expanse of research in this area (1990).
 Owen and Daskin, in their literature review, give an overview of the most-used models among this immense amount of literature.
 They comment on 15 differing subsets of facility location problems, again demonstrating the vastness of the literature and applicability of the problem (1998).
 Although the library of facility location management is large, this review will primarily focus on various approaches to median problems.
@@ -119,12 +114,12 @@ Once the optimal locations for each of these smaller problems are found, they ar
 $P$-median problems have been approached from the perspective of many different academic disciplines.
 Example approaches have ranged from interval optimization (Yadav, Karmakar, Dikshit, \& Bhurjee, 2018), iterative goal programming (Karatas, \& Yakici, 2018), hyper heuristics with space reductions (Ren, Jiang, Xuan, \& Luo, 2010), to hybrid binary particle swarm optimization (Lin, \& Guan, 2018).
 Typically, weighted-distance models (WDMs) involving Euclidean distance have been used (Francis, Lowe, Rayco, Tamir, 2009).
-Other distances that can be used can be found in a paper by Bach (1981).
+Some other measures of distance are found in a paper by Bach (1981).
 
 Many WDMs using Euclidean distance have had past successes.
 Yang and Mei were able to create a sustainable agricultural development model for Zhenyuan County of Gansu province in China (2017).
 Bargos, Lamas, Bargos, Neto, and Pardal found that the Euclidean WDM could accurately find optimal locations for sugarcane mills in Brazil (2016).
-Lastly, Xie, Zhou, Xiao, Kulturel-Konak, and Konak used it as part of a hybrid model for real industrial applications (2018).
+Lastly, Xie, Zhou, Xiao, Kulturel-Konak, and Konak used it as part of a hybrid model for other industrial applications (2018).
 
 There are several disadvantages of the WDM.
 For instance, Carling, Han, and Hakansson showed that in rural areas the model is sensitive to distance measure and spatial positioning of demand points (2012).
@@ -135,7 +130,7 @@ Lastly, the WDM is also very computationally expensive, leading to consumers bei
 This practice of consolidating consumer populations has a significantly adverse effect on the final solution (Hillsman, \& Rhoda, 1978) (Zhao, \& Batta, 1999).
 
 Due to the disadvantages of WDMs, we are interested in contrasting it with a Markov chain.
-Markov chains stochastically model the transitioning of states in a closed system in discrete time, with the assumption that the state transition depends only on the current state (McMurtrey, Morgan, Pratt, \& Wirthlin, 2008).
+Markov chains stochastically model the transitioning of states in a closed system in discrete time, with the assumption that the state transition probabilities depend only on the current state (McMurtrey, Morgan, Pratt, \& Wirthlin, 2008).
 They have been used in a variety of applications, including modeling contributions to online communities (Chen, Wei, Zhu, 2018), augmentation segmentation of infant cry signals (Naithani et al, 2018), and automatic detection of seismic events (Bhatti et al., 2016).
 *** This section talked about hidden markov models, so the three examples given are for hidden markov models.  Is this OK or do we need to find some different applications of regular markov models? ***
 
@@ -145,7 +140,7 @@ In particular, they modeled the relocation of facilities as consumers dynamicall
 They used a Markov chain to model the dynamic relocation of consumers, but do not use it to determine the optimal location of demand-filling facilities (Rosenthal, 1978).
 
 We aim to fill this gap in the literature by showing that Markov chains can be used to find the optimal location of facilities.
-Whereas other models exists to find optimal locations, they often only consider one unit of measurement of ``optimal''.
+Whereas other models exist to find optimal locations, they often only consider one measurement of ``optimal''.
 For example, the WDM only considers the average distance to a facility of every customer.
 A Voronoi diagram can find the maximum geographical area that a facility serves (Sugihara, 2008).
 The Markov chain, in contrast, can take into consideration several different metrics.
@@ -455,17 +450,17 @@ Thus, the unconstrained optimization problem can be written as
 
 %To determine the cardinality of $T_{\text{new}}$ to use in our experiments, we performed stochastic gradient descent to see if building multiple temples at once would change where the new temple locations would be. %explanation
 %We found that the US is spread out enough that determining the location of multiple temples at once is not significantly different than determining the temples' locations one at a time.
-For ease of computation, we only considered $T_{\text{new}}$ with carnality 1;
+For ease of computation, we only considered $T_{\text{new}}$ with cardinality 1;
 That is, we assume only one temple is to be added at a time.
 
-To minimize the objective function, we sampled the value of $h$ in the United States at one million evenly spaced points.
+To minimize the objective function, we sampled the value of $h$ in the contiguous United States at one million evenly spaced points.
 For the test case, we used the WDM as a comparison of what the $P$-median problem would yield.
 \subsection{Weighted Distance Model Setup}
 
 To fully understand the model, it is crucial to know what factors were considered relevant.
 Chief among these factors is the distance $d(s_i,t_j)$ from a stake center to a temple. %standardize distance notation
 % Do we need to add a reference for the Vincenty algorithm below?
-This distance is measured using the Vincenty Algorithm in order to account for the shape of the earth and give accurate measurements based on latitude and longitude. %mentioned earlier, could be expanded upon there and deleted here (l. 319)
+This distance is measured using Vincenty's Formulae in order to account for the shape of the earth and give accurate measurements based on latitude and longitude. %mentioned earlier, could be expanded upon there and deleted here (l. 319)
 This is a naive Euclidean distance not based upon actual driving or walking distances.
 Using an API to find all of these actual distances could be considered for increased accuracy in future work.
 
@@ -476,7 +471,7 @@ As this is a standard $P$-median problem, the weights can be adjusted to account
 
 The WDM is designed to minimize the average weighted distance a given member of a LDS stake has to travel to get to their closest temple.
 As such, this model does not take into account the capacity of the temples, nor the relative accessibility of other temples, even if they are a similar distance away.
-The only assumption made about the behavior of church members is that they desire to have a temple close to their stake center, and that they will only use the closest temple to them. %did we do the 5 closest temples here? Or do we need new data with the 1 closest?
+The only assumption made about the behavior of church members is that they desire to have a temple close to their stake center, and that they will only use the closest temple to it. %did we do the 5 closest temples here? Or do we need new data with the 1 closest?
 
 \subsection{Markov Model Setup}
 
